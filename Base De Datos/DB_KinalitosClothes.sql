@@ -20,6 +20,16 @@ Create table Proveedores(
     primary key PK_codigoProveedor (codigoProveedor)
 );
 
+-- Categorías
+Create table Categorias(
+	codigoCategoria int auto_increment,
+    nombreCategoria varchar(100) not null,
+    descripcionCategoria varchar(200) not null,
+    genero enum('Hombre', 'Mujer', 'Unisex') not null,
+    rangoEdad enum('Infantil', 'Juvenil', 'Adultos') not null,
+    primary key PK_codigoCategoria (codigoCategoria)
+);
+
 -- Metodo Pagos
 Create table MetodoPagos(
 	codigoMetodoPago int auto_increment,
@@ -29,6 +39,8 @@ Create table MetodoPagos(
 	porcentajeComision double(5,2) not null,
     primary key PK_codigoMetodoPago (codigoMetodoPago)
 );
+
+
 
 -- --------------------------- Procedimientos almacenados ---------------------------
 
