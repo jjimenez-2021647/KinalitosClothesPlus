@@ -10,3 +10,17 @@ Create Database DB_KinalitosClothes;
 Use DB_KinalitosClothes;
 
 -- ---------- Entidades ----------
+
+-- Metodo Pagos
+Create table MetodoPagos(
+	codigoMetodoPago int auto_increment,
+    tipoMetodoPago enum('Tarjeta', 'Efectivo') not null,
+    entidadFinanciaera varchar(200) not null,
+    moneda varchar(150) not null,
+	porcentajeComision double(5,2) not null,
+    primary key PK_codigoMetodoPago (codigoMetodoPago)
+);
+
+
+
+
