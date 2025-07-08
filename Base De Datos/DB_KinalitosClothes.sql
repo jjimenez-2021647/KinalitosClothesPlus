@@ -10,6 +10,15 @@ Create Database DB_KinalitosClothes;
 Use DB_KinalitosClothes;
 
 -- ---------- Entidades ----------
+-- Proveedores 
+Create table Proveedores(
+	codigoProveedor int auto_increment,
+    nombreProveedor varchar(100) not null,
+    telefonoProveedor varchar(20) not null,
+    correoProveedor varchar(200) not null,
+    paisProveedor varchar(150),
+    primary key PK_codigoProveedor (codigoProveedor)
+);
 
 -- Metodo Pagos
 Create table MetodoPagos(
