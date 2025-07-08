@@ -40,7 +40,15 @@ Create table MetodoPagos(
     primary key PK_codigoMetodoPago (codigoMetodoPago)
 );
 
-
+-- Usuarios
+Create table Usuarios(
+	codigoUsuario int auto_increment,
+	nombreUsuario varchar(100) not null,
+    contraseñaUsuario varchar(100) not null,
+    tipoUsuario enum('Admin', 'Usuario') not null,
+    fechaRegistro date not null,
+    primary key PK_codigoUsuario (codigoUsuario) 
+);
 
 -- --------------------------- Procedimientos almacenados ---------------------------
 
