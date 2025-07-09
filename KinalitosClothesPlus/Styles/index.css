@@ -237,6 +237,16 @@ input[type="checkbox"] {
     transform: translateX(44px) rotate(-270deg);
 }
 
+.link {
+    color: whiteSmoke;
+    margin-top: 20px;
+    display: block;
+}
+
+.link:hover {
+    color: #00b7ff;
+}
+
 .login h6 span {
     padding: 0 35px;
     text-transform: uppercase;
