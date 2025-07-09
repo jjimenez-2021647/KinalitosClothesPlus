@@ -666,7 +666,7 @@ call sp_EditarProducto(16, 'Suéter Corto', 'Suéter juvenil con cuello en V', '
 call sp_EditarProducto(17, 'Falda Floral', 'Falda con diseño floral', '94.95', 22, 2, 2);
 call sp_EditarProducto(18, 'Camisa Cuadros', 'Camisa casual a cuadros', '159.00', 30, 3, 1);
 call sp_EditarProducto(19, 'Short Deportivo Niña', 'Short para niña con estampado', '74.99', 36, 4, 3);
-call sp_EditarProducto(20, 'Traje Formal Niño', 'Traje elegante para niño pequeño', '199.99', 10, 5, 5);
+
 
 -- --------------------------- Entidad Pedido --------------------------- 
 -- Agregar Pedido
