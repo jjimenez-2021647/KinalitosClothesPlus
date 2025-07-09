@@ -1,332 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+
+::before,
+::after {
+    box-sizing: border-box;
+}
+
 body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    letter-spacing: 1px;
+    font-weight: normal;
+    background-color: black;
+}
+
+.container {
+    max-width: 2080px;
+    margin: auto;
+}
+
+.segundo_contenedor {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     min-height: 100vh;
-    color: white;
+    padding: 120px 0 0;
+    /* Aumentado para evitar superposición */
 }
 
-/* encabezado */
-header {
-    background: rgba(23, 23, 23, 0.9);
-    padding: 35px 100px;
-    text-align: center;
-    border-bottom: 2px solid #333;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-}
-
-/*letra del encabezado*/
-header .logo {
-    color: #ffffff;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-size: 70px;
-    font-weight: 70px;
-    text-decoration: none;
-}
-
-.logo a {
-    text-decoration: none;
-    color: inherit;
-}
-
-.logo:active {
-    letter-spacing: 0.4px;
-    transition: 0.1s all;
-    transform: translateY(-5px);
-    background: transparent;
-    color: white;
-    text-decoration: none;
-}
-
-
-/* Main container */
-.contenedor-principal {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /*en el centro""*/
-    min-height: 600px;
-    padding: 40px 20px;
-}
-
-.carta-principal {
-    /*barra fondo borde input*/
-    --input-focus: #ffffff;
-    /*letra login, sing up de cambio y carta*/
-    --font-color: #ffffff;
-    /*letras fondo input*/
-    --font-color-sub: #ccc;
-    /*color de la carta*/
-    --bg-color: #171717;
-    /*color boton confirmar e ir, tambien el switch*/
-    --bg-color-alt: #252525;
-    /*sombra del switch*/
-    --main-color: #333;
-    /*borde del switch y de la carta de los dos lados*/
-    --border-color: #444;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Switch arriba de la carta*/
-.switch {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    /*tamaño del rectangulo del recorrido*/
-    width: 50px;
-    height: 20px;
-    margin-bottom: 20px;
-}
-
-.card-side::before {
-    position: absolute;
-    content: 'Login';
-    left: -70px;
-    top: 0;
-    width: 100px;
-    text-decoration: underline;
-    /*color de letra y subrayado*/
-    color: rgb(255, 255, 255);
-    font-weight: 600;
-}
-
-.card-side::after {
-    position: absolute;
-    content: 'Registrarse';
-    left: 70px;
-    top: 0;
-    width: 100px;
-    text-decoration: none;
-    color: rgb(255, 255, 255);
-    font-weight: 600;
-}
-
-/*Cheque del verificacion del switch lo ocultamos*/
-.toggle {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-/*Borde del switch*/
-.slider {
-    box-sizing: border-box;
-    border-radius: 5px;
-    border: 2px solid var(--border-color);
-    box-shadow: 4px 4px var(--main-color);
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--bg-color);
-    transition: 0.3s;
-}
-
-.slider:before {
-    box-sizing: border-box;
-    position: absolute;
-    content: "";
-    height: 20px;
-    width: 20px;
-    border: 2px solid var(--border-color);
-    border-radius: 5px;
-    left: -2px;
-    bottom: 2px;
-    background-color: var(--bg-color-alt);
-    box-shadow: 0 3px 0 var(--main-color);
-    transition: 0.3s;
-}
-
-/*del color del rectangulo del fondo*/
-.toggle:checked+.slider {
-    background-color: var(--input-focus);
-}
-
-/*animacion de traslado del cuadrado del switch*/
-.toggle:checked+.slider:before {
-    transform: translateX(30px);
-}
-
-/*cambio de linea o de color del login y registrarse al hacer el switch*/
-.toggle:checked~.card-side:before {
-    text-decoration: none;
-}
-
-/*pasar el subrayado al registrarse*/
-.toggle:checked~.card-side:after {
-    text-decoration: underline;
-}
-
-/* cara de la carta del login y del registrar*/
-.flip-card__inner {
-    width: 350px;
-    height: 450px;
-    position: relative;
-    background-color: transparent;
-    perspective: 1000px;
-    text-align: center;
-    transition: transform 0.8s;
-    transform-style: preserve-3d;
-}
-
-/*Para que la carta pueda girar*/
-.toggle:checked~.flip-card__inner {
-    transform: rotateY(180deg);
-}
-
-.toggle:checked~.flip-card__front {
-    box-shadow: none;
-}
-
-.flip-card__front,
-.flip-card__back {
-    padding: 30px;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    background: var(--bg-color);
-    gap: 20px;
-    border-radius: 25px;
-    border: 2px solid var(--border-color);
-    box-shadow: 0 10px 30px rgba(172, 172, 172, 0.5);
+/*NAV*/
+nav {
     width: 100%;
-    height: 100%;
-    min-height: 400px;
+    background-color: rgba(41, 41, 41, 0.623);
+    position: fixed;
+    z-index: auto;
+    padding: 8px;
 }
 
-/*para que los iconos del registrarse no se traspasen al login*/
-.flip-card__back {
-    transform: rotateY(180deg);
-}
-
-/*para darle espacios a los input entre ellos*/
-.flip-card__form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-
-/*el login y el registrarse*/
-.title {
-    margin: 20px 0 20px 0;
-    font-size: 25px;
+/*letra dentro del div que esta de color blanco en el logo*/
+nav .logo {
+    color: rgb(255, 255, 255);
+    font-size: 80px;
     font-weight: 900;
-    text-align: center;
-    color: var(--font-color);
+    text-transform: capitalize;
 }
 
-.flip-card__input {
-    width: 280px;
-    height: 45px;
-    border-radius: 25px;
-    border: none;
-    background-color: var(--bg-color);
-    /*el borde de adentro de los input*/
-    box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--font-color);
-    padding: 5px 20px;
-    outline: none;
-    transition: all 0.3s ease;
+/*la letra que esta dentro del span de color rojo*/
+nav .logo span {
+    color: #00b7ff;
 }
 
-/*color de las letras Email y contraseña*/
-.flip-card__input::placeholder {
-    color: var(--font-color-sub);
-    opacity: 0.8;
+nav .container {
+    padding: 0 25px;
 }
 
-/*Color del sombra de arriba dentro del input cuando lo tenemos seleccionado*/
-.flip-card__input:focus {
-    box-shadow: inset 2px 5px 10px rgb(5, 5, 5), 0 0 0 2px var(--input-focus);
+/*informacion*/
+/*medidas del div informacion*/
+.informacion {
+    flex: 0 0 50%;
+    padding: 30px;
 }
 
-/*boton de los registrar e iniciar*/
-.flip-card__btn {
-    margin: 20px 0 20px 0;
-    width: 150px;
-    height: 45px;
-    border-radius: 25px;
-    border: none;
-    background-color: var(--bg-color-alt);
-    /*sombra del boton iniciar y de registrarme*/
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--font-color);
-    cursor: pointer;
-    transition: all 0.3s ease;
+/*la linea que esta arriba del texto*/
+.informacion .line {
+    width: 15%;
+    height: 2px;
+    background-color: #00b7ff;
+    display: inline-block;
 }
 
-.flip-card__btn:hover {
-    background-color: #333;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
-
+/*titulo de la informacion parte blanca*/
+.informacion h2 {
+    margin-top: 25px;
+    font-size: 70px;
+    color: white;
+    line-height: 55px;
 }
 
-.flip-card__btn:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+/*segunda parte de la infrmacion que esta en el titulo de color rojo*/
+.informacion h2 span {
+    color: #00b7ff;
+    font-size: 72px;
 }
 
-/* iconos dentro de los input como el user, email y contraseña*/
-.input-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 280px;
+/*subtitulo del titulo de informacion*/
+.informacion p {
+    color: whitesmoke;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
-.input-icon {
-    position: absolute;
-    left: 15px;
-    height: 1.3em;
-    width: 1.3em;
-    fill: var(--font-color-sub);
-    z-index: 1;
-}
-/*para que tengan un espacio entre los iconos y sus titulos*/
-.input-container .flip-card__input {
-    padding-left: 50px;
+a {
+    text-decoration: none;
 }
 
-/* Responsive */
-@media (max-width: 480px) {
-    .header h1 {
-        font-size: 2rem;
-    }
+.redes-sociales {
+    margin-top: 60px;
+}
 
-    .flip-card__inner {
-        width: 320px;
-        height: 420px;
-    }
+.redes-sociales a {
+    color: white;
+    margin-right: 22px;
+    font-size: 22px;
+    text-decoration: none;
+    transition: all .2s linear;
+}
 
-    .flip-card__input,
-    .input-container {
-        width: 250px;
-    }
-
-    .switch {
-        transform: translateY(-10px);
-    }
+.redes-sociales a:hover {
+    color: #00b7ff;
 }
