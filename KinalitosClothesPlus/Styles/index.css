@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+    min-height: 100vh;
+    color: white;
+}
+
+/* encabezado */
+header {
+    background: rgba(23, 23, 23, 0.9);
+    padding: 35px 100px;
+    text-align: center;
+    border-bottom: 2px solid #333;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/*letra del encabezado*/
+header .logo {
+    color: #ffffff;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: 70px;
+    font-weight: 70px;
+    text-decoration: none;
+}
+
+.logo a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo:active {
+    letter-spacing: 0.4px;
+    transition: 0.1s all;
+    transform: translateY(-5px);
+    background: transparent;
+    color: white;
+    text-decoration: none;
+}
