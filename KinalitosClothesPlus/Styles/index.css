@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
-
-
 * {
     margin: 0;
     padding: 0;
@@ -56,7 +54,7 @@ nav .logo {
     text-transform: capitalize;
 }
 
-/*la letra que esta dentro del span de color rojo*/
+/*la letra que esta dentro del span de color Celeste*/
 nav .logo span {
     color: #00b7ff;
 }
@@ -106,6 +104,33 @@ a {
     text-decoration: none;
 }
 
+/*boton de contacto*/
+.btnContacto {
+    height: 44px;
+    padding: 0px 30px;
+    background-color: #00b7ff;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    letter-spacing: 1px;
+    border: none;
+    margin-top: 15px;
+    box-shadow: 0px 8px 24px 0 rgba(255, 255, 255, 0.384);
+    transition: all .2s linear;
+}
+
+.btnContacto:hover {
+    background-color: white;
+    color: #00b7ff;
+    box-shadow: 0 8px 24px 0 rgba(138, 140, 146, .2);
+    transform: scale(1.1) translateY(-3px);
+}
+
 .redes-sociales {
     margin-top: 60px;
 }
@@ -120,4 +145,10 @@ a {
 
 .redes-sociales a:hover {
     color: #00b7ff;
+}
+
+.form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
