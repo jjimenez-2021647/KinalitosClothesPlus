@@ -20,6 +20,9 @@ body {
     letter-spacing: 1px;
     font-weight: normal;
     background-color: black;
+    background-image: url('../Images/FondoLogin.jpg');
+    /*la imagen de fondo */
+    background-size: cover;
 }
 
 .container {
