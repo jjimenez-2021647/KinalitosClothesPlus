@@ -10,6 +10,17 @@ Create Database DB_KinalitosClothes;
 Use DB_KinalitosClothes;
 
 -- ---------- Entidades ----------
+-- Clientes
+Create table Clientes(
+	codigoCliente int auto_increment,
+	nombreCliente varchar(100) not null,
+	apellidoCliente varchar(100) not null,
+	correoCliente varchar(150) not null,
+	telefonoCliente varchar(20) not null,
+	direccionCliente varchar(200) not null,
+	primary key PK_codigoCliente (codigoCliente)  
+);
+
 -- Proveedores 
 Create table Proveedores(
 	codigoProveedor int auto_increment,
