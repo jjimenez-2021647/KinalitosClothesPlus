@@ -1,0 +1,137 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #000; /* Fondo negro */
+    color: #fff;      /* Texto blanco por defecto */
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    border-bottom: 2px solid #222;
+    background: #000; /* Fondo negro */
+}
+.navbar ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+}
+.navbar li {
+    margin: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px; /* Ajusta la altura si lo deseas */
+}
+.navbar a {
+    color: #fff; /* Letras blancas */
+    font-weight: bold;
+    font-size: 26px; /* Ajusta el tamaño a tu gusto */
+    letter-spacing: 1px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-width: 120px;
+    padding: 0 24px;
+    text-decoration: none;
+    border-radius: 8px;
+    box-sizing: border-box;
+    /* Efecto neón blanco suave */
+    text-shadow: 0 0 6px #fff, 0 0 2px #fff;
+    transition: color 0.2s, background 0.2s;
+    background: transparent;
+}
+.navbar a:hover {
+    background: #fff; /* Fondo blanco al pasar el mouse */
+    color: #000;      /* Letras negras */
+    box-shadow: 0 2px 8px rgba(255,255,255,0.15);
+    /* Mantén el borde y el efecto neón */
+    text-shadow: 0 0 6px #fff, 0 0 2px #fff;
+}
+.logo-nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+.logo-img {
+    height: 32px;
+}
+.logo-text {
+    color: #fff; /* Logo en blanco */
+    text-transform: uppercase;
+    font-size: 35px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    font-family: 'Arial Black', Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    text-shadow: 0 0 8px #fff, 0 0 2px #fff;
+}
+.menu-main {
+    display: flex;
+    gap: 0px;
+    padding: 32px;
+    justify-content: center;
+    align-items: stretch;
+    height: 93vh;
+}
+.menu-card {
+    flex: 1;
+    background: #111; /* Tarjetas fondo oscuro */
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 7px;
+    position: relative;
+    min-width: 700px;
+    max-width: 800px;
+    height: 92%;
+}
+.menu-card img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(0.1) brightness(0.8); /* Opcional: oscurece un poco la imagen */
+}
+.menu-label {
+    position: absolute;
+    bottom: 24px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 56px;
+    font-weight: bold;
+    color: #fff; /* Letras blancas */
+    letter-spacing: 2px;
+    font-family: 'Arial Black', Arial, sans-serif;
+    text-shadow: 0 0 8px #fff, 0 0 2px #fff; /* Neón blanco suave */
+    pointer-events: none;
+}
+.menu-card {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.menu-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+@media (max-width: 1000px) {
+    .menu-main {
+        flex-direction: column;
+        align-items: center;
+    }
+    .menu-card {
+        max-width: 90vw;
+        margin-bottom: 24px;
+    }
+}
