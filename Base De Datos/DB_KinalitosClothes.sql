@@ -65,6 +65,22 @@ Create table Productos(
 	constraint FK_codigoCategoria foreign key (codigoCategoria)
 		references Categorias (codigoCategoria)
 );
+
+-- Pedidos
+Create table Pedidos(
+	codigoPedido int auto_increment,
+    horaPedido time not null,
+    fechaPedido date not null,
+    estadoPedido enum('Pendiente', 'Enviado', 'Entregado') not null, 
+    total double(10,2) not null,
+    codigoCliente int not null,
+    codigoMetodoPago int not null,
+    primary key PK_codigoPedido (codigoPedido),
+	constraint FK_codigoCliente foreign key (codigoCliente)
+		references Clientes (codigoCliente),
+	constraint FK_codigoMetodoPago foreign key (codigoMetodoPago)
+		references MetodoPagos (codigoMetodoPago)
+);
 -- --------------------------- Procedimientos almacenados ---------------------------
 
 -- --------------------------- Entidad Proveedor --------------------------- 
