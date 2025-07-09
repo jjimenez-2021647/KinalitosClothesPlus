@@ -81,6 +81,20 @@ Create table Pedidos(
 	constraint FK_codigoMetodoPago foreign key (codigoMetodoPago)
 		references MetodoPagos (codigoMetodoPago)
 );
+-- Detalle Pedidos
+Create table DetallePedidos(
+	codigoDetalleP int auto_increment,
+    cantidad int not null,
+    subtotal double(5,2) not null,
+    descripcion varchar(200) not null, 
+    codigoPedido int not null,
+    codigoProducto int not null,
+    primary key PK_codigoDetalleP (codigoDetalleP),
+	constraint FK_codigoPedido foreign key (codigoPedido)
+		references Pedidos (codigoPedido),
+	constraint FK_codigoProducto foreign key (codigoProducto)
+		references Productos (codigoProducto)
+);
 -- --------------------------- Procedimientos almacenados ---------------------------
 
 -- --------------------------- Entidad Proveedor --------------------------- 
