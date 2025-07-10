@@ -57,7 +57,7 @@ Create table Usuarios(
 	nombreUsuario varchar(100) not null,
     contraseñaUsuario varchar(100) not null,
     tipoUsuario enum('Admin', 'Usuario') not null,
-    fechaRegistro date not null,
+    fechaRegistro date,
     primary key PK_codigoUsuario (codigoUsuario) 
 );
 
@@ -542,35 +542,34 @@ Delimiter //
 	Create procedure sp_AgregarUsuario(
     in nombreUsuario varchar(100), 
     in contraseñaUsuario varchar(100), 
-    in tipoUsuario enum('Admin','Usuario'), 
-    in fechaRegistro date)
+    in tipoUsuario enum('Admin','Usuario'))
 		Begin
-			Insert into Usuarios(nombreUsuario, contraseñaUsuario, tipoUsuario, fechaRegistro)
-				Values(nombreUsuario, contraseñaUsuario, tipoUsuario, fechaRegistro);
+			Insert into Usuarios(nombreUsuario, contraseñaUsuario, tipoUsuario)
+				Values(nombreUsuario, contraseñaUsuario, tipoUsuario);
         End //
 Delimiter ;
-call sp_AgregarUsuario('admin01', 'admin2024', 'Admin', '2024-01-15');
-call sp_AgregarUsuario('juanperez', 'pass123', 'Usuario', '2024-02-10');
-call sp_AgregarUsuario('carmen.m', 'cm456', 'Usuario', '2024-03-08');
-call sp_AgregarUsuario('sofia123', 's0f1aPass', 'Usuario', '2024-04-01');
-call sp_AgregarUsuario('marioGT', 'mario!@#', 'Admin', '2024-04-05');
-call sp_AgregarUsuario('laura.r', 'l@urita', 'Usuario', '2024-05-22');
-call sp_AgregarUsuario('user_demo', 'demo2024', 'Usuario', '2024-06-01');
-call sp_AgregarUsuario('karen_89', 'kar345', 'Usuario', '2024-06-05');
-call sp_AgregarUsuario('admin_sys', 'sysadmin', 'Admin', '2024-06-08');
-call sp_AgregarUsuario('pedro_r', 'pedro1234', 'Usuario', '2024-06-10');
-call sp_AgregarUsuario('angelica.g', 'angel789', 'Usuario', '2024-06-12');
-call sp_AgregarUsuario('oscar_u', 'oscu2024', 'Usuario', '2024-06-13');
-call sp_AgregarUsuario('claudia.t', 'claud!2024', 'Usuario', '2024-06-14');
-call sp_AgregarUsuario('adminMain', 'adminMain1', 'Admin', '2024-06-15');
-call sp_AgregarUsuario('david_dev', 'devpass', 'Usuario', '2024-06-16');
-call sp_AgregarUsuario('sofiaAdmin', 'sofiA#2024', 'Admin', '2024-06-17');
-call sp_AgregarUsuario('test_user', 'test123', 'Usuario', '2024-06-18');
-call sp_AgregarUsuario('natalia', 'nata2024', 'Usuario', '2024-06-19');
-call sp_AgregarUsuario('kevin.t', 'kevkev', 'Usuario', '2024-06-20');
-call sp_AgregarUsuario('admin_jose', 'jo$eAdm', 'Admin', '2024-06-21');
-call sp_AgregarUsuario('1', '1', 'Admin', '2024-06-21');
-call sp_AgregarUsuario('2', '2', 'Usuario', '2024-06-21');
+call sp_AgregarUsuario('admin01', 'admin2024', 'Admin');
+call sp_AgregarUsuario('juanperez', 'pass123', 'Usuario');
+call sp_AgregarUsuario('carmen.m', 'cm456', 'Usuario');
+call sp_AgregarUsuario('sofia123', 's0f1aPass', 'Usuario');
+call sp_AgregarUsuario('marioGT', 'mario!@#', 'Admin');
+call sp_AgregarUsuario('laura.r', 'l@urita', 'Usuario');
+call sp_AgregarUsuario('user_demo', 'demo2024', 'Usuario');
+call sp_AgregarUsuario('karen_89', 'kar345', 'Usuario');
+call sp_AgregarUsuario('admin_sys', 'sysadmin', 'Admin');
+call sp_AgregarUsuario('pedro_r', 'pedro1234', 'Usuario');
+call sp_AgregarUsuario('angelica.g', 'angel789', 'Usuario');
+call sp_AgregarUsuario('oscar_u', 'oscu2024', 'Usuario');
+call sp_AgregarUsuario('claudia.t', 'claud!2024', 'Usuario');
+call sp_AgregarUsuario('adminMain', 'adminMain1', 'Admin');
+call sp_AgregarUsuario('david_dev', 'devpass', 'Usuario');
+call sp_AgregarUsuario('sofiaAdmin', 'sofiA#2024', 'Admin');
+call sp_AgregarUsuario('test_user', 'test123', 'Usuario');
+call sp_AgregarUsuario('natalia', 'nata2024', 'Usuario');
+call sp_AgregarUsuario('kevin.t', 'kevkev', 'Usuario');
+call sp_AgregarUsuario('admin_jose', 'jo$eAdm', 'Admin');
+call sp_AgregarUsuario('1', '1', 'Admin');
+call sp_AgregarUsuario('2', '2', 'Usuario');
 
 -- Listar Usuario
 Delimiter //
@@ -917,7 +916,6 @@ call sp_EditarDetallePedido(18, 2, 318.00, 'Camisa a cuadros', 18, 18);
 call sp_EditarDetallePedido(19, 1, 74.99, 'Short niña con diseño', 19, 19);
 call sp_EditarDetallePedido(20, 1, 199.99, 'Traje niño formal', 20, 20);
 
--- --------------------------- Entidad Factura --------------------------- 
 -- Agregar Factura
 Delimiter //
 	Create procedure sp_AgregarFactura(
