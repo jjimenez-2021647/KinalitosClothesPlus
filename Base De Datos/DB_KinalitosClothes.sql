@@ -121,6 +121,48 @@ Create table Facturas(
         references Pedidos (codigoPedido)
 );
 
+-- --------------------------- Triggers -----------------------------------
+-- Trigger para cargar los descuentos a la entidad Factura 
+Delimiter //
+	Create trigger tr_Before_Insert_FacturaDescuento
+		Before Insert on Facturas
+		For each row
+			Begin	
+				Declare totalF double(10,2);
+				Select total into totalF From Pedidos where codigoPedido = New.codigoPedido;
+                
+                 if (totalF >= 1000) then
+					set New.descuentoAplicado = 300.00;
+				elseif (totalF >= 500) then
+					set New.descuentoAplicado = 150.00;
+				else
+					set New.descuentoAplicado = 0.00;
+				end if;
+                
+				set New.totalFactura = totalF - New.descuentoAplicado;
+			End //
+Delimiter ;
+
+-- Trigger para cargar la fecha a la entidad usuarios
+Delimiter //
+	Create trigger tr_Before_Insert_Usuarios
+		Before Insert on Usuarios
+		For each row
+			Begin	
+					set New.fechaRegistro = curdate();
+			End //
+Delimiter ;
+
+-- Trigger para cargar la fecha a Factura 
+Delimiter //
+	Create trigger tr_Before_Insert_Facturas
+		Before Insert on Facturas
+		For each row
+			Begin	
+					set New.fechaEmision= curdate();
+			End //
+Delimiter ;
+
 -- --------------------------- Procedimientos almacenados ---------------------------
 
 -- --------------------------- Entidad Cliente --------------------------- 
