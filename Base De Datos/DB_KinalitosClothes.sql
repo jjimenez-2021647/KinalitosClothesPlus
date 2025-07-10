@@ -106,7 +106,23 @@ Create table DetallePedidos(
 	constraint FK_codigoProducto foreign key (codigoProducto)
 		references Productos (codigoProducto)
 );
+
+-- Factura
+Create table Facturas(
+	codigoFactura int auto_increment,
+    fechaEmision date not null,
+    descuentoAplicado double(5,2),
+    totalFactura double(10,2) not null,
+    estadoFactura enum('Emitida','Anulada','Pagada'),
+    formaEntrega enum('Física','Electrónica'),
+    codigoPedido int not null,
+    primary key PK_codigoFactura (codigoFactura),
+    constraint FK_facturaCodigoPedido foreign key (codigoPedido)
+        references Pedidos (codigoPedido)
+);
+
 -- --------------------------- Procedimientos almacenados ---------------------------
+
 -- --------------------------- Entidad Cliente --------------------------- 
 -- Agregar Cliente
 Delimiter //
@@ -858,3 +874,96 @@ call sp_EditarDetallePedido(17, 1, 89.95, 'Falda con flores', 17, 17);
 call sp_EditarDetallePedido(18, 2, 318.00, 'Camisa a cuadros', 18, 18);
 call sp_EditarDetallePedido(19, 1, 74.99, 'Short niña con diseño', 19, 19);
 call sp_EditarDetallePedido(20, 1, 199.99, 'Traje niño formal', 20, 20);
+
+-- --------------------------- Entidad Factura --------------------------- 
+-- Agregar Factura
+Delimiter //
+	Create procedure sp_AgregarFactura(
+    in estadoFactura enum('Emitida','Anulada','Pagada'), 
+    in formaEntrega enum('Física','Electrónica'), 
+    in codigoPedido int)
+		Begin
+			Insert into Facturas(estadoFactura, formaEntrega, codigoPedido)
+				Values(estadoFactura, formaEntrega, codigoPedido);
+        End //
+Delimiter ;
+call sp_AgregarFactura('Emitida', 'Electrónica', 1);
+call sp_AgregarFactura('Emitida', 'Física', 2);
+call sp_AgregarFactura('Emitida', 'Electrónica', 3);
+call sp_AgregarFactura('Emitida', 'Física', 4);
+call sp_AgregarFactura('Emitida', 'Electrónica', 5);
+call sp_AgregarFactura('Emitida', 'Física', 6);
+call sp_AgregarFactura('Pagada', 'Electrónica', 7);
+call sp_AgregarFactura('Pagada', 'Física', 8);
+call sp_AgregarFactura('Emitida', 'Electrónica', 9);
+call sp_AgregarFactura('Pagada', 'Física', 10);
+call sp_AgregarFactura('Emitida', 'Electrónica', 11);
+call sp_AgregarFactura('Emitida', 'Electrónica', 12);
+call sp_AgregarFactura('Pagada', 'Física', 13);
+call sp_AgregarFactura('Emitida', 'Electrónica', 14);
+call sp_AgregarFactura('Emitida', 'Electrónica', 16);
+call sp_AgregarFactura('Emitida', 'Electrónica', 17);
+call sp_AgregarFactura('Emitida', 'Física', 18);
+call sp_AgregarFactura('Pagada', 'Electrónica', 19);
+call sp_AgregarFactura('Emitida', 'Física', 20);
+
+-- Listar Factura
+Delimiter //
+	Create procedure sp_ListarFactura()
+		Begin
+			Select codigoFactura, fechaEmision, descuentoAplicado, totalFactura, estadoFactura, formaEntrega, codigoPedido from Facturas;
+        End //
+Delimiter ;
+call sp_ListarFactura();
+
+-- Eliminar Factura
+Delimiter //
+	Create procedure sp_EliminarFactura(
+    in _codigoFactura int)
+		Begin
+			set foreign_key_checks = 0;
+				Delete from Facturas
+					where codigoFactura = _codigoFactura;
+				Select row_count() as filasEliminadas;
+			set foreign_key_checks = 1;
+        End//
+Delimiter ;
+call sp_EliminarFactura(14);
+
+-- Buscar Factura
+Delimiter //
+	Create procedure sp_BuscarFactura(
+    in _codigoFactura int)
+		Begin
+			Select codigoFactura, fechaEmision, descuentoAplicado, totalFactura, estadoFactura, formaEntrega, codigoPedido from Facturas
+				where codigoFactura = _codigoFactura;
+        End //
+Delimiter ;
+call sp_BuscarFactura(1);
+
+-- Editar Factura
+Delimiter //
+	Create procedure sp_EditarFactura(
+    in _codigoFactura int,
+    in _fechaEmision date, 
+    in _descuentoAplicado double (5,2), 
+    in _totalFactura double (10,2),
+    in _estadoFactura enum('Emitida','Anulada','Pagada'), 
+    in _formaEntrega enum('Física','Electrónica'), 
+    in _codigoPedido int)
+		Begin
+			Update Facturas
+				set fechaEmision = _fechaEmision,
+					descuentoAplicado = _descuentoAplicado,
+					totalFactura = _totalFactura,
+					estadoFactura = _estadoFactura,
+					formaEntrega = _formaEntrega,
+					codigoPedido = _codigoPedido
+						where codigoFactura = _codigoFactura;
+        End //
+Delimiter ;
+call sp_EditarFactura(16, '2025-07-01', 10.00, 740.00, 'Pagada', 'Física', 16);
+call sp_EditarFactura(17, '2025-07-02', 5.00, 425.20, 'Emitida', 'Electrónica', 17);
+call sp_EditarFactura(18, '2025-07-03', 15.00, 950.10, 'Emitida', 'Física', 18);
+call sp_EditarFactura(19, '2025-07-04', 0.00, 299.90, 'Anulada', 'Física', 19);
+call sp_EditarFactura(20, '2025-07-05', 20.00, 625.55, 'Emitida', 'Electrónica', 20);
