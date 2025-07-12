@@ -163,6 +163,32 @@ Delimiter //
 			End //
 Delimiter ;
 
+-- Trigger para actualizar el total y descuento de factura despues de un update a pedido
+Delimiter //
+	Create trigger tr_After_Update_Pedido
+		After Update on Pedidos
+		For each row
+			Begin	
+				Declare nuevoTotal double(10,2);
+				declare nuevoDescuento double(5,2);
+
+				set nuevoTotal = New.total;
+				
+                if (nuevoTotal >= 1000) then
+					set nuevoDescuento = 300.00;
+				elseif (nuevoTotal >= 500) then
+					set nuevoDescuento = 150.00;
+				else
+					set nuevoDescuento = 0.00;
+				end if;
+				
+                Update Facturas
+					set descuentoAplicado = nuevoDescuento,
+						totalFactura = nuevoTotal - nuevoDescuento
+							where codigoPedido = NEW.codigoPedido;
+			End //
+Delimiter ;
+
 -- --------------------------- Procedimientos almacenados ---------------------------
 
 -- --------------------------- Entidad Cliente --------------------------- 
