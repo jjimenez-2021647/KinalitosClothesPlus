@@ -42,7 +42,7 @@ nav {
     width: 100%;
     background-color: rgba(41, 41, 41, 0.623);
     position: fixed;
-    z-index: auto;
+    z-index: 9999;
     padding: 8px;
 }
 
@@ -396,4 +396,98 @@ input[type="checkbox"] {
 
 .text-center {
     text-align: center;
+}
+/*MEDIA QUERIES*/
+@media (max-width: 992px) {
+    nav .menu-btn i {
+        display: block;
+    }
+
+    nav .container {
+        padding: 0;
+    }
+
+    nav ul {
+        position: fixed;
+        top: 85px;
+        left: -100%;
+        background-color: #1B1B1B;
+        height: 320px;
+        width: 100%;
+        display: block;
+        text-align: center;
+        transition: all .3s ease;
+    }
+
+    #click:checked~ul {
+        left: 0;
+    }
+
+    nav ul li {
+        margin: 20px 0;
+    }
+
+    nav ul li a {
+        display: block;
+        font-size: 20px;
+    }
+
+    nav ul li a.active,
+    nav ul li a:hover {
+        background: none;
+        color: #00b7ff;
+    }
+
+    .informacion h2 {
+        font-size: 40px;
+    }
+
+    .informacion h2 span {
+        font-size: 42px;
+    }
+
+    .informacion p {
+        font-size: 14px;
+    }
+
+    .card-3d-wrap {
+        width: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .informacion,
+    .login {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .informacion {
+        display: grid;
+        place-items: center;
+        order: 2;
+    }
+
+    .login {
+        order: 1;
+    }
+
+    .informacion h2 {
+        text-align: center;
+    }
+}
+
+@media (max-width: 400px) {
+    .informacion h2 {
+        font-size: 28px;
+    }
+
+    .informacion h2 span {
+        font-size: 30px;
+    }
+
+    .card-3d-wrap {
+        width: 300px;
+    }
 }
