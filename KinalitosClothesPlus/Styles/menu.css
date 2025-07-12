@@ -327,3 +327,70 @@
     background: #00b7ff;
     color: #fff;
 }
+
+/* SECTOR 4: RESEÑAS Y BANNER */
+.resenas-clientes {
+    margin: 200px auto 0 auto;
+    max-width: 1100px;
+    padding: 0 20px 60px 20px;
+}
+.titulo-resenas {
+    font-family: 'Lora', Lora;
+    font-size: 4rem;
+    color: #e0e0e0;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+    text-align: left;
+    margin-left: -600px;
+    padding-left: 0;
+}
+.resenas-lista {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    margin-bottom: 32px;
+    flex-wrap: nowrap;
+}
+.resena {
+    max-width: 320px;
+    background: none;
+    font-size: 1.15rem;
+    color: #222;
+    font-style: italic;
+    margin: 0;
+}
+.resena .cliente {
+    display: block;
+    margin-top: 18px;
+    font-weight: 700;
+    font-style: normal;
+    color: #181c1f;
+    letter-spacing: 1px;
+}
+.resenas-puntos {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.punto {
+    width: 10px;
+    height: 10px;
+    background: #d3d3d3;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background 0.2s;
+}
+.punto.activo { background: #181c1f; }
+.banner-imagen {
+    width: 100%;
+    max-width: 2360px;
+    margin: 100px auto 0 auto;
+}
+.banner-img {
+    width: 100%;
+    height: 1000px;
+    object-fit: cover;
+    border-radius: 16px;
+    display: block;
+}
