@@ -131,3 +131,76 @@
     border-color: #00b7ff;
     transform: scale(1.07) translateY(-3px);
 }
+
+/* SECTOR 2: OFERTAS DESTACADAS */
+.ofertas-destacadas {
+    display: flex;
+    gap: 21px;
+    justify-content: center;
+    align-items: stretch;
+    margin: 21px auto 0 auto;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+.oferta {
+    position: relative;
+    flex: 1 1 0;
+    min-width: 1185px;
+    max-width: 600px;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    background: #000;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
+.oferta img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.7);
+    transition: filter 0.3s;
+}
+.oferta:hover img { filter: brightness(0.5); }
+.oferta-info {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: rgba(0,0,0,0.32);
+    text-align: center;
+    padding: 24px;
+}
+.oferta-info h3 {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+.oferta-info p {
+    font-size: 1.1rem;
+    margin-bottom: 18px;
+}
+.btn-oferta {
+    display: inline-block;
+    padding: 10px 28px;
+    background: #fff;
+    color: #00b7ff;
+    font-weight: 700;
+    border-radius: 4px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background 0.2s, color 0.2s;
+    border: none;
+    font-size: 1rem;
+}
+.btn-oferta:hover {
+    background: #00b7ff;
+    color: white;
+}
