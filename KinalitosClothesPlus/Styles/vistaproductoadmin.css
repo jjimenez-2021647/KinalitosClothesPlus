@@ -326,3 +326,125 @@ h1 {
     transform: translate(3px, 3px);
     box-shadow: 0px 0px var(--main-color);
 }
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+th {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 14px;
+}
+
+tr {
+    transition: all 0.3s ease;
+}
+
+tr:hover {
+    background-color: #f8f9fa;
+    transform: scale(1.01);
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+
+/*boton buscar*/
+.btn_buscar {
+    --main-focus: #00e1ff;
+    --font-color: #000000;
+    --bg-color-sub: #5ccbff;
+    --bg-color: #ffffff;
+    /*borde*/
+    --main-color: #000000;
+
+    position: relative;
+    width: 160px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border: 2px solid var(--main-color);
+    box-shadow: 4px 4px var(--main-color);
+    background-color: var(--bg-color);
+    border-radius: 10px;
+    overflow: hidden;
+    padding-left: 15px;
+    gap: 10px;
+    font-family: inherit;
+    margin-top: 1%;
+}
+
+.btn_buscar,
+.btn_icono,
+.bnt_texto {
+    transition: all 0.3s ease;
+}
+
+.bnt_texto {
+    color: var(--font-color);
+    font-weight: 600;
+    z-index: 1;
+    transition: color 0.3s ease;
+}
+
+.btn_icono {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 30px;
+    background-color: var(--bg-color-sub);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+    transition: all 0.3s ease;
+}
+
+.btn_buscar i {
+    color: var(--main-color);
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.btn_buscar:hover {
+    background-color: var(--bg-color);
+}
+
+.btn_buscar:hover .bnt_texto {
+    color: transparent;
+}
+
+.btn_buscar:hover .btn_icono {
+    width: 100%;
+    right: 0;
+    background-color: var(--bg-color-sub);
+    z-index: 1;
+}
+
+.btn_buscar:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0px 0px var(--main-color);
+}
