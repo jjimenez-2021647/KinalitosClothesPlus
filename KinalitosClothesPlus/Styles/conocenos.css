@@ -178,3 +178,223 @@ header .logo {
     color: #57d2d6;
     font-weight: 600;
 }
+
+/* Las estadisticas */
+.estadisticas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+    padding: 2rem 0;
+    border-top: 2px solid #007BFF;
+    /* azul brillante */
+    border-bottom: 2px solid #007BFF;
+}
+
+.cuadro-estadistica {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #e0f7ff, #cce6ff);
+    /* celeste claro degradado */
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #b3daff;
+}
+
+.cuadro-estadistica:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 123, 255, 0.3);
+    /* sombra azul clara */
+}
+
+.cua-esta-numero {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #002B5B;
+    /* azul oscuro */
+    display: block;
+}
+
+.cua-esta-info {
+    font-size: 1.1rem;
+    color: #333333;
+    /* gris oscuro para mejor legibilidad */
+    font-weight: 500;
+    margin-top: 0.5rem;
+}
+
+/* Sección de CEO */
+.CEO {
+    background: rgba(44, 62, 80, 0.05);
+    border-radius: 15px;
+    padding: 2.5rem;
+    margin: 2rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.CEO h3 {
+    color: #2c3e50;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.CEO-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.CEO-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.CEO-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.CEO-img {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.CEO-img img {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #e9ecef;
+    transition: border-color 0.3s ease;
+}
+
+.CEO-item:hover .CEO-img img {
+    border-color: #00ccff;
+}
+
+.CEO-titulo {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.CEO-descripcion {
+    color: #7f8c8d;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* responsivo*/
+@media (max-width: 768px) {
+    .CEO-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    .CEO {
+        padding: 1.5rem;
+    }
+}
+
+/* CTA Final */
+.cuadro-final {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: rgba(190, 237, 255, 0.623);
+    border-radius: 15px;
+    margin-top: 3rem;
+}
+
+.cuadro-final h3 {
+    color: #2c3e50;
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+}
+
+.cuadro-final p {
+    color: #7f8c8d;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.btn-contacto {
+    display: inline-block;
+    background: linear-gradient(135deg, #6ecbff, #007bff);
+    color: white;
+    padding: 15px 40px;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgb(255, 255, 255);
+}
+
+.btn-contacto:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgb(36, 255, 208);
+    background: linear-gradient(135deg, #5bc6ff, #0056d2);
+}
+
+/* Pa que sea responsivo */
+@media (max-width: 768px) {
+    header {
+        padding: 20px 30px;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .logo {
+        font-size: 35px !important;
+    }
+
+    .nav-list {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .inicio,
+    .conocenos,
+    .viajes,
+    .hoteles {
+        padding: 12px 20px;
+        font-size: 14px;
+        margin: 5px;
+    }
+
+    .showcase {
+        padding: 50px 20px;
+    }
+
+    .contenido-principal {
+        padding: 200px 20px 50px;
+    }
+
+    .contenedor-principal {
+        padding: 2rem;
+    }
+
+    .titulo-principal {
+        font-size: 2.5rem;
+    }
+
+    .estadisticas {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
