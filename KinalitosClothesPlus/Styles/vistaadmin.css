@@ -1,0 +1,84 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-image: url(../Images/negro3.jpeg);
+    background-size: cover;
+    /* Quepa completa dentro del body */
+    background-repeat: no-repeat;
+    /* No repetir */
+    background-position: center top;
+    /* Centrada arriba */
+    background-attachment: fixed;
+    /* (Opcional) Efecto parallax */
+    min-height: 100vh;
+    color: #212529;
+    padding-top: 120px;
+}
+
+.navbar {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    padding: 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.nav-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 30px;
+    width: 100%;
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 2px;
+    user-select: none;
+    font-family: 'Lato', sans-serif;
+    flex: 0 0 auto;
+}
+
+.logo span {
+    color: #00b7ff;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    justify-content: center;
+}
+
+.menu li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    padding: 8px 16px;
+    border-radius: 25px;
+}
+
+.menu li a:hover {
+    color: #fff;
+    background-color: #00b7ff;
+    transform: translateY(-2px);
+}
