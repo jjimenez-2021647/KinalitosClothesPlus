@@ -179,6 +179,15 @@ h1 {
     transform: translateY(1rem);
     transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+.label-input-number-largo {
+    position: absolute;
+    left: 15px;
+    /*Color del texto dentro del input*/
+    color: transparent;
+    pointer-events: none;
+    transform: translateY(1rem);
+    transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
 
 .entrada_texto:focus,
 .entrada_texto:valid {
@@ -281,6 +290,7 @@ h1 {
     gap: 10px;
     font-family: inherit;
     transition: all 0.3s ease;
+    margin-top: 1%;
 }
 
 /* Texto del botón */
@@ -407,6 +417,8 @@ tr:hover {
     gap: 10px;
     font-family: inherit;
     transition: all 0.3s ease;
+    margin-top: 5px;
+    margin-top: 1%;
 }
 
 /* Texto del botón */
@@ -498,6 +510,7 @@ tr:hover {
     gap: 10px;
     font-family: inherit;
     transition: all 0.3s ease;
+    margin-top: 1%;
 }
 
 /* Texto del botón */
@@ -576,6 +589,8 @@ tr:hover {
     gap: 10px;
     font-family: inherit;
     transition: all 0.3s ease;
+    margin-top: 1%;
+    margin-left: 5%;
 }
 
 /* Texto del botón */
