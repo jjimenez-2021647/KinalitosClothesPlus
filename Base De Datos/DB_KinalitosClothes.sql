@@ -36,7 +36,6 @@ Create table MetodoPagos(
     tipoMetodoPago enum('Tarjeta', 'Efectivo') not null,
     entidadFinanciaera varchar(200) not null,
     moneda varchar(150) not null,
-	porcentajeComision double(5,2) not null,
     primary key PK_codigoMetodoPago (codigoMetodoPago)
 );
 
@@ -45,7 +44,7 @@ Create table Usuarios(
 	codigoUsuario int auto_increment,
 	nombreUsuario varchar(100) not null,
     contraseñaUsuario varchar(100) not null,
-    tipoUsuario enum('Admin', 'Usuario') not null,
+    tipoUsuario enum('Empleado', 'Cliente') not null,
     fechaRegistro date,
     primary key PK_codigoUsuario (codigoUsuario) 
 );
@@ -84,6 +83,7 @@ Create table Productos(
     nombreProducto varchar(100) not null,
     descripcionProducto varchar(200) not null,
     precioProducto double(5,2) not null,
+    talla varchar(50) not null,
     stock int not null,
     codigoProveedor int not null,
     codigoCategoria int not null,
@@ -131,7 +131,7 @@ Create table Facturas(
     descuentoAplicado double(5,2),
     totalFactura double(10,2) not null,
     estadoFactura enum('Emitida','Anulada','Pagada'),
-    formaEntrega enum('Física','Electrónica'),
+    formaEntrega enum('Fisica','Electronica'),
     codigoPedido int not null,
     codigoEmpleado int not null,
     primary key PK_codigoFactura (codigoFactura),
@@ -399,39 +399,38 @@ Delimiter //
 	Create procedure sp_AgregarMetodoPago(
     in tipoMetodoPago enum('Tarjeta','Efectivo'), 
     in entidadFinanciaera varchar(200), 
-    in moneda varchar(150), 
-    in porcentajeComision double(5,2))
+    in moneda varchar(150))
 		Begin
-			Insert into MetodoPagos(tipoMetodoPago, entidadFinanciaera, moneda, porcentajeComision)
-				Values(tipoMetodoPago, entidadFinanciaera, moneda, porcentajeComision);
+			Insert into MetodoPagos(tipoMetodoPago, entidadFinanciaera, moneda)
+				Values(tipoMetodoPago, entidadFinanciaera, moneda);
         End //
 Delimiter ;
-call sp_AgregarMetodoPago('Tarjeta', 'Banco Industrial', 'Quetzal', 2.50);
-call sp_AgregarMetodoPago('Efectivo', 'Ninguna', 'Quetzal', 0.00);
-call sp_AgregarMetodoPago('Tarjeta', 'Banrural', 'Quetzal', 2.75);
-call sp_AgregarMetodoPago('Tarjeta', 'BAC Credomatic', 'USD', 3.00);
-call sp_AgregarMetodoPago('Tarjeta', 'Banco G&T Continental', 'Quetzal', 2.20);
-call sp_AgregarMetodoPago('Efectivo', 'Ninguna', 'USD', 0.00);
-call sp_AgregarMetodoPago('Tarjeta', 'Visa', 'Quetzal', 2.60);
-call sp_AgregarMetodoPago('Tarjeta', 'Mastercard', 'USD', 3.25);
-call sp_AgregarMetodoPago('Tarjeta', 'Banco Promérica', 'USD', 2.90);
-call sp_AgregarMetodoPago('Tarjeta', 'Davivienda', 'Quetzal', 2.40);
-call sp_AgregarMetodoPago('Efectivo', 'Ninguna', 'Euro', 0.00);
-call sp_AgregarMetodoPago('Tarjeta', 'InterBanco', 'USD', 2.85);
-call sp_AgregarMetodoPago('Tarjeta', 'American Express', 'USD', 3.50);
-call sp_AgregarMetodoPago('Tarjeta', 'Banco Azteca', 'Quetzal', 2.00);
-call sp_AgregarMetodoPago('Efectivo', 'Ninguna', 'Quetzal', 0.00);
-call sp_AgregarMetodoPago('Tarjeta', 'Paypal', 'USD', 4.00);
-call sp_AgregarMetodoPago('Tarjeta', 'Zelle', 'USD', 1.50);
-call sp_AgregarMetodoPago('Tarjeta', 'Western Union', 'USD', 3.10);
-call sp_AgregarMetodoPago('Efectivo', 'Ninguna', 'USD', 0.00);
-call sp_AgregarMetodoPago('Tarjeta', 'Stripe', 'USD', 3.60);
+call sp_AgregarMetodoPago('Tarjeta', 'Banco Industrial', 'Quetzal');
+call sp_AgregarMetodoPago('Efectivo', 'Ninguna', 'Quetzal');
+call sp_AgregarMetodoPago('Tarjeta', 'Banrural', 'Quetzal');
+call sp_AgregarMetodoPago('Tarjeta', 'BAC Credomatic', 'Dollar');
+call sp_AgregarMetodoPago('Tarjeta', 'Banco G&T Continental', 'Quetzal');
+call sp_AgregarMetodoPago('Efectivo', 'Ninguna', 'Dollar');
+call sp_AgregarMetodoPago('Tarjeta', 'Visa', 'Quetzal');
+call sp_AgregarMetodoPago('Tarjeta', 'Mastercard', 'Dollar');
+call sp_AgregarMetodoPago('Tarjeta', 'Banco Promérica', 'Euro');
+call sp_AgregarMetodoPago('Tarjeta', 'Davivienda', 'Quetzal');
+call sp_AgregarMetodoPago('Efectivo', 'Ninguna', 'Euro');
+call sp_AgregarMetodoPago('Tarjeta', 'InterBanco', 'Dollar');
+call sp_AgregarMetodoPago('Tarjeta', 'American Express', 'Dollar');
+call sp_AgregarMetodoPago('Tarjeta', 'Banco Azteca', 'Quetzal');
+call sp_AgregarMetodoPago('Efectivo', 'Ninguna', 'Quetzal');
+call sp_AgregarMetodoPago('Tarjeta', 'Paypal', 'Dollar');
+call sp_AgregarMetodoPago('Tarjeta', 'Zelle', 'Dollar');
+call sp_AgregarMetodoPago('Tarjeta', 'Western Union', 'Dollar');
+call sp_AgregarMetodoPago('Efectivo', 'Ninguna', 'Dollar');
+call sp_AgregarMetodoPago('Tarjeta', 'Stripe', 'Dollar');
 
 -- Listar MetodoPago
 Delimiter //
 	Create procedure sp_ListarMetodoPago()
 		Begin
-			Select codigoMetodoPago, tipoMetodoPago, entidadFinanciaera, moneda, porcentajeComision from MetodoPagos;
+			Select codigoMetodoPago, tipoMetodoPago, entidadFinanciaera, moneda from MetodoPagos;
         End //
 Delimiter ;
 call sp_ListarMetodoPago();
@@ -455,7 +454,7 @@ Delimiter //
 	Create procedure sp_BuscarMetodoPago(
     in _codigoMetodoPago int)
 		Begin
-			Select codigoMetodoPago, tipoMetodoPago, entidadFinanciaera, moneda, porcentajeComision from MetodoPagos
+			Select codigoMetodoPago, tipoMetodoPago, entidadFinanciaera, moneda from MetodoPagos
 				where codigoMetodoPago= _codigoMetodoPago;
         End //
 Delimiter ;
@@ -467,22 +466,20 @@ Delimiter //
     in _codigoMetodoPago int,
 	in _tipoMetodoPago enum('Tarjeta','Efectivo'), 
     in _entidadFinanciaera varchar(200), 
-    in _moneda varchar(150), 
-    in _porcentajeComision double(5,2))
+    in _moneda varchar(150))
 		Begin
 			Update MetodoPagos
 				set tipoMetodoPago = _tipoMetodoPago,
 					entidadFinanciaera = _entidadFinanciaera,
-                    moneda = _moneda,
-                    porcentajeComision = _porcentajeComision
+                    moneda = _moneda
 					where codigoMetodoPago= _codigoMetodoPago;
         End //
 Delimiter ;
-call sp_EditarMetodoPago(16, 'Tarjeta', 'TransferWise', 'USD', 2.80);
-call sp_EditarMetodoPago(17, 'Tarjeta', 'Zelle Corp', 'USD', 1.25);
-call sp_EditarMetodoPago(18, 'Tarjeta', 'WU Servicios', 'USD', 2.90);
-call sp_EditarMetodoPago(19, 'Efectivo', 'Caja Local', 'Quetzal', 0.00);
-call sp_EditarMetodoPago(20, 'Tarjeta', 'Stripe Global', 'USD', 3.75);
+call sp_EditarMetodoPago(16, 'Tarjeta', 'TransferWise', 'Dollar');
+call sp_EditarMetodoPago(17, 'Tarjeta', 'Zelle Corp', 'Dollar');
+call sp_EditarMetodoPago(18, 'Tarjeta', 'WU Servicios', 'Dollar');
+call sp_EditarMetodoPago(19, 'Efectivo', 'Caja Local', 'Quetzal');
+call sp_EditarMetodoPago(20, 'Tarjeta', 'Stripe Global', 'Dollar');
 
 -- --------------------------- Entidad Usuario --------------------------- 
 -- Agregar Usuario
@@ -490,34 +487,34 @@ Delimiter //
 	Create procedure sp_AgregarUsuario(
     in nombreUsuario varchar(100), 
     in contraseñaUsuario varchar(100), 
-    in tipoUsuario enum('Admin','Usuario'))
+    in tipoUsuario enum('Empleado','Cliente'))
 		Begin
 			Insert into Usuarios(nombreUsuario, contraseñaUsuario, tipoUsuario)
 				Values(nombreUsuario, contraseñaUsuario, tipoUsuario);
         End //
 Delimiter ;
-call sp_AgregarUsuario('admin01', 'admin2024', 'Admin');
-call sp_AgregarUsuario('juanperez', 'pass123', 'Usuario');
-call sp_AgregarUsuario('carmen.m', 'cm456', 'Usuario');
-call sp_AgregarUsuario('sofia123', 's0f1aPass', 'Usuario');
-call sp_AgregarUsuario('marioGT', 'mario!@#', 'Admin');
-call sp_AgregarUsuario('laura.r', 'l@urita', 'Usuario');
-call sp_AgregarUsuario('user_demo', 'demo2024', 'Usuario');
-call sp_AgregarUsuario('karen_89', 'kar345', 'Usuario');
-call sp_AgregarUsuario('admin_sys', 'sysadmin', 'Admin');
-call sp_AgregarUsuario('pedro_r', 'pedro1234', 'Usuario');
-call sp_AgregarUsuario('angelica.g', 'angel789', 'Usuario');
-call sp_AgregarUsuario('oscar_u', 'oscu2024', 'Usuario');
-call sp_AgregarUsuario('claudia.t', 'claud!2024', 'Usuario');
-call sp_AgregarUsuario('adminMain', 'adminMain1', 'Admin');
-call sp_AgregarUsuario('david_dev', 'devpass', 'Usuario');
-call sp_AgregarUsuario('sofiaAdmin', 'sofiA#2024', 'Admin');
-call sp_AgregarUsuario('test_user', 'test123', 'Usuario');
-call sp_AgregarUsuario('natalia', 'nata2024', 'Usuario');
-call sp_AgregarUsuario('kevin.t', 'kevkev', 'Usuario');
-call sp_AgregarUsuario('admin_jose', 'jo$eAdm', 'Admin');
-call sp_AgregarUsuario('1', '1', 'Admin');
-call sp_AgregarUsuario('2', '2', 'Usuario');
+call sp_AgregarUsuario('admin01', 'admin2024', 'Cliente');
+call sp_AgregarUsuario('juanperez', 'pass123', 'Cliente');
+call sp_AgregarUsuario('carmen.m', 'cm456', 'Cliente');
+call sp_AgregarUsuario('sofia123', 's0f1aPass', 'Cliente');
+call sp_AgregarUsuario('marioGT', 'mario!@#', 'Cliente');
+call sp_AgregarUsuario('laura.r', 'l@urita', 'Cliente');
+call sp_AgregarUsuario('user_demo', 'demo2024', 'Cliente');
+call sp_AgregarUsuario('karen_89', 'kar345', 'Cliente');
+call sp_AgregarUsuario('admin_sys', 'sysadmin', 'Cliente');
+call sp_AgregarUsuario('pedro_r', 'pedro1234', 'Cliente');
+call sp_AgregarUsuario('angelica.g', 'angel789', 'Cliente');
+call sp_AgregarUsuario('oscar_u', 'oscu2024', 'Cliente');
+call sp_AgregarUsuario('claudia.t', 'claud!2024', 'Cliente');
+call sp_AgregarUsuario('adminMain', 'adminMain1', 'Cliente');
+call sp_AgregarUsuario('david_dev', 'devpass', 'Cliente');
+call sp_AgregarUsuario('sofiaAdmin', 'sofiA#2024', 'Cliente');
+call sp_AgregarUsuario('test_user', 'test123', 'Cliente');
+call sp_AgregarUsuario('natalia', 'nata2024', 'Cliente');
+call sp_AgregarUsuario('kevin.t', 'kevkev', 'Cliente');
+call sp_AgregarUsuario('admin_jose', 'jo$eAdm', 'Cliente');
+call sp_AgregarUsuario('1', '1', 'Empleado');
+call sp_AgregarUsuario('2', '2', 'Cliente');
 
 -- Listar Usuario
 Delimiter //
@@ -541,7 +538,6 @@ Delimiter //
         End//
 Delimiter ;
 call sp_EliminarUsuario(15);
-
 -- Buscar Usuario
 Delimiter //
 	Create procedure sp_BuscarUsuario(
@@ -559,7 +555,7 @@ Delimiter //
     in _codigoUsuario int, 
     in _nombreUsuario varchar(100), 
     in _contraseñaUsuario varchar(100), 
-    in _tipoUsuario enum('Admin','Usuario'), 
+    in _tipoUsuario enum('Empleado','Cliente'), 
     in _fechaRegistro date)
 		Begin
 			Update Usuarios
@@ -570,11 +566,11 @@ Delimiter //
 					where codigoUsuario = _codigoUsuario;
         End //
 Delimiter ;
-call sp_EditarUsuario(16, 'sofiaAdmin', 'sofiActualizada2025', 'Admin', '2025-06-01');
-call sp_EditarUsuario(17, 'test_user_updated', 'testActualizado', 'Usuario', '2025-06-02');
-call sp_EditarUsuario(18, 'natalia.t', 'nataNueva123', 'Usuario', '2025-06-03');
-call sp_EditarUsuario(19, 'kevinTech', 'kt2025!', 'Usuario', '2025-06-04');
-call sp_EditarUsuario(20, 'admin_jose_2', 'adminJose2025', 'Admin', '2025-06-05');
+call sp_EditarUsuario(16, 'sofiaAdmin', 'sofiActualizada2025', 'Cliente', '2025-06-01');
+call sp_EditarUsuario(17, 'test_user_updated', 'testActualizado', 'Cliente', '2025-06-02');
+call sp_EditarUsuario(18, 'natalia.t', 'nataNueva123', 'Cliente', '2025-06-03');
+call sp_EditarUsuario(19, 'kevinTech', 'kt2025!', 'Cliente', '2025-06-04');
+call sp_EditarUsuario(20, 'admin_jose_2', 'adminJose2025', 'Cliente', '2025-06-05');
 
 -- --------------------------- Entidad Cliente --------------------------- 
 -- Agregar Cliente
@@ -776,41 +772,42 @@ Delimiter //
 	Create procedure sp_AgregarProducto(
     in nombreProducto varchar(100), 
     in descripcionProducto varchar(100), 
-    in precioProducto varchar(200), 
+    in precioProducto varchar(200),
+    in talla varchar(50),
     in stock int, 
     in codigoProveedor int, 
     in codigoCategoria int)
 		Begin
-			Insert into Productos(nombreProducto, descripcionProducto, precioProducto, stock, codigoProveedor, codigoCategoria)
-				Values(nombreProducto, descripcionProducto, precioProducto, stock, codigoProveedor, codigoCategoria);
+			Insert into Productos(nombreProducto, descripcionProducto, precioProducto, talla, stock, codigoProveedor, codigoCategoria)
+				Values(nombreProducto, descripcionProducto, precioProducto, talla, stock, codigoProveedor, codigoCategoria);
         End //
 Delimiter ;
-call sp_AgregarProducto('Camisa Casual Azul', 'Camisa de algodón manga larga', '129.99', 50, 1, 1);
-call sp_AgregarProducto('Blusa Estampada', 'Blusa fresca para verano', '89.50', 30, 2, 2);
-call sp_AgregarProducto('Pantalón Jeans', 'Pantalón de mezclilla juvenil', '199.00', 40, 3, 3);
-call sp_AgregarProducto('Vestido Largo', 'Vestido elegante de fiesta', '279.99', 20, 4, 2);
-call sp_AgregarProducto('Short Deportivo', 'Short unisex para deporte', '69.99', 60, 5, 3);
-call sp_AgregarProducto('Sudadera Capucha', 'Sudadera gruesa para frío', '159.75', 35, 1, 4);
-call sp_AgregarProducto('Falda Negra', 'Falda básica para oficina', '99.25', 25, 2, 2);
-call sp_AgregarProducto('Camisa Polo', 'Polo casual color blanco', '139.00', 55, 3, 1);
-call sp_AgregarProducto('Leggins Deportivos', 'Leggins ajustados y cómodos', '119.95', 38, 4, 3);
-call sp_AgregarProducto('Conjunto Infantil', 'Ropa para niño con estampado', '89.99', 45, 5, 5);
-call sp_AgregarProducto('Camiseta Básica', 'Camiseta algodón unisex', '59.00', 100, 1, 3);
-call sp_AgregarProducto('Pantalón Cargo', 'Pantalón con múltiples bolsillos', '149.50', 22, 2, 1);
-call sp_AgregarProducto('Chaqueta Mezclilla', 'Chaqueta juvenil estilo moderno', '199.90', 18, 3, 3);
-call sp_AgregarProducto('Vestido de Verano', 'Vestido fresco estampado', '109.00', 27, 4, 2);
-call sp_AgregarProducto('Pijama Infantil', 'Pijama para niño en algodón', '79.99', 50, 5, 5);
-call sp_AgregarProducto('Suéter Largo', 'Suéter largo de punto', '129.99', 19, 1, 4);
-call sp_AgregarProducto('Falda Jean', 'Falda de mezclilla juvenil', '89.95', 26, 2, 2);
-call sp_AgregarProducto('Camisa Formal', 'Camisa de vestir blanca', '149.99', 33, 3, 1);
-call sp_AgregarProducto('Short Estampado', 'Short veraniego con diseño', '69.99', 42, 4, 3);
-call sp_AgregarProducto('Traje Infantil', 'Traje elegante para niño', '189.99', 12, 5, 5);
+call sp_AgregarProducto('Camisa Casual Azul', 'Camisa de algodón manga larga', 129.99, 'M', 50, 1, 1);
+call sp_AgregarProducto('Blusa Estampada', 'Blusa fresca para verano', 89.50, 'S', 30, 2, 2);
+call sp_AgregarProducto('Pantalón Jeans', 'Pantalón de mezclilla juvenil', 199.00, '32', 40, 3, 3);
+call sp_AgregarProducto('Vestido Largo', 'Vestido elegante de fiesta', 279.99, 'L', 20, 4, 2);
+call sp_AgregarProducto('Short Deportivo', 'Short unisex para deporte', 69.99, 'M', 60, 5, 3);
+call sp_AgregarProducto('Sudadera Capucha', 'Sudadera gruesa para frío', 159.75, 'XL', 35, 1, 4);
+call sp_AgregarProducto('Falda Negra', 'Falda básica para oficina', 99.25, 'S', 25, 2, 2);
+call sp_AgregarProducto('Camisa Polo', 'Polo casual color blanco', 139.00, 'L', 55, 3, 1);
+call sp_AgregarProducto('Leggins Deportivos', 'Leggins ajustados y cómodos', 119.95, 'XS', 38, 4, 3);
+call sp_AgregarProducto('Conjunto Infantil', 'Ropa para niño con estampado', 89.99, '28', 45, 5, 5);
+call sp_AgregarProducto('Camiseta Básica', 'Camiseta algodón unisex', 59.00, 'M', 100, 1, 3);
+call sp_AgregarProducto('Pantalón Cargo', 'Pantalón con múltiples bolsillos', 149.50, '34', 22, 2, 1);
+call sp_AgregarProducto('Chaqueta Mezclilla', 'Chaqueta juvenil estilo moderno', 199.90, 'L', 18, 3, 3);
+call sp_AgregarProducto('Vestido de Verano', 'Vestido fresco estampado', 109.00, 'S', 27, 4, 2);
+call sp_AgregarProducto('Pijama Infantil', 'Pijama para niño en algodón', 79.99, '30', 50, 5, 5);
+call sp_AgregarProducto('Suéter Largo', 'Suéter largo de punto', 129.99, 'XL', 19, 1, 4);
+call sp_AgregarProducto('Falda Jean', 'Falda de mezclilla juvenil', 89.95, 'S', 26, 2, 2);
+call sp_AgregarProducto('Camisa Formal', 'Camisa de vestir blanca', 149.99, 'M', 33, 3, 1);
+call sp_AgregarProducto('Short Estampado', 'Short veraniego con diseño', 69.99, 'XS', 42, 4, 3);
+call sp_AgregarProducto('Traje Infantil', 'Traje elegante para niño', 250.90, 'XS', 18, 3, 3);
 
 -- Listar Producto
 Delimiter //
 	Create procedure sp_ListarProducto()
 		Begin
-			Select codigoProducto, nombreProducto, descripcionProducto, precioProducto, stock, codigoProveedor, codigoCategoria from Productos;
+			Select codigoProducto, nombreProducto, descripcionProducto, precioProducto, talla, stock, codigoProveedor, codigoCategoria from Productos;
         End //
 Delimiter ;
 call sp_ListarProducto();
@@ -834,7 +831,7 @@ Delimiter //
 	Create procedure sp_BuscarProducto(
     in _codigoProducto int)
 		Begin
-			Select codigoProducto, nombreProducto, descripcionProducto, precioProducto, stock, codigoProveedor, codigoCategoria from Productos
+			Select codigoProducto, nombreProducto, descripcionProducto, precioProducto, talla, stock, codigoProveedor, codigoCategoria from Productos
 				where codigoProducto = _codigoProducto;
         End //
 Delimiter ;
@@ -847,6 +844,7 @@ Delimiter //
     in _nombreProducto varchar(100), 
     in _descripcionProducto varchar(100), 
     in _precioProducto varchar(200), 
+    in _talla varchar(50),
     in _stock int, 
     in _codigoProveedor int, 
     in _codigoCategoria int)
@@ -855,17 +853,17 @@ Delimiter //
 				set nombreProducto = _nombreProducto,
 					descripcionProducto = _descripcionProducto,
                     precioProducto = _precioProducto,
+                    talla = _talla,
                     stock = _stock,
                     codigoProveedor = _codigoProveedor,
                     codigoCategoria = _codigoCategoria
 					where codigoProducto = _codigoProducto;
         End //
 Delimiter ;
-call sp_EditarProducto(16, 'Suéter Corto', 'Suéter juvenil con cuello en V', '139.00', 25, 1, 4);
-call sp_EditarProducto(17, 'Falda Floral', 'Falda con diseño floral', '94.95', 22, 2, 2);
-call sp_EditarProducto(18, 'Camisa Cuadros', 'Camisa casual a cuadros', '159.00', 30, 3, 1);
-call sp_EditarProducto(19, 'Short Deportivo Niña', 'Short para niña con estampado', '74.99', 36, 4, 3);
-
+call sp_EditarProducto(16, 'Suéter Corto', 'Suéter juvenil con cuello en V', '139.00', 'XS', 25, 1, 4);
+call sp_EditarProducto(17, 'Falda Floral', 'Falda con diseño floral', '94.95', 'M', 22, 2, 2);
+call sp_EditarProducto(18, 'Camisa Cuadros', 'Camisa casual a cuadros', '159.00', 'S', 30, 3, 1);
+call sp_EditarProducto(19, 'Short Deportivo Niña', 'Short para niña con estampado', '74.99', 'L', 36, 4, 3);
 
 -- --------------------------- Entidad Pedido --------------------------- 
 -- Agregar Pedido
@@ -1063,7 +1061,7 @@ call sp_EditarDetallePedido(20, 1, 199.99, 'Traje niño formal', 20, 20);
 Delimiter //
 	Create procedure sp_AgregarFactura(
     in estadoFactura enum('Emitida','Anulada','Pagada'), 
-    in formaEntrega enum('Física','Electrónica'), 
+    in formaEntrega enum('Fisica','Electronica'), 
     in codigoPedido int,
     in codigoEmpleado int)
 		Begin
@@ -1071,25 +1069,25 @@ Delimiter //
 				Values(estadoFactura, formaEntrega, codigoPedido, codigoEmpleado);
         End //
 Delimiter ;
-call sp_AgregarFactura('Emitida', 'Electrónica', 1, 1);
-call sp_AgregarFactura('Emitida', 'Física', 2, 2);
-call sp_AgregarFactura('Emitida', 'Electrónica', 3, 3);
-call sp_AgregarFactura('Emitida', 'Física', 4, 4);
-call sp_AgregarFactura('Emitida', 'Electrónica', 5, 5);
-call sp_AgregarFactura('Emitida', 'Física', 6, 6);
-call sp_AgregarFactura('Pagada', 'Electrónica', 7, 7);
-call sp_AgregarFactura('Pagada', 'Física', 8, 8);
-call sp_AgregarFactura('Emitida', 'Electrónica', 9, 9);
-call sp_AgregarFactura('Pagada', 'Física', 10, 10);
-call sp_AgregarFactura('Emitida', 'Electrónica', 11, 11);
-call sp_AgregarFactura('Emitida', 'Electrónica', 12, 12);
-call sp_AgregarFactura('Pagada', 'Física', 13, 13);
-call sp_AgregarFactura('Emitida', 'Electrónica', 14, 14);
-call sp_AgregarFactura('Emitida', 'Electrónica', 16, 16);
-call sp_AgregarFactura('Emitida', 'Electrónica', 17, 17);
-call sp_AgregarFactura('Emitida', 'Física', 18, 18);
-call sp_AgregarFactura('Pagada', 'Electrónica', 19, 19);
-call sp_AgregarFactura('Emitida', 'Física', 20, 20);
+call sp_AgregarFactura('Emitida', 'Electronica', 1, 1);
+call sp_AgregarFactura('Emitida', 'Fisica', 2, 2);
+call sp_AgregarFactura('Emitida', 'Electronica', 3, 3);
+call sp_AgregarFactura('Emitida', 'Fisica', 4, 4);
+call sp_AgregarFactura('Emitida', 'Electronica', 5, 5);
+call sp_AgregarFactura('Emitida', 'Fisica', 6, 6);
+call sp_AgregarFactura('Pagada', 'Electronica', 7, 7);
+call sp_AgregarFactura('Pagada', 'Fisica', 8, 8);
+call sp_AgregarFactura('Emitida', 'Electronica', 9, 9);
+call sp_AgregarFactura('Pagada', 'Fisica', 10, 10);
+call sp_AgregarFactura('Emitida', 'Electronica', 11, 11);
+call sp_AgregarFactura('Emitida', 'Electronica', 12, 12);
+call sp_AgregarFactura('Pagada', 'Fisica', 13, 13);
+call sp_AgregarFactura('Emitida', 'Electronica', 14, 14);
+call sp_AgregarFactura('Emitida', 'Electronica', 16, 16);
+call sp_AgregarFactura('Emitida', 'Electronica', 17, 17);
+call sp_AgregarFactura('Emitida', 'Fisica', 18, 18);
+call sp_AgregarFactura('Pagada', 'Electronica', 19, 19);
+call sp_AgregarFactura('Emitida', 'Fisica', 20, 20);
 
 -- Listar Factura
 Delimiter //
@@ -1133,7 +1131,7 @@ Delimiter //
     in _descuentoAplicado double (5,2), 
     in _totalFactura double (10,2),
     in _estadoFactura enum('Emitida','Anulada','Pagada'), 
-    in _formaEntrega enum('Física','Electrónica'), 
+    in _formaEntrega enum('Fisica','Electronica'), 
     in _codigoPedido int,
     in _codigoEmpleado int)
 		Begin
@@ -1148,8 +1146,8 @@ Delimiter //
 						where codigoFactura = _codigoFactura;
         End //
 Delimiter ;
-call sp_EditarFactura(16, '2025-07-01', 10.00, 740.00, 'Pagada', 'Física', 16, 16);
-call sp_EditarFactura(17, '2025-07-02', 5.00, 425.20, 'Emitida', 'Electrónica', 17, 17);
-call sp_EditarFactura(18, '2025-07-03', 15.00, 950.10, 'Emitida', 'Física', 18, 18);
-call sp_EditarFactura(19, '2025-07-04', 0.00, 299.90, 'Anulada', 'Física', 19, 19);
-call sp_EditarFactura(20, '2025-07-05', 20.00, 625.55, 'Emitida', 'Electrónica', 20, 20);
+call sp_EditarFactura(16, '2025-07-01', 10.00, 740.00, 'Pagada', 'Fisica', 16, 16);
+call sp_EditarFactura(17, '2025-07-02', 5.00, 425.20, 'Emitida', 'Electronica', 17, 17);
+call sp_EditarFactura(18, '2025-07-03', 15.00, 950.10, 'Emitida', 'Fisica', 18, 18);
+call sp_EditarFactura(19, '2025-07-04', 0.00, 299.90, 'Anulada', 'Fisica', 19, 19);
+call sp_EditarFactura(20, '2025-07-05', 20.00, 625.55, 'Emitida', 'Electronica', 20, 20);
