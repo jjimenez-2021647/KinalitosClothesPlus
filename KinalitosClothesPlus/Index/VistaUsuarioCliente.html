@@ -1,11 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Usuario</title>
+    <link rel="stylesheet" href="../Styles/UsuarioCliente.css">
 </head>
 <body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">K<span>C</span></div>
+            <ul class="menu">
+                <li><a href="menu.html">Inicio</a></li>
+            </ul>
+        </div>  
+    </nav>
     
+    <div class="container">
+        <div class="factura-card">
+            <div class="factura-header">
+                <h1><span>Usuario</span> Registrado</h1>
+            </div>
+            
+            <div class="factura-info">
+                <div class="info-item">
+                    <div class="info-label">Código Usuario</div>
+                    <div class="info-value">#1</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">Nombre Usuario</div>
+                    <div class="info-value">admin123</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">Contraseña</div>
+                    <div class="info-value">••••••••</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">Tipo Usuario</div>
+                    <div class="info-value">
+                        <span class="factura-estado estado-emitida">Empleado</span>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">Fecha Registro</div>
+                    <div class="info-value">21/07/2025</div>
+                </div>
+            </div>
+            
+            <div class="total-section">
+                <span class="total-label">Estado del Usuario:</span>
+                <span class="total-amount">Activo</span>
+            </div>
+            
+            <div class="actions">
+                <button class="btn btn-generar">Editar Usuario</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
