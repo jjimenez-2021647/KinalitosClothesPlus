@@ -385,7 +385,7 @@ tr:hover {
     --bg-color: #ffffff;
     --main-color: #000000;
     position: relative;
-    width: 150px;
+    width: 160px;
     height: 40px;
     cursor: pointer;
     display: flex;
