@@ -1,6 +1,6 @@
-package com.josuejimenez.system;
+package com.kinalitosclothes.system;
 
-import com.josuejimenez.view.MenuPrincipal;
+import com.kinalitosclothes.view.MenuPrincipal;
 
 public class Principal {
 

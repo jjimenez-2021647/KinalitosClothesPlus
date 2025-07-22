@@ -1,6 +1,6 @@
-package com.josuejimenez.controller;
+package com.kinalitosclothes.controller;
 
-import com.josuejimenez.dominio.Usuarios;
+import com.kinalitosclothes.dominio.Usuarios;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

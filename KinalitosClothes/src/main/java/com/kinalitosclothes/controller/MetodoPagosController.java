@@ -1,6 +1,6 @@
-package com.josuejimenez.controller;
+package com.kinalitosclothes.controller;
 
-import com.josuejimenez.dominio.MetodoPagos;
+import com.kinalitosclothes.dominio.*;
 import java.util.List;
 import java.util.Scanner;
 import javax.persistence.EntityManager;

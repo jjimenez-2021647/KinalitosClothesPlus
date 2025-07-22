@@ -1,4 +1,4 @@
-package com.josuejimenez.dominio;
+package com.kinalitosclothes.dominio;
 
 import java.util.Date;
 import javax.persistence.*;

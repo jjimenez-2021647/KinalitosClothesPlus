@@ -1,6 +1,6 @@
-package com.josuejimenez.controller;
+package com.kinalitosclothes.controller;
  
-import com.josuejimenez.dominio.Categorias;
+import com.kinalitosclothes.dominio.Categorias;
 
 import java.util.List;
 
