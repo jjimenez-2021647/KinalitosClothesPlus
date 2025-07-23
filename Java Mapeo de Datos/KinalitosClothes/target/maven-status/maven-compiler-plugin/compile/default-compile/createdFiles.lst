@@ -29,11 +29,13 @@ com\kinalitosclothes\dominio\Usuarios_.class
 com\kinalitosclothes\dominio\Categorias$RangoEdad.class
 com\kinalitosclothes\dominio\Facturas_.class
 com\kinalitosclothes\dominio\Proveedores_.class
+com\kinalitosclothes\view\MenuEmpleado.class
 com\kinalitosclothes\dominio\Pedidos_.class
 com\kinalitosclothes\dominio\Categorias$Genero.class
 com\kinalitosclothes\dominio\DetallePedidos.class
 com\kinalitosclothes\dominio\Usuarios.class
 com\kinalitosclothes\system\Principal.class
+com\kinalitosclothes\view\MenuProveedor.class
 com\kinalitosclothes\dominio\Categorias_.class
 com\kinalitosclothes\dominio\Proveedores.class
 com\kinalitosclothes\dominio\Productos.class

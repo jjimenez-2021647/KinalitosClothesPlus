@@ -31,7 +31,8 @@ public class MenuPrincipal {
 
                 switch (op) {
                     case 1:
-
+                        MenuProveedor mepr = new MenuProveedor();
+                        mepr.mostrarMenu();
                         break;
                     case 2:
 
@@ -46,7 +47,8 @@ public class MenuPrincipal {
 
                         break;
                     case 6:
-
+                        MenuEmpleado meem = new MenuEmpleado();
+                        meem.mostrarMenu();
                         break;
                     case 7:
                         MenuProducto mpr = new MenuProducto();
