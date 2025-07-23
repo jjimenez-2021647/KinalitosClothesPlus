@@ -109,7 +109,7 @@ body {
     align-items: center;
     justify-content: flex-start;
     padding-left: 18vw;
-    background: url('../images/fondo_prinicpal.jpg') no-repeat center center;
+    background: url('../Images/fondo_prinicpal.jpg') no-repeat center center;
     background-size: cover;
 }
 
