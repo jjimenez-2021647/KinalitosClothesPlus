@@ -177,7 +177,7 @@
                     <div class="cuadro-final">
                         <h3>¿Listo para renovar tu estilo?</h3>
                         <p>Descubre la moda que te representa y luce increíble todos los días...</p>
-                        <a href="vistaproducto.html" class="btn-contacto">Explorar la tienda</a>
+                        <a href="vistaproducto.jsp" class="btn-contacto">Explorar la tienda</a>
                     </div>
 
                 </section>

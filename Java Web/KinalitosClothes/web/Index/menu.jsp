@@ -36,7 +36,7 @@
             <span class="descuento">hasta 30% de descuento</span>
             <h1>LA MEJOR ROPA URBANA</h1>
             <h2>PARA TU ESTILO ÃNICO</h2>
-            <a href="#" class="btn-coleccion">VER COLECCIÃN</a>
+            <a href="#NuevosProductos" class="btn-coleccion">VER COLECCION</a>
         </div>
     </section>
     <!-- SECTOR 2: OFERTAS DESTACADAS -->
@@ -44,24 +44,24 @@
         <div class="oferta">
             <img src="../Images/ropa1.jpg" alt="Oferta Laptop">
             <div class="oferta-info">
-                <h3>OFERTA DEL DÃA</h3>
+                <h3>OFERTA DEL DIA</h3>
                 <p>Hasta 45% de descuento en camicetas</p>
-                <a href="#" class="btn-oferta">COMPRAR AHORA</a>
+                <a href="vistaproducto.jsp" class="btn-oferta">COMPRAR AHORA</a>
             </div>
         </div>
         <div class="oferta">
             <img src="../Images/ropa2.jpg" alt="Oferta Reloj">
             <div class="oferta-info">
-                <h3>EL MÃS VENDIDO</h3>
+                <h3>EL MAS VENDIDO</h3>
                 <p>Precio desde $100</p>
-                <a href="#" class="btn-oferta">COMPRAR AHORA</a>
+                <a href="vistaproducto.jsp" class="btn-oferta">COMPRAR AHORA</a>
             </div>
         </div>
     </section>
     <!-- SECTOR 3: NUEVOS PRODUCTOS -->
-    <section class="nuevos-productos-titulo">
+    <section id="NuevosProductos" class="nuevos-productos-titulo">
         <h2>NUEVOS PRODUCTOS</h2>
-        <a href="#" class="btn-ver-todo">VER TODO</a>
+        <a href="vistaproducto.jsp" class="btn-ver-todo">VER TODO</a>
     </section>
     <section class="acciones-imagenes-con-flechas">
         <button class="carrusel-flecha flecha-izq" aria-label="Anterior">
@@ -113,35 +113,15 @@
         <section class="acciones-imagenes">
             <div class="accion-imagen">
                 <img src="../Images/ropap3.jpg" alt="Producto 1">
-                <div class="iconos-acciones">
-                    <button title="Agregar al carrito"><i class="fa fa-shopping-cart"></i></button>
-                    <button title="Guardar"><i class="fa fa-heart"></i></button>
-                    <button title="MÃ¡s informaciÃ³n"><i class="fa fa-times"></i></button>
-                </div>
             </div>
             <div class="accion-imagen">
                 <img src="../Images/ropap4.jpg" alt="Producto 2">
-                <div class="iconos-acciones">
-                    <button title="Agregar al carrito"><i class="fa fa-shopping-cart"></i></button>
-                    <button title="Guardar"><i class="fa fa-heart"></i></button>
-                    <button title="MÃ¡s informaciÃ³n"><i class="fa fa-times"></i></button>
-                </div>
             </div>
             <div class="accion-imagen">
                 <img src="../Images/ropap5.jpg" alt="Producto 3">
-                <div class="iconos-acciones">
-                    <button title="Agregar al carrito"><i class="fa fa-shopping-cart"></i></button>
-                    <button title="Guardar"><i class="fa fa-heart"></i></button>
-                    <button title="MÃ¡s informaciÃ³n"><i class="fa fa-times"></i></button>
-                </div>
             </div>
             <div class="accion-imagen">
                 <img src="../Images/ropap6.jpg" alt="Producto 4">
-                <div class="iconos-acciones">
-                    <button title="Agregar al carrito"><i class="fa fa-shopping-cart"></i></button>
-                    <button title="Guardar"><i class="fa fa-heart"></i></button>
-                    <button title="MÃ¡s informaciÃ³n"><i class="fa fa-times"></i></button>
-                </div>
             </div>
         </section>
         <button class="carrusel-flecha flecha-der" aria-label="Siguiente">
@@ -193,7 +173,7 @@
     </section>
     <!-- SECTOR 4: RESEÃAS Y BANNER -->
     <section class="resenas-clientes">
-        <h2 class="titulo-resenas">RESEÃAS DE NUESTROS CLIENTES</h2>
+        <h2 class="titulo-resenas">RESEÑAS DE NUESTROS CLIENTES</h2>
         <div class="resenas-lista">
             <div class="resena">
                 <p>"Â¡La calidad de la ropa es excelente y el envÃ­o fue muy rÃ¡pido! Sin duda volverÃ© a comprar."</p>
@@ -220,7 +200,7 @@
     <!-- SECTOR 5: PRODUCTOS DESTACADOS Y ARTÃCULOS DE MODA -->
 <section class="nuevos-productos-titulo">
     <h2>PRODUCTOS DESTACADOS</h2>
-    <a href="#" class="btn-ver-todo">VER TODO</a>
+    <a href="vistaproducto.jsp" class="btn-ver-todo">VER TODO</a>
 </section>
 <section class="acciones-imagenes-con-flechas">
     <button class="carrusel-flecha flecha-izq" aria-label="Anterior">
@@ -281,8 +261,8 @@
     </button>
 </section>
 <section class="nuevos-productos-titulo">
-    <h2>ARTÃCULOS DE MODA</h2>
-    <a href="#" class="btn-ver-todo">VER TODO</a>
+    <h2>ARTICULOS DE MODA</h2>
+    <a href="vistaproducto.jsp" class="btn-ver-todo">VER TODO</a>
 </section>
 <section class="acciones-imagenes-con-flechas">
     <button class="carrusel-flecha flecha-izq" aria-label="Anterior">

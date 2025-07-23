@@ -58,7 +58,7 @@
             <div class="pedido-actions">
                 <a href="vistadetallepedido.jsp" class="btn btn-primary">Ver Detalles</a>
                 <a href="VistaFacturaCliente.jsp" class="btn btn-secondary">Ver Factura</a>
-                <a href="metodopago.jsp" class="btn btn-primary">Metodo Pago </a>
+                <a href="MetodoPago.jsp" class="btn btn-primary">Metodo Pago </a>
             </div>
         </div>
 
@@ -96,7 +96,7 @@
             <div class="pedido-actions">
                 <a href="vistadetallepedido.jsp" class="btn btn-primary">Ver Detalles</a>
                 <a href="VistaFacturaCliente.jsp" class="btn btn-secondary">Ver Factura</a>
-                <a href="metodopago.jsp" class="btn btn-primary">Metodo Pago </a>
+                <a href="MetodoPago.jsp" class="btn btn-primary">Metodo Pago </a>
             </div>
         </div>
 
@@ -134,7 +134,7 @@
             <div class="pedido-actions">
                 <a href="vistadetallepedido.jsp" class="btn btn-primary">Ver Detalles</a>
                 <a href="VistaFacturaCliente.jsp" class="btn btn-secondary">Ver Factura</a>
-                <a href="metodopago.jsp" class="btn btn-primary">Metodo Pago </a>
+                <a href="MetodoPago.jsp" class="btn btn-primary">Metodo Pago </a>
             </div>
         </div>
 
