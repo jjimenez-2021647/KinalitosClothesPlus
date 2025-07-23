@@ -5,6 +5,7 @@ com\kinalitosclothes\controller\EmpleadosController.class
 com\kinalitosclothes\controller\CategoriasController.class
 com\kinalitosclothes\controller\DetallePedidosController.class
 com\kinalitosclothes\dominio\Pedidos.class
+com\kinalitosclothes\view\MenuProducto.class
 com\kinalitosclothes\controller\ClientesController.class
 com\kinalitosclothes\dominio\Clientes.class
 com\kinalitosclothes\dominio\Pedidos$EstadoPedido.class

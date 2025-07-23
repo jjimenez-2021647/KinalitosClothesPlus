@@ -49,7 +49,8 @@ public class MenuPrincipal {
 
                         break;
                     case 7:
-
+                        MenuProducto mpr = new MenuProducto();
+                        mpr.MenuProductos();
                         break;
                     case 8:
                         MenuPedidos mpe = new MenuPedidos();

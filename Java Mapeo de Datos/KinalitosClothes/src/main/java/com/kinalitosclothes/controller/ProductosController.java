@@ -17,28 +17,28 @@ public class ProductosController {
     }
 
     public void agregarProducto() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner leer = new Scanner(System.in);
 
         System.out.println("Ingrese el nombre del producto:");
-        String nombre = scanner.nextLine();
+        String nombre = leer.nextLine();
 
         System.out.println("Ingrese la descripción del producto:");
-        String descripcion = scanner.nextLine();
+        String descripcion = leer.nextLine();
 
         System.out.println("Ingrese el precio del producto:");
-        double precio = Double.parseDouble(scanner.nextLine());
+        double precio = leer.nextDouble();
 
         System.out.println("Ingrese la talla del producto:");
-        String talla = scanner.nextLine();
+        String talla = leer.nextLine();
 
         System.out.println("Ingrese el stock del producto:");
-        int stock = Integer.parseInt(scanner.nextLine());
+        int stock = Integer.parseInt(leer.nextLine());
 
         System.out.println("Ingrese el código del proveedor:");
-        int codProveedor = Integer.parseInt(scanner.nextLine());
+        int codProveedor = leer.nextInt();
 
         System.out.println("Ingrese el código de la categoría:");
-        int codCategoria = Integer.parseInt(scanner.nextLine());
+        int codCategoria = leer.nextInt();
 
         Productos nuevoProducto = new Productos();
         nuevoProducto.setNombreProducto(nombre);
@@ -57,11 +57,22 @@ public class ProductosController {
     }
 
     public List<Productos> listarProductos() {
-        TypedQuery<Productos> query = em.createQuery("SELECT p FROM Productos p", Productos.class);
+
+        TypedQuery<Productos> query = em.createQuery("Select u From Productos u", Productos.class);
+        List<Productos> productos = query.getResultList();
+
+        for (Productos producto : productos) {
+            System.out.println("--------------------------------------");
+            System.out.println(producto);
+        }
         return query.getResultList();
     }
 
     public void eliminarProducto(int idProducto) {
+        Scanner leer = new Scanner(System.in);
+        System.out.println("Ingrese el id del producto a eliminar:");
+        idProducto = leer.nextInt();
+        leer.nextLine();
         Productos producto = em.find(Productos.class, idProducto);
         if (producto != null) {
             em.getTransaction().begin();
@@ -74,47 +85,68 @@ public class ProductosController {
     }
 
     public Productos buscarProducto(int idProducto) {
-        return em.find(Productos.class, idProducto);
+        Scanner leer = new Scanner(System.in);
+        System.out.println("Ingrese el id del producto a buscar:");
+        idProducto = leer.nextInt();
+        Productos u = em.find(Productos.class, idProducto);
+        System.out.println(u);
+        return u;
     }
 
     public void editarProducto() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner leer = new Scanner(System.in);
 
         System.out.println("Ingrese el ID del producto a actualizar:");
-        int idProducto = Integer.parseInt(scanner.nextLine());
+        int idProducto = leer.nextInt();
+        leer.nextLine();
 
-        Productos producto = em.find(Productos.class, idProducto);
-        if (producto == null) {
-            System.out.println("Producto no encontrado.");
-            return;
+        Productos productoEditar = em.find(Productos.class, idProducto);
+        if (productoEditar != null) {
+            System.out.println("producto encontrado:");
+            Productos P = em.find(Productos.class, idProducto);
+            System.out.println(P);
+
+            System.out.println("Ingrese el nuevo nombre del producto:");
+            String nombre = leer.nextLine();
+
+            System.out.println("Ingrese la nuevo descripción del producto:");
+            String descripcion = leer.nextLine();
+
+            System.out.println("Ingrese el nuevo precio del producto:");
+            double precio = leer.nextDouble();
+            leer.nextLine();
+
+            System.out.println("Ingrese la nueva talla del producto:");
+            String talla = leer.nextLine();
+
+            System.out.println("Ingrese el nuevo stock del producto:");
+            int stock = Integer.parseInt(leer.nextLine());
+
+            System.out.println("Ingrese el nuevo código del proveedor:");
+            int codProveedor = leer.nextInt();
+
+            System.out.println("Ingrese el nuevo código de la categoría:");
+            int codCategoria = leer.nextInt();
+
+            productoEditar.setNombreProducto(nombre);
+            productoEditar.setDescripcionProducto(descripcion);
+            productoEditar.setPrecioProducto(precio);
+            productoEditar.setTalla(talla);
+            productoEditar.setStock(stock);
+            productoEditar.setCodigoProveedor(codProveedor);
+            productoEditar.setCodigoCategoria(codCategoria);
+
+            em.getTransaction().begin();
+            em.merge(productoEditar);
+            em.getTransaction().commit();
+
+            System.out.println("Producto actualizado correctamente.");
+
+        } else {
+            System.out.println("No se encontró ningún producto con ese ID.");
+
         }
 
-        System.out.println("Ingrese el nuevo nombre del producto:");
-        producto.setNombreProducto(scanner.nextLine());
-
-        System.out.println("Ingrese la nueva descripción del producto:");
-        producto.setDescripcionProducto(scanner.nextLine());
-
-        System.out.println("Ingrese el nuevo precio del producto:");
-        producto.setPrecioProducto(Double.parseDouble(scanner.nextLine()));
-
-        System.out.println("Ingrese la nueva talla del producto:");
-        producto.setTalla(scanner.nextLine());
-
-        System.out.println("Ingrese el nuevo stock del producto:");
-        producto.setStock(Integer.parseInt(scanner.nextLine()));
-
-        System.out.println("Ingrese el nuevo código del proveedor:");
-        producto.setCodigoProveedor(Integer.parseInt(scanner.nextLine()));
-
-        System.out.println("Ingrese el nuevo código de la categoría:");
-        producto.setCodigoCategoria(Integer.parseInt(scanner.nextLine()));
-
-        em.getTransaction().begin();
-        em.merge(producto);
-        em.getTransaction().commit();
-
-        System.out.println("Producto actualizado correctamente.");
     }
 
     public void cerrar() {
