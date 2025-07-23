@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -88,7 +89,7 @@
                         <tr>
                             <th>Codigo del Empleado</th>
                             <th>Nombre</th>
-                            <th>Descripción</th>
+                            <th>DescripciÃ³n</th>
                             <th>Precio</th>
                             <th>Stock</th>
                             <th>Codigo Proveedor</th>
@@ -193,7 +194,7 @@
                     <input type="hidden">
                     <div class="message warning">
                         <i class="fa fa-exclamation-triangle"></i>
-                        <strong>¡Atención!</strong> Recuerda que vas a eliminar un registro si lo haces se borrara de
+                        <strong>Â¡AtenciÃ³n!</strong> Recuerda que vas a eliminar un registro si lo haces se borrara de
                         forma permanente lo que quiere decir que ya nunca lo recuperaras
                     </div>
                 </form>

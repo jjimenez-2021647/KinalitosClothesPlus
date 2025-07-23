@@ -63,7 +63,7 @@
                                                            autocomplete="off">
                                                     <i class="input-icon material-icons">lock</i>
                                                 </div>
-                                                <a href="menu.html" class="btnIniciar">Entrar</a>
+                                                <a href="Index/menu.jsp" class="btnIniciar">Entrar</a>
                                                 <p class="text-center"><a href="#" class="link">No te recuerdas de tu
                                                         contraseña???</a></p>
                                             </div>

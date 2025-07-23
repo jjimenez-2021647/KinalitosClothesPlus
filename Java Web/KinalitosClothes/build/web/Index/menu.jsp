@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -21,6 +22,7 @@
                 <li><a href="conocenos.jsp">NOSOTROS</a></li>
                 <li><a href="vistaproducto.jsp">TIENDA</a></li>
                 <li><a href="vistaadmin.jsp">ADMINISTRACION</a></li>
+                <li><a href="mispedidos.jsp">MIS PEDIDOS</a></li>
             </ul>
             <div class="iconos">
                 <a href="#"><i class="fa fa-search"></i></a>
@@ -33,8 +35,8 @@
         <div class="hero-content">
             <span class="descuento">hasta 30% de descuento</span>
             <h1>LA MEJOR ROPA URBANA</h1>
-            <h2>PARA TU ESTILO ÚNICO</h2>
-            <a href="#" class="btn-coleccion">VER COLECCIÓN</a>
+            <h2>PARA TU ESTILO ÃNICO</h2>
+            <a href="#" class="btn-coleccion">VER COLECCIÃN</a>
         </div>
     </section>
     <!-- SECTOR 2: OFERTAS DESTACADAS -->
@@ -42,7 +44,7 @@
         <div class="oferta">
             <img src="../Images/ropa1.jpg" alt="Oferta Laptop">
             <div class="oferta-info">
-                <h3>OFERTA DEL DÍA</h3>
+                <h3>OFERTA DEL DÃA</h3>
                 <p>Hasta 45% de descuento en camicetas</p>
                 <a href="#" class="btn-oferta">COMPRAR AHORA</a>
             </div>
@@ -50,7 +52,7 @@
         <div class="oferta">
             <img src="../Images/ropa2.jpg" alt="Oferta Reloj">
             <div class="oferta-info">
-                <h3>EL MÁS VENDIDO</h3>
+                <h3>EL MÃS VENDIDO</h3>
                 <p>Precio desde $100</p>
                 <a href="#" class="btn-oferta">COMPRAR AHORA</a>
             </div>
@@ -114,7 +116,7 @@
                 <div class="iconos-acciones">
                     <button title="Agregar al carrito"><i class="fa fa-shopping-cart"></i></button>
                     <button title="Guardar"><i class="fa fa-heart"></i></button>
-                    <button title="Más información"><i class="fa fa-times"></i></button>
+                    <button title="MÃ¡s informaciÃ³n"><i class="fa fa-times"></i></button>
                 </div>
             </div>
             <div class="accion-imagen">
@@ -122,7 +124,7 @@
                 <div class="iconos-acciones">
                     <button title="Agregar al carrito"><i class="fa fa-shopping-cart"></i></button>
                     <button title="Guardar"><i class="fa fa-heart"></i></button>
-                    <button title="Más información"><i class="fa fa-times"></i></button>
+                    <button title="MÃ¡s informaciÃ³n"><i class="fa fa-times"></i></button>
                 </div>
             </div>
             <div class="accion-imagen">
@@ -130,7 +132,7 @@
                 <div class="iconos-acciones">
                     <button title="Agregar al carrito"><i class="fa fa-shopping-cart"></i></button>
                     <button title="Guardar"><i class="fa fa-heart"></i></button>
-                    <button title="Más información"><i class="fa fa-times"></i></button>
+                    <button title="MÃ¡s informaciÃ³n"><i class="fa fa-times"></i></button>
                 </div>
             </div>
             <div class="accion-imagen">
@@ -138,7 +140,7 @@
                 <div class="iconos-acciones">
                     <button title="Agregar al carrito"><i class="fa fa-shopping-cart"></i></button>
                     <button title="Guardar"><i class="fa fa-heart"></i></button>
-                    <button title="Más información"><i class="fa fa-times"></i></button>
+                    <button title="MÃ¡s informaciÃ³n"><i class="fa fa-times"></i></button>
                 </div>
             </div>
         </section>
@@ -189,21 +191,21 @@
             </div>
         </button>
     </section>
-    <!-- SECTOR 4: RESEÑAS Y BANNER -->
+    <!-- SECTOR 4: RESEÃAS Y BANNER -->
     <section class="resenas-clientes">
-        <h2 class="titulo-resenas">RESEÑAS DE NUESTROS CLIENTES</h2>
+        <h2 class="titulo-resenas">RESEÃAS DE NUESTROS CLIENTES</h2>
         <div class="resenas-lista">
             <div class="resena">
-                <p>"¡La calidad de la ropa es excelente y el envío fue muy rápido! Sin duda volveré a comprar."</p>
-                <span class="cliente">ANA PÉREZ</span>
+                <p>"Â¡La calidad de la ropa es excelente y el envÃ­o fue muy rÃ¡pido! Sin duda volverÃ© a comprar."</p>
+                <span class="cliente">ANA PÃREZ</span>
             </div>
             <div class="resena">
-                <p>"Me encantó la variedad de estilos y los precios accesibles. ¡Muy recomendable!"</p>
-                <span class="cliente">CARLOS RAMÍREZ</span>
+                <p>"Me encantÃ³ la variedad de estilos y los precios accesibles. Â¡Muy recomendable!"</p>
+                <span class="cliente">CARLOS RAMÃREZ</span>
             </div>
             <div class="resena">
-                <p>"El servicio al cliente fue muy atento y la ropa llegó en perfecto estado."</p>
-                <span class="cliente">MARÍA LÓPEZ</span>
+                <p>"El servicio al cliente fue muy atento y la ropa llegÃ³ en perfecto estado."</p>
+                <span class="cliente">MARÃA LÃPEZ</span>
             </div>
         </div>
         <div class="resenas-puntos">
@@ -215,7 +217,7 @@
     <section class="banner-imagen">
         <img src="../Images/fondoh.jpg" alt="Banner Tienda" class="banner-img">
     </section>
-    <!-- SECTOR 5: PRODUCTOS DESTACADOS Y ARTÍCULOS DE MODA -->
+    <!-- SECTOR 5: PRODUCTOS DESTACADOS Y ARTÃCULOS DE MODA -->
 <section class="nuevos-productos-titulo">
     <h2>PRODUCTOS DESTACADOS</h2>
     <a href="#" class="btn-ver-todo">VER TODO</a>
@@ -238,7 +240,7 @@
             <div class="iconos-acciones">
                 <button title="Agregar al carrito"><i class="fa fa-shopping-cart"></i></button>
                 <button title="Guardar"><i class="fa fa-heart"></i></button>
-                <button title="Más información"><i class="fa fa-times"></i></button>
+                <button title="MÃ¡s informaciÃ³n"><i class="fa fa-times"></i></button>
             </div>
         </div>
         <div class="accion-imagen">
@@ -246,7 +248,7 @@
             <div class="iconos-acciones">
                 <button title="Agregar al carrito"><i class="fa fa-shopping-cart"></i></button>
                 <button title="Guardar"><i class="fa fa-heart"></i></button>
-                <button title="Más información"><i class="fa fa-times"></i></button>
+                <button title="MÃ¡s informaciÃ³n"><i class="fa fa-times"></i></button>
             </div>
         </div>
         <div class="accion-imagen">
@@ -254,7 +256,7 @@
             <div class="iconos-acciones">
                 <button title="Agregar al carrito"><i class="fa fa-shopping-cart"></i></button>
                 <button title="Guardar"><i class="fa fa-heart"></i></button>
-                <button title="Más información"><i class="fa fa-times"></i></button>
+                <button title="MÃ¡s informaciÃ³n"><i class="fa fa-times"></i></button>
             </div>
         </div>
         <div class="accion-imagen">
@@ -262,7 +264,7 @@
             <div class="iconos-acciones">
                 <button title="Agregar al carrito"><i class="fa fa-shopping-cart"></i></button>
                 <button title="Guardar"><i class="fa fa-heart"></i></button>
-                <button title="Más información"><i class="fa fa-times"></i></button>
+                <button title="MÃ¡s informaciÃ³n"><i class="fa fa-times"></i></button>
             </div>
         </div>
     </section>
@@ -279,7 +281,7 @@
     </button>
 </section>
 <section class="nuevos-productos-titulo">
-    <h2>ARTÍCULOS DE MODA</h2>
+    <h2>ARTÃCULOS DE MODA</h2>
     <a href="#" class="btn-ver-todo">VER TODO</a>
 </section>
 <section class="acciones-imagenes-con-flechas">
@@ -300,7 +302,7 @@
             <div class="iconos-acciones">
                 <button title="Agregar al carrito"><i class="fa fa-shopping-cart"></i></button>
                 <button title="Guardar"><i class="fa fa-heart"></i></button>
-                <button title="Más información"><i class="fa fa-times"></i></button>
+                <button title="MÃ¡s informaciÃ³n"><i class="fa fa-times"></i></button>
             </div>
         </div>
         <div class="accion-imagen">
@@ -308,7 +310,7 @@
             <div class="iconos-acciones">
                 <button title="Agregar al carrito"><i class="fa fa-shopping-cart"></i></button>
                 <button title="Guardar"><i class="fa fa-heart"></i></button>
-                <button title="Más información"><i class="fa fa-times"></i></button>
+                <button title="MÃ¡s informaciÃ³n"><i class="fa fa-times"></i></button>
             </div>
         </div>
         <div class="accion-imagen">
@@ -316,7 +318,7 @@
             <div class="iconos-acciones">
                 <button title="Agregar al carrito"><i class="fa fa-shopping-cart"></i></button>
                 <button title="Guardar"><i class="fa fa-heart"></i></button>
-                <button title="Más información"><i class="fa fa-times"></i></button>
+                <button title="MÃ¡s informaciÃ³n"><i class="fa fa-times"></i></button>
             </div>
         </div>
         <div class="accion-imagen">
@@ -324,7 +326,7 @@
             <div class="iconos-acciones">
                 <button title="Agregar al carrito"><i class="fa fa-shopping-cart"></i></button>
                 <button title="Guardar"><i class="fa fa-heart"></i></button>
-                <button title="Más información"><i class="fa fa-times"></i></button>
+                <button title="MÃ¡s informaciÃ³n"><i class="fa fa-times"></i></button>
             </div>
         </div>
     </section>
@@ -340,11 +342,11 @@
         </div>
     </button>
 </section>
-<!-- Sección de suscripción y pie de página debajo de las imágenes/artículos -->
+<!-- SecciÃ³n de suscripciÃ³n y pie de pÃ¡gina debajo de las imÃ¡genes/artÃ­culos -->
 <section class="suscripcion-seccion">
-    <h2 class="titulo-suscripcion">SUSCRÍBETE</h2>
+    <h2 class="titulo-suscripcion">SUSCRÃBETE</h2>
     <form class="form-suscripcion">
-        <input type="email" placeholder="Escribe tu correo electrónico aquí..." required>
+        <input type="email" placeholder="Escribe tu correo electrÃ³nico aquÃ­..." required>
         <button type="submit">SUSCRIBIRME</button>
     </form>
 </section>
@@ -360,13 +362,13 @@
                 <li><a href="#">Nosotros</a></li>
                 <li><a href="#">Tienda</a></li>
                 <li><a href="#">Ofertas</a></li>
-                <li><a href="#">Artículos</a></li>
+                <li><a href="#">ArtÃ­culos</a></li>
             </ul>
             <ul>
                 <li><strong>PEDIDOS</strong></li>
                 <li><a href="#">Rastrear pedido</a></li>
-                <li><a href="#">Política de devoluciones</a></li>
-                <li><a href="#">Envíos</a></li>
+                <li><a href="#">PolÃ­tica de devoluciones</a></li>
+                <li><a href="#">EnvÃ­os</a></li>
                 <li><a href="#">Contacto</a></li>
             </ul>
             <ul>
@@ -378,15 +380,15 @@
                 <li><a href="#">Pinterest</a></li>
             </ul>
             <ul>
-                <li><strong>¿DUDAS O SOPORTE?</strong></li>
+                <li><strong>Â¿DUDAS O SOPORTE?</strong></li>
                 <li><a href="mailto:soporte@KinalitosClothes.com">soporte@KinalitosClothes.com</a></li>
-                <li>¿Necesitas ayuda? Llámanos:</li>
+                <li>Â¿Necesitas ayuda? LlÃ¡manos:</li>
                 <li>+52 55 1234 5678</li>
             </ul>
         </div>
     </div>
     <div class="footer-copy">
-        © Todos los derechos reservados por KinalitosClothes
+        Â© Todos los derechos reservados por KinalitosClothes
     </div>
 </footer>
 </body>
