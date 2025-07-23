@@ -10,7 +10,7 @@ import javax.persistence.*;
 
     parameters = {
 
-        @StoredProcedureParameter(mode = ParameterMode.IN, name = "codigocliente", type = Integer.class)
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "codigoCliente", type = Integer.class)
 
     }
 
@@ -24,26 +24,28 @@ import javax.persistence.*;
 public class Clientes {
 
     @Id
-
     @Column(name = "codigoCliente")
-
     private int codigoCliente;
-
     @Column
+    private String nombreCliente;
+    @Column
+    private String apellidoCliente; 
+    @Column
+    private String correoCliente;
+    @Column
+    private String telefonoCliente;
+    @Column
+    private String direccionCliente;
+    @Column
+    private int codigoUsuario;
 
-    private String nombreCliente, apellidoCliente, correoCliente, telefonoCliente, direccionCliente;
-
-    @ManyToOne
-
-    @JoinColumn(name = "codigoUsuario", referencedColumnName = "codigoUsuario")
-
-    private Usuarios usuario;
+   
 
     public Clientes() {
 
     }
 
-    public Clientes(int codigoCliente, String nombreCliente, String apellidoCliente, String correoCliente, String telefonoCliente, String direccionCliente, Usuarios usuario) {
+    public Clientes(int codigoCliente, String nombreCliente, String apellidoCliente, String correoCliente, String telefonoCliente, String direccionCliente, int codigoUsuario) {
 
         this.codigoCliente = codigoCliente;
 
@@ -57,93 +59,67 @@ public class Clientes {
 
         this.direccionCliente = direccionCliente;
 
-        this.usuario = usuario;
+        this.codigoUsuario = codigoUsuario;
 
     }
 
     public int getCodigoCliente() {
-
         return codigoCliente;
-
     }
 
     public void setCodigoCliente(int codigoCliente) {
-
         this.codigoCliente = codigoCliente;
-
     }
 
     public String getNombreCliente() {
-
         return nombreCliente;
-
     }
 
     public void setNombreCliente(String nombreCliente) {
-
         this.nombreCliente = nombreCliente;
-
     }
 
     public String getApellidoCliente() {
-
         return apellidoCliente;
-
     }
 
     public void setApellidoCliente(String apellidoCliente) {
-
         this.apellidoCliente = apellidoCliente;
-
     }
 
     public String getCorreoCliente() {
-
         return correoCliente;
-
     }
 
     public void setCorreoCliente(String correoCliente) {
-
         this.correoCliente = correoCliente;
-
     }
 
     public String getTelefonoCliente() {
-
         return telefonoCliente;
-
     }
 
     public void setTelefonoCliente(String telefonoCliente) {
-
         this.telefonoCliente = telefonoCliente;
-
     }
 
     public String getDireccionCliente() {
-
         return direccionCliente;
-
     }
 
     public void setDireccionCliente(String direccionCliente) {
-
         this.direccionCliente = direccionCliente;
-
     }
 
-    public Usuarios getUsuario() {
-
-        return usuario;
-
+    public int getCodigoUsuario() {
+        return codigoUsuario;
     }
 
-    public void setUsuario(Usuarios usuario) {
-
-        this.usuario = usuario;
-
+    public void setCodigoUsuario(int codigoUsuario) {
+        this.codigoUsuario = codigoUsuario;
     }
+
+    
 
     @Override
 
@@ -163,11 +139,10 @@ public class Clientes {
 
                 "\nDireccion Cliente: " + direccionCliente + 
 
-                "\nUsuario Asociado: " + usuario.getCodigoUsuario() + 
+                "\nUsuario Asociado: " + codigoUsuario + 
 
                 '}';
 
     }
 
 }
- 
