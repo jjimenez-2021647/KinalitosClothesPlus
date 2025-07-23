@@ -60,7 +60,7 @@
                     <h3 class="card-title">Categoría</h3>
                     <p class="card-description">Gestiona la información de Categoria, como agregar, listar, actualizar,
                         eliminar.</p>
-                    <a href="vistacategoriaadmin.jsp" class="btn_ver_gestion">Gestionar Categorías</a>
+                    <a href="vistacategoria.jsp" class="btn_ver_gestion">Gestionar Categorías</a>
                 </div>
 
                 <div class="admin-card">
