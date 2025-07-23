@@ -1,65 +1,47 @@
 package com.kinalitosclothes.view;
 
+import com.kinalitosclothes.controller.PedidosController;
 import java.util.Scanner;
 
-public class MenuPrincipal {
+public class MenuPedidos {
 
-    public void mostrarMenu() {
+    public void MenuPedidos() {
         Scanner leer = new Scanner(System.in);
         int op = -1;
+        
+        PedidosController pe = new PedidosController();
+        int idPedido = 0;
 
         do {
             System.out.println("-------------------------------------------------");
-            System.out.println("Bienvenido al Menu Principal de KinalitosClothes");
+            System.out.println("Bienvenido al Menu Pedidos de KinalitosClothes");
             System.out.println("Elije una de las siguientes opciones para acceder \na sus menus");
-            System.out.println("1. Proveedores");
-            System.out.println("2. Categorias");
-            System.out.println("3. Metodo Pagos");
-            System.out.println("4. Usuarios");
-            System.out.println("5. Clientes");
-            System.out.println("6. Empleados");
-            System.out.println("7. Productos");
-            System.out.println("8. Pedidos");
-            System.out.println("9. Detalle Pedidos");
-            System.out.println("10. Facturas");
+            System.out.println("1. Agregar Pedido");
+            System.out.println("2. Listar Pedidos");
+            System.out.println("3. Buscar Pedidos");
+            System.out.println("4. Eliminar Pedidos");
+            System.out.println("5. Editar Pedidos");
             System.out.println("0. Salir");
             System.out.println("-------------------------------------------------");
 
             try {
                 op = leer.nextInt();
-                leer.nextLine();
 
                 switch (op) {
                     case 1:
-
+                        pe.agregarPedido();
                         break;
                     case 2:
-
+                        pe.listarPedidos();
                         break;
                     case 3:
-
+                        pe.buscarPedidos(idPedido);
                         break;
                     case 4:
-
+                        pe.eliminarPedido(idPedido);
                         break;
                     case 5:
-
-                        break;
-                    case 6:
-
-                        break;
-                    case 7:
-
-                        break;
-                    case 8:
-                        MenuPedidos mpe = new MenuPedidos();
-                        mpe.MenuPedidos();
-                        break;
-                    case 9:
-
-                        break;
-                    case 10:
-
+                        pe.editarPedido();
                         break;
                     case 0:
                         System.out.println("---------------------");
@@ -70,7 +52,8 @@ public class MenuPrincipal {
                         System.out.println("Por favor, selecciona una opción válida.");
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("Entrada inválida. Por favor, ingresa un número.");
+                leer.nextLine();
             }
         } while (op != 0);
     }
