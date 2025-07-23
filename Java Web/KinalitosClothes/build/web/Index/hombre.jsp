@@ -10,7 +10,6 @@
     <link rel="icon" type="image/x-icon" href="../Images/Logo_K.C.png">
     <link rel="stylesheet" href="../Styles/vistaproducto.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="../Styles/vistaproductos.css">
 </head>
 
 <body>
@@ -32,10 +31,10 @@
             <form>
                 <div class="barrabuscar">
                     <select onchange="if(this.value) window.location.href=this.value;">
-                        <option value="">Selecciona categoría</option>
-                        <option value="hombre.html">Hombre</option>
-                        <option value="mujer.html">Mujer</option>
-                        <option value="juvenil.html">Juvenil</option>
+                            <option value="">Selecciona categoría</option>
+                            <option value="hombre.jsp">Hombre</option>
+                            <option value="mujer.jsp">Mujer</option>
+                            <option value="#">Juvenil</option>
                     </select>
                 </div>
             </form>
@@ -140,4 +139,4 @@
         </div>
     </div>
 </body>
-</html> 
+</html>

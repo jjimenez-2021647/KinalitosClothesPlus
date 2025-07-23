@@ -40,8 +40,8 @@
                         <select onchange="if (this.value)
                                     window.location.href = this.value;">
                             <option value="">Selecciona categoría</option>
-                            <option value="#">Hombre</option>
-                            <option value="#">Mujer</option>
+                            <option value="hombre.jsp">Hombre</option>
+                            <option value="mujer.jsp">Mujer</option>
                             <option value="#">Juvenil</option>
                         </select>
                     </div>
