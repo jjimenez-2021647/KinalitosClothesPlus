@@ -1,5 +1,6 @@
 package com.kinalitosclothes.view;
 
+import com.kinalitosclothes.controller.DetallePedidosController;
 import java.util.Scanner;
 
 public class MenuPrincipal {
@@ -59,6 +60,8 @@ public class MenuPrincipal {
                         mpe.MenuPedidos();
                         break;
                     case 9:
+                        DetallePedidosController dpc = new DetallePedidosController();
+                        dpc.iniciar();
 
                         break;
                     case 10:
