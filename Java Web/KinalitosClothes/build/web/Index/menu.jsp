@@ -27,7 +27,7 @@
             <div class="iconos">
                 <a href="#"><i class="fa fa-search"></i></a>
                 <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                <a href="index.jsp"><i class="fa fa-user"></i></a>
+                <a href="VistaUsuarioCliente.jsp"><i class="fa fa-user"></i></a>
             </div>
         </div>
     </nav>
