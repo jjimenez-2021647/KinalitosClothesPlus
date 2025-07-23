@@ -714,7 +714,7 @@ body {
 .footer {
     background: #181c1f;
     color: #fff;
-    padding: 60px 0 0 0;
+    padding: 20px 0 0 0;
     margin-top: 0;
 }
 
@@ -723,17 +723,16 @@ body {
     margin: 0 auto;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
     gap: 60px;
-    padding: 0 40px 40px 40px;
     flex-wrap: wrap;
 }
 
 .footer-logo {
     font-size: 2rem;
     font-weight: 900;
-    margin-right: 60px;
+    margin-right: 0px;
     min-width: 180px;
 }
 

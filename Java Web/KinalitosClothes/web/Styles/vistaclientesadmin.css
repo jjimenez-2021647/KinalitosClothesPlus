@@ -8,13 +8,9 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-image: url(../Images/negro1.jpeg);
     background-size: cover;
-    /* Quepa completa dentro del body */
     background-repeat: no-repeat;
-    /* No repetir */
     background-position: center top;
-    /* Centrada arriba */
     background-attachment: fixed;
-    /* (Opcional) Efecto parallax */
     min-height: 100vh;
     color: #212529;
     padding-top: 120px;
@@ -123,7 +119,6 @@ h1 {
 .section h2 {
     color: #2c3e50;
     margin-bottom: 25px;
-    /*Color de la linea debajo del texto*/
     border-bottom: 3px solid #00b7ff;
     padding-bottom: 10px;
     font-size: 1.8rem;
@@ -147,7 +142,6 @@ h1 {
     display: flex;
     position: relative;
     justify-content: center;
-
 }
 
 .entrada_texto {
@@ -163,7 +157,6 @@ h1 {
 .label-input {
     position: absolute;
     left: 15px;
-    /*Color del texto dentro del input*/
     color: #000000;
     pointer-events: none;
     transform: translateY(1rem);
@@ -173,7 +166,6 @@ h1 {
 .label-input-number {
     position: absolute;
     left: 15px;
-    /*Color del texto dentro del input*/
     color: transparent;
     pointer-events: none;
     transform: translateY(1rem);
@@ -186,80 +178,22 @@ h1 {
     border: 1.5px solid #0146a0;
 }
 
-.entrada_texto:focus~label,
-.entrada_texto:valid~label {
+.entrada_texto:focus ~ label,
+.entrada_texto:valid ~ label {
     transform: translateY(-50%) scale(0.8);
     background-color: white;
     padding: 0 .2em;
-    /*color del texto cuando sube*/
     color: #000000;
 }
 
-/*
-.btn_crear_producto {
-    position: relative;
-    font-size: 17px;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 1em 2.5em;
-    display: inline-block;
-    cursor: pointer;
-    border-radius: 6em;
-    border: transparent;
-    transition: all 0.2s;
-    font-family: inherit;
-    font-weight: 500;
-    color: black;
-    background-color: white;
-}
-
-.btn_crear_producto:hover {
-
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 255, 255, 0.2);
-    border: 2px solid #a1c1cec2;
-}
-
-.btn_crear_producto:active {
-    transform: translateY(-1px);
-    box-shadow: 0 5px 10px rgba(0, 255, 255, 0.2);
-}
-
-.btn_crear_producto::after {
-    content: "";
-    display: inline-block;
-    height: 100%;
-    width: 100%;
-    border-radius: 100px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    transition: all 0.4s;
-}
-
-.btn_crear_producto::after {
-/*la onda de expancion*-/
-    background-color: #d1d1d1;
-}
-
-.btn_crear_producto:hover::after {
-    transform: scaleX(1.4) scaleY(1.6);
-    opacity: 0;
-}
-    */
-
-/*Boton crear*/
-.btn_crear_producto {
+.btn_crear_detalle_pedido {
     --main-focus: #00e1ff;
     --font-color: #000000;
     --bg-color-sub: #5ccbff;
     --bg-color: #ffffff;
-    /*borde*/
     --main-color: #000000;
-
     position: relative;
-    width: 160px;
+    width: 200px;
     height: 40px;
     cursor: pointer;
     display: flex;
@@ -275,13 +209,13 @@ h1 {
     font-family: inherit;
 }
 
-.btn_crear_cliente,
+.btn_crear_detalle_pedido,
 .btn_icono,
-.bnt_texto {
+.btn_texto {
     transition: all 0.3s ease;
 }
 
-.bnt_texto {
+.btn_texto {
     color: var(--font-color);
     font-weight: 600;
     z-index: 1;
@@ -301,32 +235,31 @@ h1 {
     transition: all 0.3s ease;
 }
 
-.btn_crear_producto i {
+.btn_crear_detalle_pedido i {
     color: var(--main-color);
     font-size: 18px;
     transition: all 0.3s ease;
 }
 
-.btn_crear_producto:hover {
+.btn_crear_detalle_pedido:hover {
     background-color: var(--bg-color);
 }
 
-.btn_crear_producto:hover .bnt_texto {
+.btn_crear_detalle_pedido:hover .btn_texto {
     color: transparent;
 }
 
-.btn_crear_producto:hover .btn_icono {
+.btn_crear_detalle_pedido:hover .btn_icono {
     width: 100%;
     right: 0;
     background-color: var(--bg-color-sub);
     z-index: 1;
 }
 
-.btn_crear_producto:active {
+.btn_crear_detalle_pedido:active {
     transform: translate(3px, 3px);
     box-shadow: 0px 0px var(--main-color);
 }
-
 
 table {
     width: 100%;
@@ -369,18 +302,14 @@ tr:hover {
     justify-content: center;
 }
 
-
-/*boton buscar*/
 .btn_buscar {
     --main-focus: #00e1ff;
     --font-color: #000000;
     --bg-color-sub: #5ccbff;
     --bg-color: #ffffff;
-    /*borde*/
     --main-color: #000000;
-
     position: relative;
-    width: 160px;
+    width: 200px;
     height: 40px;
     cursor: pointer;
     display: flex;
@@ -399,11 +328,11 @@ tr:hover {
 
 .btn_buscar,
 .btn_icono,
-.bnt_texto {
+.btn_texto {
     transition: all 0.3s ease;
 }
 
-.bnt_texto {
+.btn_texto {
     color: var(--font-color);
     font-weight: 600;
     z-index: 1;
@@ -433,7 +362,7 @@ tr:hover {
     background-color: var(--bg-color);
 }
 
-.btn_buscar:hover .bnt_texto {
+.btn_buscar:hover .btn_texto {
     color: transparent;
 }
 
@@ -454,11 +383,9 @@ tr:hover {
     --font-color: #000000;
     --bg-color-sub: #5ccbff;
     --bg-color: #ffffff;
-    /*borde*/
     --main-color: #000000;
-
     position: relative;
-    width: 150px;
+    width: 160px;
     height: 40px;
     cursor: pointer;
     display: flex;
@@ -476,11 +403,11 @@ tr:hover {
 
 .btn_editar,
 .btn_icono,
-.bnt_texto {
+.btn_texto {
     transition: all 0.3s ease;
 }
 
-.bnt_texto {
+.btn_texto {
     color: var(--font-color);
     font-weight: 600;
     z-index: 1;
@@ -510,7 +437,7 @@ tr:hover {
     background-color: var(--bg-color);
 }
 
-.btn_editar:hover .bnt_texto {
+.btn_editar:hover .btn_texto {
     color: transparent;
 }
 
@@ -526,17 +453,14 @@ tr:hover {
     box-shadow: 0px 0px var(--main-color);
 }
 
-/*boton eliminar*/
 .btn_eliminar {
     --main-focus: #00e1ff;
     --font-color: #000000;
     --bg-color-sub: #5ccbff;
     --bg-color: #ffffff;
-    /*borde*/
     --main-color: #000000;
-
     position: relative;
-    width: 160px;
+    width: 200px;
     height: 40px;
     cursor: pointer;
     display: flex;
@@ -556,11 +480,11 @@ tr:hover {
 
 .btn_eliminar,
 .btn_icono,
-.bnt_texto {
+.btn_texto {
     transition: all 0.3s ease;
 }
 
-.bnt_texto {
+.btn_texto {
     color: var(--font-color);
     font-weight: 600;
     z-index: 1;
@@ -590,7 +514,7 @@ tr:hover {
     background-color: var(--bg-color);
 }
 
-.btn_eliminar:hover .bnt_texto {
+.btn_eliminar:hover .btn_texto {
     color: transparent;
 }
 
@@ -615,8 +539,6 @@ tr:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-
-
 .error {
     background: linear-gradient(135deg, #f8d7da, #f5c6cb);
     color: #721c24;
@@ -629,9 +551,8 @@ tr:hover {
     border-left-color: #ffc107;
 }
 
-/* para buscar por el id */
-.ingresar_id_act_producto,
-.form_datos_actualizar_producto {
+.ingresar_id_act_detalle_pedido,
+.form_datos_actualizar_detalle_pedido {
     margin-bottom: 30px;
     padding: 25px;
     background: #ffffff;
@@ -639,7 +560,7 @@ tr:hover {
     border: 1px solid #e9ecef;
 }
 
-.form_datos_actualizar_producto {
+.form_datos_actualizar_detalle_pedido {
     margin-top: 25px;
 }
 
@@ -649,7 +570,6 @@ tr:hover {
         margin: 20px;
         padding: 30px 20px;
     }
-
     .nav-content {
         padding: 15px 20px;
     }
@@ -659,71 +579,57 @@ tr:hover {
     body {
         padding-top: 80px;
     }
-
     .navbar {
         padding: 10px 0;
     }
-
     .nav-content {
         flex-direction: column;
         gap: 15px;
         padding: 10px;
     }
-
     .logo {
         font-size: 2rem;
     }
-
     .menu {
         flex-wrap: wrap;
         gap: 15px;
         justify-content: center;
     }
-
     .menu li a {
         font-size: 14px;
         padding: 6px 12px;
     }
-
-
     .container {
         margin: 10px;
         padding: 20px 15px;
     }
-
     h1 {
         font-size: 2rem;
         margin-bottom: 30px;
     }
-
     .section {
         padding: 20px 15px;
         margin-bottom: 30px;
     }
-
     .form-row {
         grid-template-columns: 1fr;
         gap: 20px;
     }
-
     table {
         font-size: 13px;
         display: block;
         overflow-x: auto;
         white-space: nowrap;
     }
-
     th,
     td {
         padding: 12px 8px;
         min-width: 120px;
     }
-
     .actions {
         flex-direction: column;
         gap: 5px;
     }
-
     .btn_editar,
     .btn_eliminar {
         font-size: 11px;
@@ -736,16 +642,13 @@ tr:hover {
         margin: 5px;
         padding: 15px 10px;
     }
-
     .section {
         padding: 15px 10px;
     }
-
     .btn {
         width: 100%;
         margin: 5px 0;
     }
-
     .form-row .btn {
         width: auto;
         margin: 10px 5px 10px 0;
