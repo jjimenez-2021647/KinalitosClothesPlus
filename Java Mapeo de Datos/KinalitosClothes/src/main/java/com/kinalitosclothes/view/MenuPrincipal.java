@@ -1,6 +1,7 @@
 package com.kinalitosclothes.view;
 
-import com.kinalitosclothes.controller.DetallePedidosController;
+import com.kinalitosclothes.controller.*;
+
 import java.util.Scanner;
 
 public class MenuPrincipal {
@@ -39,6 +40,8 @@ public class MenuPrincipal {
 
                         break;
                     case 3:
+                        MetodoPagosController metodopagos = new MetodoPagosController();
+                        metodopagos.iniciar();
 
                         break;
                     case 4:

@@ -2,15 +2,13 @@ package com.kinalitosclothes.dominio;
 
 import javax.persistence.*;
 
-
 @NamedStoredProcedureQuery(
     name = "MetodoPagos.eliminar",
     procedureName = "sp_EliminarMetodoPago",
     parameters = {
         @StoredProcedureParameter(mode = ParameterMode.IN, name = "codigoMetodoPago", type = Integer.class)
     }
-)   
-
+)
 @Entity
 @Table(name = "MetodoPagos")
 public class MetodoPagos {
@@ -34,11 +32,20 @@ public class MetodoPagos {
         Tarjeta, Efectivo
     }
 
+    // Constructor vacío requerido por JPA
     public MetodoPagos() {
     }
 
+    // Constructor completo con ID (opcionalmente útil para pruebas o actualizaciones)
     public MetodoPagos(int codigoMetodoPago, TipoMetodoPago tipoMetodoPago, String entidadFinanciaera, String moneda) {
         this.codigoMetodoPago = codigoMetodoPago;
+        this.tipoMetodoPago = tipoMetodoPago;
+        this.entidadFinanciaera = entidadFinanciaera;
+        this.moneda = moneda;
+    }
+
+    // ✅ Constructor que faltaba (usado en la vista para agregar)
+    public MetodoPagos(TipoMetodoPago tipoMetodoPago, String entidadFinanciaera, String moneda) {
         this.tipoMetodoPago = tipoMetodoPago;
         this.entidadFinanciaera = entidadFinanciaera;
         this.moneda = moneda;
@@ -76,11 +83,9 @@ public class MetodoPagos {
         this.moneda = moneda;
     }
 
-    
-
     @Override
     public String toString() {
-        return "MetodoPago{" +
+        return "MetodoPagos{" +
                 "\nCodigo Metodo Pago: " + codigoMetodoPago +
                 "\nTipo Metodo Pago: " + tipoMetodoPago +
                 "\nEntidad Financiera: " + entidadFinanciaera +
