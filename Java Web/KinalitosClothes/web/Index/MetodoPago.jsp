@@ -4,7 +4,6 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>Agregar Método de Pago</title>
         <title>KC Store - Metodo Pago</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
         <link rel="icon" type="image/x-icon" href="../Images/Logo_K.C.png">
@@ -17,7 +16,7 @@
             <div class="nav-content">
                 <div class="logo">K<span>C</span></div>
                 <ul class="menu">
-                    <li><a href="vistaadmin.html">Menu Administrador</a></li>
+                    <li><a href="mispedidos.jsp">Mis Pedidos</a></li>
                 </ul>
             </div>
 

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuario y Cliente</title>
+    <link rel="icon" type="image/x-icon" href="../Images/Logo_K.C.png">
     <link rel="stylesheet" href="../Styles/UsuarioCliente.css">
 </head>
 <body>
