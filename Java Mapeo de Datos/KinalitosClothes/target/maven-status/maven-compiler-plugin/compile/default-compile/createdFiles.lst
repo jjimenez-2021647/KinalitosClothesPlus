@@ -28,6 +28,7 @@ com\kinalitosclothes\controller\DetallePedidosController.class
 com\kinalitosclothes\dominio\Pedidos.class
 com\kinalitosclothes\dominio\Pedidos$EstadoPedido.class
 com\kinalitosclothes\dominio\DetallePedidos_.class
+com\kinalitosclothes\view\MenuCategorias.class
 com\kinalitosclothes\controller\PedidosController.class
 com\kinalitosclothes\dominio\MetodoPagos_.class
 com\kinalitosclothes\controller\ProductosController.class
