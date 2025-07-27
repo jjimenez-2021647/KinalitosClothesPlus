@@ -54,9 +54,9 @@
                                             <div class="center-wrap">
                                                 <h4 class="heading">Inicio de Sesion</h4>
                                                 <div class="form-group">
-                                                    <input type="email" class="form-style" placeholder="Email"
+                                                    <input type="text" class="form-style" placeholder="Usuario"
                                                            autocomplete="off">
-                                                    <i class="input-icon material-icons">alternate_email</i>
+                                                    <i class="input-icon material-icons">perm_identity</i>
                                                 </div>
                                                 <div class="form-group">
                                                     <input type="password" class="form-style" placeholder="Contraseña"
@@ -78,12 +78,12 @@
                                                     <i class="input-icon material-icons">perm_identity</i>
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="email" class="form-style" placeholder="Email"
+                                                    <input type="password" class="form-style" placeholder="Contraseña"
                                                            autocomplete="off">
-                                                    <i class="input-icon material-icons">alternate_email</i>
+                                                    <i class="input-icon material-icons">lock</i>
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="password" class="form-style" placeholder="Contraseña"
+                                                    <input type="password" class="form-style" placeholder="Confirmar contraseña"
                                                            autocomplete="off">
                                                     <i class="input-icon material-icons">lock</i>
                                                 </div>
