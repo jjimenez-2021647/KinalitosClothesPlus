@@ -37,18 +37,19 @@ public class MenuPrincipal {
                         mepr.mostrarMenu();
                         break;
                     case 2:
-
+                        MenuCategorias mc = new MenuCategorias();
+                        mc.menuCategorias();
                         break;
                     case 3:
                         MetodoPagosController metodopagos = new MetodoPagosController();
                         metodopagos.iniciar();
-
                         break;
                     case 4:
 
                         break;
                     case 5:
-
+                        MenuClientes mcl = new MenuClientes();
+                        mcl.menuClientes();
                         break;
                     case 6:
                         MenuEmpleado meem = new MenuEmpleado();
