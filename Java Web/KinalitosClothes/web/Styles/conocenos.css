@@ -397,4 +397,15 @@ header .logo {
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
     }
+
+    @media (max-width: 480px){
+        .estadisticas {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .cuadro-estadistica {
+            padding: 1rem;
+        }
+    }
 }
