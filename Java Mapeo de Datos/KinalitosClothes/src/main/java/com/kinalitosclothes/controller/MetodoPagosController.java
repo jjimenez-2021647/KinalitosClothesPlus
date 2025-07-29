@@ -1,113 +1,155 @@
 package com.kinalitosclothes.controller;
 
 import com.kinalitosclothes.dominio.MetodoPagos;
-import com.kinalitosclothes.view.MenuMetodoPago;
+import com.kinalitosclothes.dominio.MetodoPagos.TipoMetodoPago;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Scanner;
 
 public class MetodoPagosController {
-    private MenuMetodoPago view;
-    private EntityManager em;
 
-    public MetodoPagosController() {
-        view = new MenuMetodoPago();
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("dominio");
-        em = emf.createEntityManager();
-    }
+    Scanner leer = new Scanner(System.in);
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("dominio");
+    EntityManager em = emf.createEntityManager();
 
-    public void iniciar() {
-        int op;
-        do {
-            op = view.mostrarMenuYObtenerOpcion();
-            procesarOpcion(op);
-        } while (op != 0);
-        em.close();
-    }
+    public void agregarMetodoPago() {
+        System.out.println("-----------------------------------");
+        System.out.println("Agregar Método de Pago");
+        leer.nextLine();
 
-    private void procesarOpcion(int op) {
-        switch (op) {
-            case 1:
-                agregarMetodoPago();
-                break;
-            case 2:
-                listarMetodoPago();
-                break;
-            case 3:
-                eliminarMetodoPago();
-                break;
-            case 4:
-                buscarMetodoPago();
-                break;
-            case 5:
-                editarMetodoPago();
-                break;
-            case 0:
-                view.mostrarMensaje("Saliendo...");
-                break;
-            default:
-                view.mostrarMensaje("Opción no válida.");
+        System.out.println("Ingrese el tipo de método de pago (Tarjeta/Efectivo):");
+        String tipo = leer.nextLine();
+        TipoMetodoPago tipoMetodo = null;
+        try {
+            tipoMetodo = TipoMetodoPago.valueOf(tipo);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Tipo de método de pago inválido.");
+            return;
         }
-    }
 
-    private void agregarMetodoPago() {
-        MetodoPagos nuevo = view.obtenerDatosMetodoPago();
+        System.out.println("Ingrese la entidad financiera:");
+        String entidad = leer.nextLine();
+        System.out.println("Ingrese la moneda:");
+        String moneda = leer.nextLine();
+
+        MetodoPagos nuevoMetodo = new MetodoPagos(tipoMetodo, entidad, moneda);
+
         em.getTransaction().begin();
-        em.persist(nuevo);
+        em.persist(nuevoMetodo);
         em.getTransaction().commit();
-        view.mostrarMensaje("Método de pago agregado exitosamente.");
+        System.out.println("Método de pago agregado exitosamente.");
     }
 
-    private void listarMetodoPago() {
+    public void listarMetodoPagos() {
+        System.out.println("-----------------------------------");
+        System.out.println("Lista de todos los Métodos de Pago");
         TypedQuery<MetodoPagos> query = em.createQuery("SELECT m FROM MetodoPagos m", MetodoPagos.class);
         List<MetodoPagos> lista = query.getResultList();
-        view.mostrarMetodoPagos(lista);
+
+        for (MetodoPagos mp : lista) {
+            System.out.println("--------------------------------------");
+            System.out.println(mp);
+        }
     }
 
-    private void eliminarMetodoPago() {
-        int id = view.obtenerIdMetodoPago();
-        MetodoPagos mp = em.find(MetodoPagos.class, id);
-        if (mp != null) {
-            view.mostrarMetodoPagos(List.of(mp));
-            if (view.confirmarEliminacion().equalsIgnoreCase("SI")) {
-                em.getTransaction().begin();
-                em.remove(mp);
-                em.getTransaction().commit();
-                view.mostrarMensaje("Método de pago eliminado.");
+    public void eliminarMetodoPago() {
+        System.out.println("-----------------------------------");
+        System.out.println("Eliminar Método de Pago");
+        System.out.println("Ingrese el código del método de pago a eliminar:");
+
+        try {
+            int codigo = leer.nextInt();
+            leer.nextLine();
+
+            MetodoPagos metodo = em.find(MetodoPagos.class, codigo);
+            if (metodo != null) {
+                System.out.println("¿El método que desea eliminar es el siguiente?");
+                System.out.println(metodo);
+                System.out.println("Escriba 'SI' para confirmar:");
+                String confirmar = leer.nextLine();
+
+                if (confirmar.equalsIgnoreCase("SI")) {
+                    em.getTransaction().begin();
+                    StoredProcedureQuery sp = em.createNamedStoredProcedureQuery("MetodoPagos.eliminar");
+                    sp.setParameter("codigoMetodoPago", codigo);
+                    sp.execute();
+                    em.getTransaction().commit();
+                    em.clear();
+                    System.out.println("Método de pago eliminado correctamente.");
+                } else {
+                    System.out.println("Operación cancelada por el usuario.");
+                }
             } else {
-                view.mostrarMensaje("Eliminación cancelada.");
+                System.out.println("No se encontró ningún método de pago con ese código.");
             }
-        } else {
-            view.mostrarMensaje("Método de pago no encontrado.");
+        } catch (Exception e) {
+            System.out.println("Error: Ingrese un código válido.");
         }
     }
 
-    private void buscarMetodoPago() {
-        int id = view.obtenerIdMetodoPago();
-        MetodoPagos mp = em.find(MetodoPagos.class, id);
-        if (mp != null) {
-            view.mostrarMetodoPagos(List.of(mp));
-        } else {
-            view.mostrarMensaje("No se encontró ningún método de pago con ese ID.");
+    public void buscarMetodoPago() {
+        System.out.println("-----------------------------------");
+        System.out.println("Buscar Método de Pago");
+        System.out.println("Ingrese el código del método de pago a buscar:");
+        int codigo = leer.nextInt();
+        MetodoPagos metodo = em.find(MetodoPagos.class, codigo);
+        System.out.println(metodo);
+    }
+
+    public void editarMetodoPago() {
+        System.out.println("-----------------------------------");
+        System.out.println("Editar Método de Pago");
+        leer.nextLine();
+        System.out.println("Ingrese el código del método de pago a editar:");
+
+        try {
+            int codigo = leer.nextInt();
+            leer.nextLine();
+
+            MetodoPagos metodo = em.find(MetodoPagos.class, codigo);
+            if (metodo != null) {
+                System.out.println("Método encontrado:");
+                System.out.println(metodo);
+
+                System.out.println("Ingrese el nuevo tipo de método de pago (Tarjeta/Efectivo):");
+                String nuevoTipo = leer.nextLine();
+                System.out.println("Ingrese la nueva entidad financiera:");
+                String nuevaEntidad = leer.nextLine();
+                System.out.println("Ingrese la nueva moneda:");
+                String nuevaMoneda = leer.nextLine();
+
+                if (!nuevoTipo.isEmpty()) {
+                    try {
+                        metodo.setTipoMetodoPago(TipoMetodoPago.valueOf(nuevoTipo));
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Tipo inválido. No se actualizó este campo.");
+                    }
+                }
+                if (!nuevaEntidad.isEmpty()) {
+                    metodo.setEntidadFinanciaera(nuevaEntidad);
+                }
+                if (!nuevaMoneda.isEmpty()) {
+                    metodo.setMoneda(nuevaMoneda);
+                }
+
+                em.getTransaction().begin();
+                em.merge(metodo);
+                em.getTransaction().commit();
+                System.out.println("Método de pago actualizado exitosamente.");
+            } else {
+                System.out.println("No se encontró ningún método de pago con ese código.");
+            }
+        } catch (Exception e) {
+            System.out.println("Error: Ingrese un código válido.");
         }
     }
 
-    private void editarMetodoPago() {
-        int id = view.obtenerIdMetodoPago();
-        MetodoPagos mp = em.find(MetodoPagos.class, id);
-        if (mp != null) {
-            view.mostrarMetodoPagos(List.of(mp));
-            MetodoPagos actualizado = view.obtenerDatosActualizados(mp);
-            em.getTransaction().begin();
-            em.merge(actualizado);
-            em.getTransaction().commit();
-            view.mostrarMensaje("Método de pago actualizado.");
-        } else {
-            view.mostrarMensaje("No se encontró ningún método de pago con ese ID.");
-        }
-    }
-
-    public void mostrarmenu() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void salir() {
+        System.out.println("-----------------------------------");
+        System.out.println("Saliendo...");
+        System.out.println("-----------------------------------");
+        emf.close();
+        em.close();
     }
 }

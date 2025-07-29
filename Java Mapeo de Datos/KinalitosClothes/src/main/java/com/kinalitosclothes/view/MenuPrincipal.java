@@ -41,11 +41,12 @@ public class MenuPrincipal {
                         mc.menuCategorias();
                         break;
                     case 3:
-                        MetodoPagosController metodopagos = new MetodoPagosController();
-                        metodopagos.iniciar();
+                        MenuMetodoPago metodopagos = new MenuMetodoPago();
+                        metodopagos.menuMetodoPagos();
                         break;
                     case 4:
-
+                        MenuUsuarios mu = new MenuUsuarios();
+                        mu.menuUsuarios();
                         break;
                     case 5:
                         MenuClientes mcl = new MenuClientes();
@@ -66,10 +67,10 @@ public class MenuPrincipal {
                     case 9:
                         DetallePedidosController dpc = new DetallePedidosController();
                         dpc.iniciar();
-
                         break;
                     case 10:
-
+                        MenuFacturas mf = new MenuFacturas();
+                        mf.MenuFacturas();
                         break;
                     case 0:
                         System.out.println("---------------------");
