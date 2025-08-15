@@ -29,7 +29,7 @@
                     <li><a href="Controlador?menu=MetodoPago">Metodo P.</a></li>
                     <li><a href="Controlador?menu=Usuarios&accion=Listar">Usuario</a></li>
                     <li><a href="Controlador?menu=Producto&accion=Listar">Producto</a></li>
-                    <li><a href="Controlador?menu=Pedido">Pedido</a></li>
+                    <li><a href="Controlador?menu=Pedido&accion=Listar">Pedido</a></li>
                     <li><a href="Controlador?menu=DetallePedido">Detalle P.</a></li>
                     <li><a href="Controlador?menu=Factura&accion=Listar">Factura</a></li>
                 </ul>
@@ -89,7 +89,7 @@
                     <p class="card-description">
                         Gestiona la información de Productos, como agregar, listar, actualizar, eliminar.
                     </p>
-                    <a href="Controlador?menu=Producto" class="btn_ver_gestion">Gestionar Productos</a>
+                    <a href="Controlador?menu=Producto&accion=Listar" class="btn_ver_gestion">Gestionar Productos</a>
                 </div>
 
                 <div class="admin-card">
@@ -99,7 +99,7 @@
                     <p class="card-description">Gestiona la información de Pedido, como agregar, listar, actualizar,
                         eliminar.
                     </p>
-                    <a href="Controlador?menu=Pedido" class="btn_ver_gestion">Gestionar Pedidos</a>
+                    <a href="Controlador?menu=Pedido&accion=Listar" class="btn_ver_gestion">Gestionar Pedidos</a>
                 </div>
 
                 <div class="admin-card">

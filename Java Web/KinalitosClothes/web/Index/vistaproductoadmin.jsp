@@ -40,7 +40,7 @@
                 <!--apartado y actualizar para crear el producto-->
                 <div class="section">
                     <h2>Agregar o actualizar producto</h2>
-                    <form action="Controlador?menu=vistaproductoadmin" method="POST">
+                    <form action="Controlador?menu=Producto" method="POST">
                         <div class="form-row">
                             <div class="form-group">
                                 <input type="text" class="entrada_texto"  name="txtNombreProducto" id="txtNombreProducto" value="${producto.getNombreProducto()}" required>
@@ -147,7 +147,7 @@
                                             <button 
                                                 type="button" 
                                                 class="btn_eliminar" 
-                                                onclick="window.location.href = 'Controlador?menu=vistaproductoadmin&accion=Eliminar&id=${productos.getCodigoProducto()}'">
+                                                onclick="window.location.href = 'Controlador?menu=Producto&accion=Eliminar&id=${productos.getCodigoProducto()}'">
                                                 <span class="bnt_texto">Eliminar</span>
                                                 <span class="btn_icono">
                                                     <i class="fa fa-trash"></i>

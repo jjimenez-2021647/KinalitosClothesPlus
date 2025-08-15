@@ -1,5 +1,6 @@
 <%-- Document : vistaproductoadmin Created on : 22 jul 2025, 13:12:45 Author : PC --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="es">
@@ -20,14 +21,6 @@
                 <div class="logo">K<span>C</span></div>
                 <ul class="menu">
                     <li><a href="Controlador?menu=VistaAdmin">Menu Administrador</a></li>
-                    <li><a href="Controlador?menu=Proveedor">Proveedor</a></li>
-                    <li><a href="Controlador?menu=Categoria">Categoria</a></li>
-                    <li><a href="Controlador?menu=MetodoPago">Metodo P.</a></li>
-                    <li><a href="Controlador?menu=Usuarios&accion=Listar">Usuario</a></li>
-                    <li><a href="Controlador?menu=Producto">Producto</a></li>
-                    <li><a href="Controlador?menu=Pedido">Pedido</a></li>
-                    <li><a href="Controlador?menu=DetallePedido">Detalle P.</a></li>
-                    <li><a href="Controlador?menu=Factura&accion=Listar">Factura</a></li>
                 </ul>
             </div>
         </nav>
@@ -39,42 +32,42 @@
                 <!--apartado y actualizar para crear el Pedidos-->
                 <div class="section">
                     <h2>Agregar o actualizar pedidos</h2>
-                    <form>
+                    <form action="Controlador?menu=Pedido" method="POST">
                         <div class="form-row">
                             <div class="form-group">
-                                <input type="time" class="entrada_texto" id="txtHoraPedido" required>
+                                <input type="time" class="entrada_texto" value="${pedido.getHoraPedido()}" name="txtHoraPedido" id="txtHoraPedido" required>
                             </div>
                             <div class="form-group">
-                                <input type="date" class="entrada_texto" id="txtFechaPedido" required>
+                                <input type="date" class="entrada_texto" value="${pedido.getFechaPedido()}" name="txtFechaPedido" id="txtFechaPedido" required>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="entrada_texto" id="txtEstadoPedido" required>
+                                <input type="text" class="entrada_texto" value="${pedido.getEstadoPedido()}" name="txtEstadoPedido" id="txtEstadoPedido" required>
                                 <label class="label-input">Estado Pedido</label>
                             </div>
                             <div class="form-group">
-                                <input type="number" class="entrada_texto" name="stock" min="0" placeholder="0"
+                                <input type="text" class="entrada_texto" value="${pedido.getTotal()}" name="txtTotal" min="0" placeholder="0"
                                        required id="numTotal">
                                 <label class="label-input-number">Total</label>
                             </div>
                             <div class="form-group">
-                                <input type="number" class="entrada_texto" name="stock" min="0" placeholder="0"
+                                <input type="text" class="entrada_texto" value="${pedido.getCodigoUsuario()}" name="txtCodigoUsuario" min="0" placeholder="0"
                                        required id="numCodigoCliente">
                                 <label class="label-input-number">Codigo de Usuario</label>
                             </div>
                             <div class="form-group">
-                                <input type="number" class="entrada_texto" name="stock" min="0" placeholder="0"
+                                <input type="text" class="entrada_texto" value="${pedido.getCodigoMetodoPago()}" name="txtCodigoMetodoPago" min="0" placeholder="0"
                                        required id="numCodigoMetodoPago">
                                 <label class="label-input-number">Codigo de Metodo Pago</label>
                             </div>
 
-                            <button type="button" class="btn_crear_producto">
+                            <button type="submit" class="btn_crear_producto" value="Agregar" name="accion">
                                 <span class="bnt_texto">Crear Pedido</span>
                                 <span class="btn_icono">
                                     <i class="fa-solid fa-plus"></i>
                                 </span>
                             </button>
 
-                            <button type="button" class="btn_actualizar">
+                            <button type="submit" class="btn_actualizar">
                                 <span class="bnt_texto">Actualizar</span>
                                 <span class="btn_icono">
                                     <i class="fa-solid fa-pen-to-square"></i>
@@ -119,32 +112,34 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Pantalon Campana</td>
-                                    <td>Pantalon tonos azules</td>
-                                    <td>Q 250.00</td>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>
-                                        <div class="botonesTabla">
-                                            <button type="button" class="btn_editar" id="btnEditarRegistro">
-                                                <span class="bnt_texto">Editar</span>
-                                                <span class="btn_icono">
-                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                </span>
-                                            </button>
+                                <c:forEach var="pedidos" items="${pedidos}">
+                                    <tr>
+                                        <td>${pedidos.getCodigoPedido()}</td>
+                                        <td>${pedidos.getHoraPedido()}</td>
+                                        <td>${pedidos.getFechaPedido()}</td>
+                                        <td>${pedidos.getEstadoPedido()}</td>
+                                        <td>${pedidos.getTotal()}</td>
+                                        <td>${pedidos.getCodigoUsuario()}</td>
+                                        <td>${pedidos.getCodigoMetodoPago()}</td>
+                                        <td>
+                                            <div class="botonesTabla">
+                                                <button type="button" class="btn_editar" id="btnEditarRegistro">
+                                                    <span class="bnt_texto">Editar</span>
+                                                    <span class="btn_icono">
+                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                    </span>
+                                                </button>
 
-                                            <button type="button" class="btn_eliminar" id="btnEliminarRegistro">
-                                                <span class="bnt_texto">Eliminar</span>
-                                                <span class="btn_icono">
-                                                    <i class="fa fa-trash"></i></i>
-                                                </span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                                <button type="button" class="btn_eliminar" id="btnEliminarRegistro">
+                                                    <span class="bnt_texto">Eliminar</span>
+                                                    <span class="btn_icono">
+                                                        <i class="fa fa-trash"></i></i>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>  
+                                </c:forEach>                             
                             </tbody>
                         </table>
                     </div>

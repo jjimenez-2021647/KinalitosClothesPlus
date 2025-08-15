@@ -9,9 +9,9 @@ public class Pedidos {
     private Date fechaPedido;
     private Estado estadoPedido;
     private Double total;
-    private int codigoCliente;
+    private int codigoUsuario;
     private int codigoMetodoPago;
-    
+
     public enum Estado {
         Pendiente, Enviado, Entregado
     }
@@ -19,13 +19,13 @@ public class Pedidos {
     public Pedidos() {
     }
 
-    public Pedidos(int codigoPedido, Time horaPedido, Date fechaPedido, Estado estadoPedido, Double total, int codigoCliente, int codigoMetodoPago) {
+    public Pedidos(int codigoPedido, Time horaPedido, Date fechaPedido, Estado estadoPedido, Double total, int codigoUsuario, int codigoMetodoPago) {
         this.codigoPedido = codigoPedido;
         this.horaPedido = horaPedido;
         this.fechaPedido = fechaPedido;
         this.estadoPedido = estadoPedido;
         this.total = total;
-        this.codigoCliente = codigoCliente;
+        this.codigoUsuario = codigoUsuario;
         this.codigoMetodoPago = codigoMetodoPago;
     }
 
@@ -69,12 +69,12 @@ public class Pedidos {
         this.total = total;
     }
 
-    public int getCodigoCliente() {
-        return codigoCliente;
+    public int getCodigoUsuario() {
+        return codigoUsuario;
     }
 
-    public void setCodigoCliente(int codigoCliente) {
-        this.codigoCliente = codigoCliente;
+    public void setCodigoUsuario(int codigoUsuario) {
+        this.codigoUsuario = codigoUsuario;
     }
 
     public int getCodigoMetodoPago() {
@@ -84,4 +84,6 @@ public class Pedidos {
     public void setCodigoMetodoPago(int codigoMetodoPago) {
         this.codigoMetodoPago = codigoMetodoPago;
     }
+    
+    
 }
