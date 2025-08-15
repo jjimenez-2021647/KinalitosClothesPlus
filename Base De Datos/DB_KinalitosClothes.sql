@@ -109,7 +109,7 @@ Create table Facturas(
     estadoFactura enum('Emitida','Anulada','Pagada'),
     formaEntrega enum('Fisica','Electronica'),
     codigoPedido int not null,
-    codigoUsuario int not null,
+    codigoUsuario int,
     primary key PK_codigoFactura (codigoFactura),
     constraint FK_facturaCodigoPedido foreign key (codigoPedido)
         references Pedidos (codigoPedido),
@@ -491,7 +491,7 @@ call sp_AgregarUsuario('Mario', 'Escobar', 'mario.escobar@gmail.com', '+502 5432
 call sp_AgregarUsuario('Rebeca', 'Salazar', 'rebeca.salazar@gmail.com', '+502 6677-8902', 'Zona 6, Guatemala', 'RSalazar*44', 'Cliente');
 call sp_AgregarUsuario('Óscar', 'Córdova', 'oscar.cordova@gmail.com', '+502 7098-3456', 'Zona 18, El Paraíso', 'OCordova#12', 'Cliente');
 call sp_AgregarUsuario('Isabel', 'Ruiz', 'isabel.ruiz@gmail.com', '+502 3210-7654', 'Mixco, zona 8', 'IRuiz@78', 'Cliente');
-call sp_AgregarUsuario('1', '1', '1.1@gmail.com', '+502 4890-3211', 'Zona 2, Jocotenango', '1', 'Empleado');
+call sp_AgregarUsuario('1', '1', '1', '+502 4890-3211', 'Zona 2, Jocotenango', '1', 'Empleado');
 call sp_AgregarUsuario('Josué', 'Jiménez', 'joshua.ja2007@gmail.com', '+502 0505-1055', 'Zona 10, Guatemala', '1818', 'Empleado');
 
 -- Listar Usuarios
@@ -1057,4 +1057,3 @@ Delimiter //
         End //
 Delimiter ;
 call sp_BuscarUsuariosNC('joshua.ja2007@gmail.com', '1818');
-
