@@ -31,8 +31,8 @@ public class Controlador extends HttpServlet {
 
         if (menu.equals("Principal")) {
             request.getRequestDispatcher("Index/Principal.jsp").forward(request, response);
-        }else if (menu.equals("Index")) {
-            request.getRequestDispatcher("index.jsp").forward(request, response); 
+        } else if (menu.equals("Index")) {
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         } else if (menu.equals("Usuarios")) {
             switch (accion) {
                 case "Listar":
@@ -60,7 +60,7 @@ public class Controlador extends HttpServlet {
                     usuariosDao.agregar(usuarios);
                     if (usuarios != null) {
                         request.getRequestDispatcher("Controlador?menu=Usuarios&accion=Listar").forward(request, response);
-                    }else{
+                    } else {
                         System.out.println("No sale");
                     }
                     break;
@@ -83,8 +83,70 @@ public class Controlador extends HttpServlet {
             request.getRequestDispatcher("Index/vistacategoria.jsp").forward(request, response);
         } else if (menu.equals("MetodoPago")) {
             request.getRequestDispatcher("Index/metodopagoadmin.jsp").forward(request, response);
+            
         } else if (menu.equals("Producto")) {
-            request.getRequestDispatcher("Index/vistaproductoadmin.jsp").forward(request, response);
+            Productos productos = new Productos();
+            ProductosDAO productosDAO = new ProductosDAO();
+            switch (accion) {
+
+                case "Listar":
+                    List listaProductos = productosDAO.listar();
+                    request.setAttribute("productos", listaProductos);
+                    break;
+                case "Agregar":
+                    String NombreProducto = request.getParameter("txtNombreProducto");
+                    String DescripcionProducto = request.getParameter("txtDescripcion");
+                    String PrecioProducto = request.getParameter("txtPrecio");
+                    double PrecioProductoC = Double.parseDouble(PrecioProducto);
+                    String TallaProducto = request.getParameter("txtTalla");
+                    String StockProducto = request.getParameter("txtStock");
+                    int StockProductoC = Integer.parseInt(StockProducto);
+                    String CodigoProveedor = request.getParameter("txtCodigoProveedor");
+                    int CodigoProveedorC = Integer.parseInt(CodigoProveedor);
+                    String CodigoCategoria = request.getParameter("txtCodigoCategoria");
+                    int CodigoCategoriaC = Integer.parseInt(CodigoCategoria);
+                    productos.setNombreProducto(NombreProducto);
+                    productos.setDescripcionProducto(DescripcionProducto);
+                    productos.setPrecioProducto(PrecioProductoC);
+                    productos.setTalla(TallaProducto);
+                    productos.setStock(StockProductoC);
+                    productos.setCodigoProveedor(CodigoProveedorC);
+                    productos.setCodigoCategoria(CodigoCategoriaC);
+                    productosDAO.agregar(productos);
+                    request.getRequestDispatcher("Controlador?menu=Producto&accion=Listar").forward(request, response);
+
+                    break;
+
+                case "Editar":
+                    break;
+                case "Actualizar":
+                    break;
+                case "Eliminar":
+                    String idEliminar = request.getParameter("id");
+                    if (idEliminar != null && !idEliminar.trim().isEmpty()) {
+                        try {
+                            int codigo = Integer.parseInt(idEliminar);
+
+                            int resultado = productosDAO.eliminar(codigo);
+
+                            if (resultado > 0) {
+                                request.setAttribute("mensaje", "Producto eliminado exitosamente");
+                            } else {
+                                request.setAttribute("error", "Error al eliminar el producto");
+                            }
+
+                        } catch (NumberFormatException e) {
+                            request.setAttribute("error", "ID de producto inválido");
+                        }
+
+                        response.sendRedirect("Controlador?menu=vistaproductoadmin&accion=Listar");
+                        return;
+                    }
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+            request.getRequestDispatcher("/Index/vistaproductoadmin.jsp").forward(request, response);
         } else if (menu.equals("Pedido")) {
             request.getRequestDispatcher("Index/vistapedidoadmin.jsp").forward(request, response);
         } else if (menu.equals("DetallePedido")) {
@@ -112,7 +174,7 @@ public class Controlador extends HttpServlet {
                     facturasDao.agregar(facturas);
                     if (facturas != null) {
                         request.getRequestDispatcher("Controlador?menu=Factura&accion=Listar").forward(request, response);
-                    }else{
+                    } else {
                         System.out.println("No sale");
                     }
                     break;

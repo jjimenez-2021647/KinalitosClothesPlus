@@ -28,7 +28,7 @@
                     <li><a href="Controlador?menu=Categoria">Categoria</a></li>
                     <li><a href="Controlador?menu=MetodoPago">Metodo P.</a></li>
                     <li><a href="Controlador?menu=Usuarios&accion=Listar">Usuario</a></li>
-                    <li><a href="Controlador?menu=Producto">Producto</a></li>
+                    <li><a href="Controlador?menu=Producto&accion=Listar">Producto</a></li>
                     <li><a href="Controlador?menu=Pedido">Pedido</a></li>
                     <li><a href="Controlador?menu=DetallePedido">Detalle P.</a></li>
                     <li><a href="Controlador?menu=Factura&accion=Listar">Factura</a></li>
