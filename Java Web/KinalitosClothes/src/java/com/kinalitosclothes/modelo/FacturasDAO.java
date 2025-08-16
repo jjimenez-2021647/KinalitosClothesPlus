@@ -54,4 +54,24 @@ public class FacturasDAO {
         }
         return resp;
     }
+    
+    public int eliminar(int codigoFactura) {
+        String sql = "call sp_EliminarFactura(?);";
+        resp = 0;
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, codigoFactura);
+
+            resp = ps.executeUpdate();
+            System.out.println("Factura eliminado. Filas afectadas: " + resp);
+
+        } catch (Exception e) {
+            System.out.println("Error al eliminar Factura: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return resp;
+    }
+    
+    
 }

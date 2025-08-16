@@ -136,7 +136,8 @@
                                                 </span>
                                             </button>
 
-                                            <button type="button" class="btn_eliminar" id="btnEliminarRegistro">
+                                            <button type="button" class="btn_eliminar" 
+                                                    onclick="window.location.href = 'Controlador?menu=Factura&accion=Eliminar&id=${factura.getCodigoFactura()}'">
                                                 <span class="bnt_texto">Eliminar</span>
                                                 <span class="btn_icono">
                                                     <i class="fa fa-trash"></i></i>

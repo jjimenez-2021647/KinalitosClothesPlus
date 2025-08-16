@@ -8,13 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsuariosDAO {
+
     Conexion cn = new Conexion();
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
     int resp;
-    
-    public Usuarios validar(String correoUsuario, String contraseñaUsuario){
+
+    public Usuarios validar(String correoUsuario, String contraseñaUsuario) {
         //instanciar el objeto de la entidad Empleado
         Usuarios usuarios = new Usuarios();
         //agregar una variable de tipo Select * from Usuarios where nombreUsuario = ? and contraseñaUsuario = ?" String para muestra de consulta sql
@@ -42,8 +43,8 @@ public class UsuariosDAO {
         }
         return usuarios;
     }
-    
-    public List listar(){
+
+    public List listar() {
         String sql = "call sp_ListarUsuarios();";
         List<Usuarios> listaUsuarios = new ArrayList<>();
         try {
@@ -68,8 +69,8 @@ public class UsuariosDAO {
         }
         return listaUsuarios;
     }
-    
-    public int agregar(Usuarios us){
+
+    public int agregar(Usuarios us) {
         String sql = "call sp_AgregarUsuario( ?, ?, ?, ?, ?, ?, ?);";
         try {
             con = cn.Conexion();
@@ -87,4 +88,50 @@ public class UsuariosDAO {
         }
         return resp;
     }
+
+    public int eliminar(int codigoUsuario) {
+        String sql = "call sp_EliminarUsuario(?);";
+        resp = 0;
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, codigoUsuario);
+
+            resp = ps.executeUpdate();
+            System.out.println("Usuario eliminado. Filas afectadas: " + resp);
+
+        } catch (Exception e) {
+            System.out.println("Error al eliminar Usuario: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return resp;
+    }
+
+    public List<Usuarios> buscarPorNombre(String nombre) {
+        String sql = "call sp_BuscarUsuariosCon(?);";
+        List<Usuarios> lista = new ArrayList<>();
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, nombre); 
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Usuarios us = new Usuarios();
+                us.setCodigoUsuario(rs.getInt("codigoUsuario"));
+                us.setNombreUsuario(rs.getString("nombreUsuario"));
+                us.setApellidoUsuario(rs.getString("apellidoUsuario"));
+                us.setCorreoUsuario(rs.getString("correoUsuario"));
+                us.setTelefonoUsuario(rs.getString("telefonoUsuario"));
+                us.setDireccionUsuario(rs.getString("direccionUsuario"));
+                us.setContraseñaUsuario(rs.getString("contraseñaUsuario"));
+                us.setTipoUsuario(Usuarios.TipoUsuarios.valueOf(rs.getString("tipoUsuario")));
+                us.setFechaRegistro(rs.getDate("fechaRegistro"));
+                lista.add(us);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
 }

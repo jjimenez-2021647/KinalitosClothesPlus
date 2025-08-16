@@ -48,7 +48,15 @@ public class Controlador extends HttpServlet {
                     request.setAttribute("usuarios", listaUsuarios);
                     break;
                 case "Buscar":
-
+                    String nombreBuscar = request.getParameter("txtBuscarNombre");
+                    List<Usuarios> listaBusqueda;
+                    if (nombreBuscar == null || nombreBuscar.isEmpty()) {
+                        listaBusqueda = usuariosDao.listar(); // lista todo si no hay texto
+                    } else {
+                        listaBusqueda = usuariosDao.buscarPorNombre(nombreBuscar);
+                    }
+                    request.setAttribute("usuarios", listaBusqueda);
+                    request.getRequestDispatcher("/Index/VistaUsuarioAdmin.jsp").forward(request, response);
                     break;
                 case "Agregar":
                     String nombreUsuario = request.getParameter("txtNombreUsuario");
@@ -79,7 +87,26 @@ public class Controlador extends HttpServlet {
 
                     break;
                 case "Eliminar":
+                    String idEliminar = request.getParameter("id");
+                    if (idEliminar != null && !idEliminar.trim().isEmpty()) {
+                        try {
+                            int codigo = Integer.parseInt(idEliminar);
 
+                            int resultado = usuariosDao.eliminar(codigo);
+
+                            if (resultado > 0) {
+                                request.setAttribute("mensaje", "Usuario eliminado exitosamente");
+                            } else {
+                                request.setAttribute("error", "Error al eliminar el Usuario");
+                            }
+
+                        } catch (NumberFormatException e) {
+                            request.setAttribute("error", "ID de Usuario inválido");
+                        }
+
+                        response.sendRedirect("Controlador?menu=Usuarios&accion=Listar");
+                        return;
+                    }
                     break;
                 default:
                     System.out.println("No se encontro");
@@ -237,7 +264,26 @@ public class Controlador extends HttpServlet {
 
                     break;
                 case "Eliminar":
+                    String idEliminar = request.getParameter("id");
+                    if (idEliminar != null && !idEliminar.trim().isEmpty()) {
+                        try {
+                            int codigo = Integer.parseInt(idEliminar);
 
+                            int resultado = facturasDao.eliminar(codigo);
+
+                            if (resultado > 0) {
+                                request.setAttribute("mensaje", "Factura eliminado exitosamente");
+                            } else {
+                                request.setAttribute("error", "Error al eliminar el Factura");
+                            }
+
+                        } catch (NumberFormatException e) {
+                            request.setAttribute("error", "ID de producto inválido");
+                        }
+
+                        response.sendRedirect("Controlador?menu=Factura&accion=Listar");
+                        return;
+                    }
                     break;
                 default:
                     System.out.println("No se encontro");

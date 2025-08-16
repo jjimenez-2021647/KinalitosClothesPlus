@@ -95,9 +95,32 @@
                     </form>
                 </div>
 
+
                 <!-- el buscar y listar -->
                 <div class="section">
                     <h2>Listar</h2>
+
+                    <form action="Controlador?menu=Usuarios" method="post" class="search-section">
+                        <div class="form-group search-group">
+                            <input type="text" class="entrada_texto search-input" name="txtBuscarNombre" placeholder="">
+                            <label class="label-input">Buscar usuario...</label>
+                            <div class="search-icon">
+                                <i class="fa-solid fa-search"></i>
+                            </div>
+                        </div>
+
+                        <button type="submit" name="accion" value="Buscar" style="display:none;"></button>
+
+                        <button type="button" class="btn_eliminar" 
+                                onclick="window.location.href = 'Controlador?menu=Usuarios&accion=Listar'">
+                            <span class="bnt_texto">Cancelar</span>
+                            <span class="btn_icono">
+                                <i class="fa fa-solid fa-x"></i>
+                            </span>
+                        </button>
+                    </form>
+                    </form>
+
                     <div class="table-container">
                         <table>
                             <thead>
@@ -115,35 +138,36 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <c:forEach var="usuario" items="${usuarios}">
-                                <tr>
-                                    <td>${usuario.getCodigoUsuario()}</td>
-                                    <td>${usuario.getNombreUsuario()}</td>
-                                    <td>${usuario.getApellidoUsuario()}</td>
-                                    <td>${usuario.getCorreoUsuario()}</td>
-                                    <td>${usuario.getTelefonoUsuario()}</td>
-                                    <td>${usuario.getDireccionUsuario()}</td>
-                                    <td>${usuario.getContraseñaUsuario()}</td>
-                                    <td>${usuario.getTipoUsuario()}</td>
-                                    <td>${usuario.getFechaRegistro()}</td>
-                                    <td>
-                                        <div class="botonesTabla">
-                                            <button type="button" class="btn_editar" id="btnEditarUsuario">
-                                                <span class="btn_texto">Editar</span>
-                                                <span class="btn_icono">
-                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                </span>
-                                            </button>
+                                <c:forEach var="usuario" items="${usuarios}">
+                                    <tr>
+                                        <td>${usuario.getCodigoUsuario()}</td>
+                                        <td>${usuario.getNombreUsuario()}</td>
+                                        <td>${usuario.getApellidoUsuario()}</td>
+                                        <td>${usuario.getCorreoUsuario()}</td>
+                                        <td>${usuario.getTelefonoUsuario()}</td>
+                                        <td>${usuario.getDireccionUsuario()}</td>
+                                        <td>${usuario.getContraseñaUsuario()}</td>
+                                        <td>${usuario.getTipoUsuario()}</td>
+                                        <td>${usuario.getFechaRegistro()}</td>
+                                        <td>
+                                            <div class="botonesTabla">
+                                                <button type="button" class="btn_editar" id="btnEditarUsuario">
+                                                    <span class="btn_texto">Editar</span>
+                                                    <span class="btn_icono">
+                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                    </span>
+                                                </button>
 
-                                            <button type="button" class="btn_eliminar" id="btnEliminarUsuario">
-                                                <span class="btn_texto">Eliminar</span>
-                                                <span class="btn_icono">
-                                                    <i class="fa fa-trash"></i>
-                                                </span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                                <button type="button" class="btn_eliminar" 
+                                                        onclick="window.location.href = 'Controlador?menu=Usuarios&accion=Eliminar&id=${usuario.getCodigoUsuario()}'">
+                                                    <span class="bnt_texto">Eliminar</span>
+                                                    <span class="btn_icono">
+                                                        <i class="fa fa-trash"></i>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 </c:forEach>
                             </tbody>
                         </table>
