@@ -103,7 +103,7 @@
                     <form action="Controlador?menu=Usuarios" method="post" class="search-section">
                         <div class="form-group search-group">
                             <input type="text" class="entrada_texto search-input" name="txtBuscarNombre" placeholder="">
-                            <label class="label-input">Buscar usuario...</label>
+                            <label class="label-input">Buscar Usuario...</label>
                             <div class="search-icon">
                                 <i class="fa-solid fa-search"></i>
                             </div>

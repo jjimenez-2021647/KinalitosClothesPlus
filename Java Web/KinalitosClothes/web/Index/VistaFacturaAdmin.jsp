@@ -100,6 +100,27 @@
                 <!-- el buscar y listar -->
                 <div class="section">
                     <h2>Listar</h2>
+
+                    <form action="Controlador?menu=Factura" method="post" class="search-section">
+                        <div class="form-group search-group">
+                            <input type="text" class="entrada_texto search-input" name="txtBuscarId" placeholder="">
+                            <label class="label-input">Buscar Factura..</label>
+                            <div class="search-icon">
+                                <i class="fa-solid fa-search"></i>
+                            </div>
+                        </div>
+                        <!-- Botón oculto para enviar el formulario al presionar Enter -->
+                        <button type="submit" name="accion" value="Buscar" style="display:none;"></button>
+
+                        <button type="button" class="btn_eliminar" 
+                                onclick="window.location.href = 'Controlador?menu=Factura&accion=Listar'">
+                            <span class="bnt_texto">Cancelar</span>
+                            <span class="btn_icono">
+                                <i class="fa fa-solid fa-x"></i>
+                            </span>
+                        </button>
+                    </form>
+
                     <div class="table-container">
 
                         <table>
@@ -117,37 +138,37 @@
                                 </tr>
                             </thead>
                             <tbody>   
-                            <c:forEach var="factura" items="${facturas}">
-                                <tr>
-                                    <td>${factura.getCodigoFactura()}</td>
-                                    <td>${factura.getFechaEmision()}</td>
-                                    <td>${factura.getDescuentoAplicado()}</td>
-                                    <td>${factura.getTotalFactura()}</td>
-                                    <td>${factura.getEstadoFactura()}</td>
-                                    <td>${factura.getFormaEntrega()}</td>
-                                    <td>${factura.getCodigoPedido()}</td>
-                                    <td>${factura.getCodigoUsuario()}</td>
-                                    <td>
-                                        <div class="botonesTabla">
-                                            <button type="button" class="btn_editar" id="btnEditarRegistro">
-                                                <span class="bnt_texto">Editar</span>
-                                                <span class="btn_icono">
-                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                </span>
-                                            </button>
+                                <c:forEach var="factura" items="${facturas}">
+                                    <tr>
+                                        <td>${factura.getCodigoFactura()}</td>
+                                        <td>${factura.getFechaEmision()}</td>
+                                        <td>${factura.getDescuentoAplicado()}</td>
+                                        <td>${factura.getTotalFactura()}</td>
+                                        <td>${factura.getEstadoFactura()}</td>
+                                        <td>${factura.getFormaEntrega()}</td>
+                                        <td>${factura.getCodigoPedido()}</td>
+                                        <td>${factura.getCodigoUsuario()}</td>
+                                        <td>
+                                            <div class="botonesTabla">
+                                                <button type="button" class="btn_editar" id="btnEditarRegistro">
+                                                    <span class="bnt_texto">Editar</span>
+                                                    <span class="btn_icono">
+                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                    </span>
+                                                </button>
 
-                                            <button type="button" class="btn_eliminar" 
-                                                    onclick="window.location.href = 'Controlador?menu=Factura&accion=Eliminar&id=${factura.getCodigoFactura()}'">
-                                                <span class="bnt_texto">Eliminar</span>
-                                                <span class="btn_icono">
-                                                    <i class="fa fa-trash"></i></i>
-                                                </span>
-                                            </button>
-                                        </div>
-                                    </td>
+                                                <button type="button" class="btn_eliminar" 
+                                                        onclick="window.location.href = 'Controlador?menu=Factura&accion=Eliminar&id=${factura.getCodigoFactura()}'">
+                                                    <span class="bnt_texto">Eliminar</span>
+                                                    <span class="btn_icono">
+                                                        <i class="fa fa-trash"></i></i>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </td>
 
-                                </tr>
-                            </c:forEach>
+                                    </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                     </div>

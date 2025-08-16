@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -237,6 +238,27 @@ public class Controlador extends HttpServlet {
                     request.setAttribute("facturas", listaFacturas);
                     break;
                 case "Buscar":
+                    String codigoFac = request.getParameter("txtBuscarId");
+                    List<Facturas> listaFacturasB = new ArrayList<>();
+                    if (codigoFac != null && !codigoFac.trim().isEmpty()) {
+                        try {
+                            int codigoF = Integer.parseInt(codigoFac);
+                            Facturas facturaEncontrada = facturasDao.buscar(codigoF);
+
+                            if (facturaEncontrada != null) {
+                                listaFacturasB.add(facturaEncontrada); 
+                            } else {
+                                request.setAttribute("error", "Factura no encontrada");
+                            }
+                        } catch (NumberFormatException e) {
+                            request.setAttribute("error", "ID de Factura inválido");
+                        }
+                    } else {
+                        listaFacturasB = facturasDao.listar();
+                    }
+
+                    request.setAttribute("facturas", listaFacturasB);
+                    request.getRequestDispatcher("/Index/VistaFacturaAdmin.jsp").forward(request, response);
 
                     break;
                 case "Agregar":
