@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Usuario y Cliente</title>
+        <title>Datos Usuario</title>
         <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/Images/Logo_K.C.png">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Styles/UsuarioCliente.css">
     </head>
@@ -27,56 +27,70 @@
                 <div class="factura-info">
                     <div class="profile-image-section">
                         <div class="profile-image-container">
-                            <img src="${pageContext.request.contextPath}/Images/CO-K.C.jpg" alt="Foto de perfil" class="profile-image" id="profileImage">
+                            <img src="${pageContext.request.contextPath}/MostrarImagen?id=${usuario.codigoUsuario}" alt="Foto Usuario" />
                         </div>
-                        <button class="btn-edit-photo" id="editarFoto">Editar</button>
+                        <form action="${pageContext.request.contextPath}/ImagenesActualizar" method="post" enctype="multipart/form-data" class="profile-form">
+                            <!-- Enviar el ID del usuario -->
+                            <input type="hidden" name="codigoUsuario" value="${usuario.codigoUsuario}" />
+
+                            <!-- Input para la imagen -->
+                            <label class="file-input-wrapper">
+                                <input type="file" name="imagenUsuario" accept="image/*" required />
+                                <div class="file-input-button">
+                                    <span class="file-input-text">Selecciona tu Imagen</span>
+                                </div>
+                            </label>
+
+                            <!-- Botón para enviar -->
+                            <button type="submit" class="btn-edit-photo">Actualizar</button>
+                        </form>
                     </div>
 
                     <div class="info-item">
                         <div class="info-label">Código</div>
-                        <div class="info-value">20</div>
+                        <div class="info-value">${usuario.codigoUsuario}</div>
                     </div>
 
                     <div class="info-item">
                         <div class="info-label">Nombre</div>
-                        <div class="info-value">Josué</div>
+                        <div class="info-value">${usuario.nombreUsuario}</div>
                     </div>
 
                     <div class="info-item">
                         <div class="info-label">Apellido</div>
-                        <div class="info-value">Jiménez</div>
+                        <div class="info-value">${usuario.apellidoUsuario}</div>
                     </div>
 
                     <div class="info-item">
                         <div class="info-label">Correo Electrónico</div>
-                        <div class="info-value">joshua.ja2007@gmail.com</div>
+                        <div class="info-value">${usuario.correoUsuario}</div>
                     </div>
 
                     <div class="info-item">
                         <div class="info-label">Teléfono</div>
-                        <div class="info-value">+502 0505-1055</div>
+                        <div class="info-value">${usuario.telefonoUsuario}</div>
                     </div>
 
                     <div class="info-item">
                         <div class="info-label">Dirección</div>
-                        <div class="info-value">Zona 10, Guatemala</div>
+                        <div class="info-value"> ${usuario.direccionUsuario}</div>
                     </div>
 
                     <div class="info-item">
                         <div class="info-label">Contraseña</div>
-                        <div class="info-value">••••</div>
+                        <input type="password" class="info-value" value="${usuario.contraseñaUsuario}" readonly />
                     </div>
 
                     <div class="info-item">
                         <div class="info-label">Tipo Usuario</div>
                         <div class="info-value">
-                            <span class="factura-estado estado-emitida">Empleado</span>
+                            <span class="factura-estado estado-emitida">${usuario.tipoUsuario}</span>
                         </div>
                     </div>
 
                     <div class="info-item">
                         <div class="info-label">Fecha Registro</div>
-                        <div class="info-value">12/08/2025</div>
+                        <div class="info-value">${usuario.fechaRegistro}</div>
                     </div>
                 </div>
 
@@ -94,5 +108,5 @@
             <div class="logout-section">
                 <a id="CerrarSesion" class="btn btn-logout" href="Controlador?menu=Index">Cerrar Sesión</a>
             </div>
-    </body>
+    </body> 
 </html>

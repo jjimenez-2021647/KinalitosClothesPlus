@@ -11,10 +11,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+@WebServlet(name = "Controlador", urlPatterns = {"/Controlador"})
 public class Controlador extends HttpServlet {
 
     /**
@@ -246,7 +249,7 @@ public class Controlador extends HttpServlet {
                             Facturas facturaEncontrada = facturasDao.buscar(codigoF);
 
                             if (facturaEncontrada != null) {
-                                listaFacturasB.add(facturaEncontrada); 
+                                listaFacturasB.add(facturaEncontrada);
                             } else {
                                 request.setAttribute("error", "Factura no encontrada");
                             }
@@ -280,11 +283,39 @@ public class Controlador extends HttpServlet {
                     }
                     break;
                 case "Editar":
-
+                    int idEditar = Integer.parseInt(request.getParameter("id"));
+                    Facturas facturaEditar = facturasDao.buscar(idEditar);
+                    request.setAttribute("facturas", facturaEditar);
+                    request.setAttribute("facturas", facturasDao.listar());
+                    request.getRequestDispatcher("/Index/VistaFacturaAdmin.jsp").forward(request, response);
                     break;
+
                 case "Actualizar":
+                    /*int codigo = Integer.parseInt(request.getParameter("txtCodigoFactura"));
+                    String nuevoNombre = request.getParameter("txtNombreProducto");
+                    String nuevaDescripcion = request.getParameter("txtDescripcion");
+                    double nuevoPrecio = Double.parseDouble(request.getParameter("txtPrecio"));
+                    String nuevaTtalla = request.getParameter("txtTalla");
+                    int nuevoStock = Integer.parseInt(request.getParameter("txtStock"));
+                    int nuevoCodProv = Integer.parseInt(request.getParameter("txtCodigoProveedor"));
+                    int nuevoCodCat = Integer.parseInt(request.getParameter("txtCodigoCategoria"));
 
-                    break;
+                    productos.setCodigoProducto(codigo);
+                    productos.setNombreProducto(nuevoNombre);
+                    productos.setDescripcionProducto(nuevaDescripcion);
+                    productos.setPrecioProducto(nuevoPrecio);
+                    productos.setTalla(nuevaTtalla);
+                    productos.setStock(nuevoStock);
+                    productos.setCodigoProveedor(nuevoCodProv);
+                    productos.setCodigoCategoria(nuevoCodCat);
+
+                    int filas = productosDAO.actualizar(productos);
+
+                    System.out.println("Filas actualizadas: " + filas);
+
+                    request.setAttribute("productos", productosDAO.listar());
+                    request.getRequestDispatcher("/Index/vistaproductoadmin.jsp").forward(request, response);
+                    break;*/
                 case "Eliminar":
                     String idEliminar = request.getParameter("id");
                     if (idEliminar != null && !idEliminar.trim().isEmpty()) {
@@ -317,26 +348,52 @@ public class Controlador extends HttpServlet {
             request.getRequestDispatcher("Index/MetodoPago.jsp").forward(request, response);
         } else if (menu.equals("VistaFacturaC")) {
             request.getRequestDispatcher("Index/VistaFacturaCliente.jsp").forward(request, response);
-        } else if (menu.equals("VistaUsuariosC")) {
-            request.getRequestDispatcher("Index/VistaUsuariosCliente.jsp").forward(request, response);
-        } else if (menu.equals("Conocenos")) {
+        } else if (menu.equals("VistaUsuarioCliente")) {
+            HttpSession session = request.getSession();
+            System.out.println("Código usuario en sesión: " + session.getAttribute("codigoUsuario"));
+
+            String idParam = request.getParameter("id");
+            int idUsuario = 0;
+            if (idParam != null && !idParam.trim().isEmpty()) {
+                try {
+                    idUsuario = Integer.parseInt(idParam);
+                } catch (NumberFormatException e) {
+                    request.setAttribute("mensajeError", "Debe proporcionar un ID de usuario válido.");
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                    return;
+                }
+                Usuarios usuario = usuariosDao.imagenCodigo(idUsuario);
+                request.setAttribute("usuario", usuario);
+                request.getRequestDispatcher("Index/VistaUsuarioCliente.jsp").forward(request, response);
+            } else {
+                request.setAttribute("mensajeError", "Debe proporcionar un ID de usuario.");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+        } else if (menu.equals(
+                "Conocenos")) {
             request.getRequestDispatcher("Index/conocenos.jsp").forward(request, response);
-        } else if (menu.equals("Hombre")) {
+        } else if (menu.equals(
+                "Hombre")) {
             request.getRequestDispatcher("Index/hombre.jsp").forward(request, response);
-        } else if (menu.equals("MisPedidos")) {
+        } else if (menu.equals(
+                "MisPedidos")) {
             request.getRequestDispatcher("Index/mispedidos.jsp").forward(request, response);
-        } else if (menu.equals("Mujer")) {
+        } else if (menu.equals(
+                "Mujer")) {
             request.getRequestDispatcher("Index/mujer.jsp").forward(request, response);
-        } else if (menu.equals("VistaCategoria")) {
+        } else if (menu.equals(
+                "VistaCategoria")) {
             request.getRequestDispatcher("Index/vistacategoria.jsp").forward(request, response);
-        } else if (menu.equals("VistaDetallePedido")) {
+        } else if (menu.equals(
+                "VistaDetallePedido")) {
             request.getRequestDispatcher("Index/vistadetallepedido.jsp").forward(request, response);
-        } else if (menu.equals("VistaProducto")) {
+        } else if (menu.equals(
+                "VistaProducto")) {
             request.getRequestDispatcher("Index/vistaproducto.jsp").forward(request, response);
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -350,8 +407,10 @@ public class Controlador extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+
         } catch (ParseException ex) {
-            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Controlador.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -368,8 +427,10 @@ public class Controlador extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+
         } catch (ParseException ex) {
-            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Controlador.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
