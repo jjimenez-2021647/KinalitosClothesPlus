@@ -60,4 +60,48 @@ public class PedidosDAO {
         }
         return resp;
     }
+    
+    //Eliminar
+    public int eliminar(int codigoPedido) {
+        String sql = "call sp_EliminarPedido(?);";
+        resp = 0;
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, codigoPedido);
+
+            resp = ps.executeUpdate();
+            System.out.println("Pedido eliminado. Filas afectadas: " + resp);
+
+        } catch (Exception e) {
+            System.out.println("Error al eliminar pedido: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return resp;
+    }
+    
+    public Pedidos buscar(int codigoPedido) {
+        String sql = "call sp_BuscarPedido(?);"; 
+        Pedidos pedido = null;
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, codigoPedido);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                pedido = new Pedidos();
+                pedido.setCodigoPedido(rs.getInt(1));
+                pedido.setHoraPedido(rs.getTime(2));
+                pedido.setFechaPedido(rs.getDate(3));
+                pedido.setEstadoPedido(Pedidos.Estado.valueOf(rs.getString(4)));
+                pedido.setTotal(rs.getDouble(5));
+                pedido.setCodigoUsuario(rs.getInt(6));
+                pedido.setCodigoMetodoPago(rs.getInt(7));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return pedido;
+    }
 }

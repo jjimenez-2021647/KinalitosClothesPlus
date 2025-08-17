@@ -223,7 +223,51 @@ public class Controlador extends HttpServlet {
                     break;
                 case "Actualizar":
                     break;
+                case "Buscar":
+                    String codigoPed = request.getParameter("txtBuscarId");
+                    List<Pedidos> listaPedidosB = new ArrayList<>();
+                    if (codigoPed != null && !codigoPed.trim().isEmpty()) {
+                        try {
+                            int codigoP = Integer.parseInt(codigoPed);
+                            Pedidos pedidoEncontrado = pedidoDAO.buscar(codigoP);
+
+                            if (pedidoEncontrado != null) {
+                                listaPedidosB.add(pedidoEncontrado);
+                            } else {
+                                request.setAttribute("error", "Factura no encontrada");
+                            }
+                        } catch (NumberFormatException e) {
+                            request.setAttribute("error", "ID de Factura inválido");
+                        }
+                    } else {
+                        listaPedidosB = pedidoDAO.listar();
+                    }
+
+                    request.setAttribute("pedidos", listaPedidosB);
+                    request.getRequestDispatcher("/Index/vistapedidoadmin.jsp").forward(request, response);
+
+                    break;
                 case "Eliminar":
+                    String idEliminar = request.getParameter("id");
+                    if (idEliminar != null && !idEliminar.trim().isEmpty()) {
+                        try {
+                            int codigo = Integer.parseInt(idEliminar);
+
+                            int resultado = pedidoDAO.eliminar(codigo);
+
+                            if (resultado > 0) {
+                                request.setAttribute("mensaje", "Pedido eliminado exitosamente");
+                            } else {
+                                request.setAttribute("error", "Error al eliminar el pedido");
+                            }
+
+                        } catch (NumberFormatException e) {
+                            request.setAttribute("error", "ID de pedido inválido");
+                        }
+
+                        response.sendRedirect("Controlador?menu=Pedido&accion=Listar");
+                        return;
+                    }
                     break;
                 default:
                     System.out.println("No se encontro");
@@ -246,7 +290,7 @@ public class Controlador extends HttpServlet {
                             Facturas facturaEncontrada = facturasDao.buscar(codigoF);
 
                             if (facturaEncontrada != null) {
-                                listaFacturasB.add(facturaEncontrada); 
+                                listaFacturasB.add(facturaEncontrada);
                             } else {
                                 request.setAttribute("error", "Factura no encontrada");
                             }

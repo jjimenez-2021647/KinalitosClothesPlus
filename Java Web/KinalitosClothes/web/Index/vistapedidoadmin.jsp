@@ -81,22 +81,31 @@
                 <!-- el buscar y listar -->
                 <div class="section">
                     <h2>Lista</h2>
-                    <!-- 
-                    <form>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <input type="number" class="entrada_texto" name="id" min="1" placeholder="0"
-                                    required id="numBuscarCodProducto">
-                                <label class="label-input-number">ID del producto a buscar</label>
+                    
+                    <!-- el buscar y listar -->
+                <div class="section">
+                    <h2>Lista</h2>
+
+                    <form action="Controlador?menu=Pedido" method="post" class="search-section">
+                        <div class="form-group search-group">
+                            <input type="text" class="entrada_texto search-input" name="txtBuscarId" placeholder="">
+                            <label class="label-input">Buscar Factura..</label>
+                            <div class="search-icon">
+                                <i class="fa-solid fa-search"></i>
                             </div>
                         </div>
-                        <button type="button" class="btn_buscar">
-                            <span class="bnt_texto">Buscar Producto</span>
+                        <!-- Botón oculto para enviar el formulario al presionar Enter -->
+                        <button type="submit" name="accion" value="Buscar" style="display:none;"></button>
+
+                        <button type="button" class="btn_eliminar" 
+                                onclick="window.location.href = 'Controlador?menu=Pedido&accion=Listar'">
+                            <span class="bnt_texto">Cancelar</span>
                             <span class="btn_icono">
-                                <i class="fa fa-search"></i></i>
+                                <i class="fa fa-solid fa-x"></i>
                             </span>
                         </button>
-                    </form> -->
+                    </form>
+                    
                     <div class="table-container">
                         <table>
                             <thead>
@@ -130,7 +139,8 @@
                                                     </span>
                                                 </button>
 
-                                                <button type="button" class="btn_eliminar" id="btnEliminarRegistro">
+                                                <button type="button" class="btn_eliminar"
+                                                        onclick="window.location.href = 'Controlador?menu=Pedido&accion=Eliminar&id=${pedidos.getCodigoPedido()}'">
                                                     <span class="bnt_texto">Eliminar</span>
                                                     <span class="btn_icono">
                                                         <i class="fa fa-trash"></i></i>
