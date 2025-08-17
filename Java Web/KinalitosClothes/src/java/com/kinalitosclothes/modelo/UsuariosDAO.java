@@ -117,15 +117,15 @@ public class UsuariosDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 Usuarios us = new Usuarios();
-                us.setCodigoUsuario(rs.getInt("codigoUsuario"));
-                us.setNombreUsuario(rs.getString("nombreUsuario"));
-                us.setApellidoUsuario(rs.getString("apellidoUsuario"));
-                us.setCorreoUsuario(rs.getString("correoUsuario"));
-                us.setTelefonoUsuario(rs.getString("telefonoUsuario"));
-                us.setDireccionUsuario(rs.getString("direccionUsuario"));
-                us.setContraseñaUsuario(rs.getString("contraseñaUsuario"));
-                us.setTipoUsuario(Usuarios.TipoUsuarios.valueOf(rs.getString("tipoUsuario")));
-                us.setFechaRegistro(rs.getDate("fechaRegistro"));
+                us.setCodigoUsuario(rs.getInt(1));
+                us.setNombreUsuario(rs.getString(2));
+                us.setApellidoUsuario(rs.getString(3));
+                us.setCorreoUsuario(rs.getString(4));
+                us.setTelefonoUsuario(rs.getString(5));
+                us.setDireccionUsuario(rs.getString(6));
+                us.setContraseñaUsuario(rs.getString(7));
+                us.setTipoUsuario(Usuarios.TipoUsuarios.valueOf(rs.getString(8)));
+                us.setFechaRegistro(rs.getDate(9));
                 lista.add(us);
             }
         } catch (Exception e) {

@@ -78,21 +78,21 @@ public class FacturasDAO {
         String sql = "call sp_BuscarFactura(?);"; 
         Facturas factura = null;
         try {
-            con = cn.Conexion();
+            con = cn.Conexion();  
             ps = con.prepareStatement(sql);
             ps.setInt(1, codigoFactura);
             rs = ps.executeQuery();
 
             if (rs.next()) {
                 factura = new Facturas();
-                factura.setCodigoFactura(rs.getInt("codigoFactura"));
-                factura.setFechaEmision(rs.getDate("fechaEmision"));
-                factura.setDescuentoAplicado(rs.getDouble("descuentoAplicado"));
-                factura.setTotalFactura(rs.getDouble("totalFactura"));
-                factura.setEstadoFactura(Facturas.EstadoFactura.valueOf(rs.getString("estadoFactura")));
-                factura.setFormaEntrega(Facturas.FormaEntrega.valueOf(rs.getString("formaEntrega")));
-                factura.setCodigoPedido(rs.getInt("codigoPedido"));
-                factura.setCodigoUsuario(rs.getInt("codigoUsuario"));
+                factura.setCodigoFactura(rs.getInt(1));
+                factura.setFechaEmision(rs.getDate(2));
+                factura.setDescuentoAplicado(rs.getDouble(3));
+                factura.setTotalFactura(rs.getDouble(4));
+                factura.setEstadoFactura(Facturas.EstadoFactura.valueOf(rs.getString(5)));
+                factura.setFormaEntrega(Facturas.FormaEntrega.valueOf(rs.getString(6)));
+                factura.setCodigoPedido(rs.getInt(7));
+                factura.setCodigoUsuario(rs.getInt(8));
             }
         } catch (Exception e) {
             e.printStackTrace();
