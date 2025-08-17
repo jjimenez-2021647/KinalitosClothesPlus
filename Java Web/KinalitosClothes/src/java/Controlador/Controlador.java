@@ -321,28 +321,25 @@ public class Controlador extends HttpServlet {
         } else if (menu.equals("VistaFacturaC")) {
             request.getRequestDispatcher("Index/VistaFacturaCliente.jsp").forward(request, response);
         } else if (menu.equals("VistaUsuarioCliente")) {
-            String idParam = request.getParameter("id");
+            HttpSession session = request.getSession();
+            System.out.println("Código usuario en sesión: " + session.getAttribute("codigoUsuario"));
 
+            String idParam = request.getParameter("id");
+            int idUsuario = 0;
             if (idParam != null && !idParam.trim().isEmpty()) {
                 try {
-                    int idUsuario = Integer.parseInt(idParam);
-
-                    Usuarios usuario = usuariosDao.imagenCodigo(idUsuario);
-
-                    if (usuario != null) {
-                        request.setAttribute("usuario", usuario);
-                        request.getRequestDispatcher("Index/VistaUsuariosCliente.jsp").forward(request, response);
-                    } else {
-                        request.setAttribute("mensajeError", "El usuario con ID " + idUsuario + " no existe.");
-                        request.getRequestDispatcher("Index/error.jsp").forward(request, response);
-                    }
+                    idUsuario = Integer.parseInt(idParam);
                 } catch (NumberFormatException e) {
-                    request.setAttribute("mensajeError", "El ID proporcionado no es válido.");
-                    request.getRequestDispatcher("Index/error.jsp").forward(request, response);
+                    request.setAttribute("mensajeError", "Debe proporcionar un ID de usuario válido.");
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                    return;
                 }
+                Usuarios usuario = usuariosDao.imagenCodigo(idUsuario);
+                request.setAttribute("usuario", usuario);
+                request.getRequestDispatcher("Index/VistaUsuarioCliente.jsp").forward(request, response);
             } else {
                 request.setAttribute("mensajeError", "Debe proporcionar un ID de usuario.");
-                request.getRequestDispatcher("Index/error.jsp").forward(request, response);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
             }
         } else if (menu.equals(
                 "Conocenos")) {

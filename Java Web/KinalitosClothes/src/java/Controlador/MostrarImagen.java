@@ -3,6 +3,7 @@ package Controlador;
 import com.kinalitosclothes.modelo.Usuarios;
 import com.kinalitosclothes.modelo.UsuariosDAO;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,39 +17,34 @@ public class MostrarImagen extends HttpServlet {
     private UsuariosDAO usuariosDAO = new UsuariosDAO();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        String idStr = request.getParameter("id");
-        if (idStr == null || idStr.trim().isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID de usuario no especificado");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String idParam = request.getParameter("id");
+        if (idParam == null) {
             return;
         }
 
-        try {
-            int idUsuario = Integer.parseInt(idStr);
-            Usuarios usuario = usuariosDAO.imagenCodigo(idUsuario);
+        int idUsuario = Integer.parseInt(idParam);
+        UsuariosDAO usuariosDao = new UsuariosDAO();
+        Usuarios usuario = usuariosDao.imagenCodigo(idUsuario);
 
-            if (usuario == null || usuario.getImagenUsuario() == null) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Imagen no encontrada");
-                return;
-            }
-
-            // Configurar el tipo de contenido (puede ser "image/jpeg" o "image/png" según tu BD)
+        if (usuario != null && usuario.getImagenUsuario() != null) {
+            // Imagen del usuario
             response.setContentType("image/jpeg");
-            response.setContentLength(usuario.getImagenUsuario().length);
-
-            try (OutputStream os = response.getOutputStream()) {
-                os.write(usuario.getImagenUsuario());
-                os.flush();
+            response.getOutputStream().write(usuario.getImagenUsuario());
+        } else {
+            // Imagen por defecto si no existe
+            InputStream defaultImg = getServletContext().getResourceAsStream("/Images/Cliente.jpeg");
+            if (defaultImg != null) {
+                response.setContentType("image/jpeg");
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = defaultImg.read(buffer)) != -1) {
+                    response.getOutputStream().write(buffer, 0, bytesRead);
+                }
+                defaultImg.close();
             }
-
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID inválido");
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al obtener la imagen");
         }
+        response.getOutputStream().close();
     }
 
     @Override
