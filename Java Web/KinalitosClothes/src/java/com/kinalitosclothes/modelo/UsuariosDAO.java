@@ -113,7 +113,7 @@ public class UsuariosDAO {
         try {
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
-            ps.setString(1, nombre); 
+            ps.setString(1, nombre);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Usuarios us = new Usuarios();
@@ -133,31 +133,43 @@ public class UsuariosDAO {
         }
         return lista;
     }
-    
+
     public Usuarios imagenCodigo(int codigoUsuario) {
-    Usuarios usuario = null;
-    String sql = "call sp_BuscarUsuariosImagen(?)";
-    try {
-        con = cn.Conexion();
-        ps = con.prepareStatement(sql);
-        ps.setInt(1, codigoUsuario);
-        rs = ps.executeQuery();
-        if (rs.next()) {
-            usuario = new Usuarios();
-            usuario.setCodigoUsuario(rs.getInt(1));
-            usuario.setNombreUsuario(rs.getString(2));
-            usuario.setApellidoUsuario(rs.getString(3));
-            usuario.setCorreoUsuario(rs.getString(4));
-            usuario.setTelefonoUsuario(rs.getString(5));
-            usuario.setDireccionUsuario(rs.getString(6));
-            usuario.setContraseñaUsuario(rs.getString(7));
-            usuario.setTipoUsuario(Usuarios.TipoUsuarios.valueOf(rs.getString(8)));
-            usuario.setFechaRegistro(rs.getDate(9));
-            usuario.setImagenUsuario(rs.getBytes(10)); 
+        Usuarios usuario = null;
+        String sql = "call sp_BuscarUsuariosImagen(?)";
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, codigoUsuario);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                usuario = new Usuarios();
+                usuario.setCodigoUsuario(rs.getInt(1));
+                usuario.setNombreUsuario(rs.getString(2));
+                usuario.setApellidoUsuario(rs.getString(3));
+                usuario.setCorreoUsuario(rs.getString(4));
+                usuario.setTelefonoUsuario(rs.getString(5));
+                usuario.setDireccionUsuario(rs.getString(6));
+                usuario.setContraseñaUsuario(rs.getString(7));
+                usuario.setTipoUsuario(Usuarios.TipoUsuarios.valueOf(rs.getString(8)));
+                usuario.setFechaRegistro(rs.getDate(9));
+                usuario.setImagenUsuario(rs.getBytes(10));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        e.printStackTrace();
+        return usuario;
     }
-    return usuario;
-}
+
+    public boolean actualizarImagen(int codigoUsuario, byte[] imagen) {
+        String sql = "call sp_AgregarImagenUsuario(?, ?)";
+        try (Connection con = cn.Conexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setBytes(1, imagen);
+            ps.setInt(2, codigoUsuario);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

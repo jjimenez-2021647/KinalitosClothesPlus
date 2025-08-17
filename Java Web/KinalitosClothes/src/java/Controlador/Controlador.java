@@ -283,11 +283,39 @@ public class Controlador extends HttpServlet {
                     }
                     break;
                 case "Editar":
-
+                    int idEditar = Integer.parseInt(request.getParameter("id"));
+                    Facturas facturaEditar = facturasDao.buscar(idEditar);
+                    request.setAttribute("facturas", facturaEditar);
+                    request.setAttribute("facturas", facturasDao.listar());
+                    request.getRequestDispatcher("/Index/VistaFacturaAdmin.jsp").forward(request, response);
                     break;
+
                 case "Actualizar":
+                    /*int codigo = Integer.parseInt(request.getParameter("txtCodigoFactura"));
+                    String nuevoNombre = request.getParameter("txtNombreProducto");
+                    String nuevaDescripcion = request.getParameter("txtDescripcion");
+                    double nuevoPrecio = Double.parseDouble(request.getParameter("txtPrecio"));
+                    String nuevaTtalla = request.getParameter("txtTalla");
+                    int nuevoStock = Integer.parseInt(request.getParameter("txtStock"));
+                    int nuevoCodProv = Integer.parseInt(request.getParameter("txtCodigoProveedor"));
+                    int nuevoCodCat = Integer.parseInt(request.getParameter("txtCodigoCategoria"));
 
-                    break;
+                    productos.setCodigoProducto(codigo);
+                    productos.setNombreProducto(nuevoNombre);
+                    productos.setDescripcionProducto(nuevaDescripcion);
+                    productos.setPrecioProducto(nuevoPrecio);
+                    productos.setTalla(nuevaTtalla);
+                    productos.setStock(nuevoStock);
+                    productos.setCodigoProveedor(nuevoCodProv);
+                    productos.setCodigoCategoria(nuevoCodCat);
+
+                    int filas = productosDAO.actualizar(productos);
+
+                    System.out.println("Filas actualizadas: " + filas);
+
+                    request.setAttribute("productos", productosDAO.listar());
+                    request.getRequestDispatcher("/Index/vistaproductoadmin.jsp").forward(request, response);
+                    break;*/
                 case "Eliminar":
                     String idEliminar = request.getParameter("id");
                     if (idEliminar != null && !idEliminar.trim().isEmpty()) {

@@ -29,7 +29,21 @@
                         <div class="profile-image-container">
                             <img src="${pageContext.request.contextPath}/MostrarImagen?id=${usuario.codigoUsuario}" alt="Foto Usuario" />
                         </div>
-                        <button class="btn-edit-photo" id="editarFoto">Editar</button>
+                        <form action="${pageContext.request.contextPath}/ImagenesActualizar" method="post" enctype="multipart/form-data" class="profile-form">
+                            <!-- Enviar el ID del usuario -->
+                            <input type="hidden" name="codigoUsuario" value="${usuario.codigoUsuario}" />
+
+                            <!-- Input para la imagen -->
+                            <label class="file-input-wrapper">
+                                <input type="file" name="imagenUsuario" accept="image/*" required />
+                                <div class="file-input-button">
+                                    <span class="file-input-text">Selecciona tu Imagen</span>
+                                </div>
+                            </label>
+
+                            <!-- Botón para enviar -->
+                            <button type="submit" class="btn-edit-photo">Actualizar</button>
+                        </form>
                     </div>
 
                     <div class="info-item">
