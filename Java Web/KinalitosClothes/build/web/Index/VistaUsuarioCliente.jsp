@@ -27,7 +27,8 @@
                 <div class="factura-info">
                     <div class="profile-image-section">
                         <div class="profile-image-container">
-                            <img src="MostrarImagen?id=${usuario.codigoUsuario}" alt="Foto Usuario" />
+                            <img src="${usuario.imagenUsuario != null ? pageContext.request.contextPath + '/MostrarImagen?id=' + usuario.codigoUsuario : pageContext.request.contextPath + '/' + imagenDefault}" 
+                                 alt="Foto Usuario" />
                         </div>
                         <button class="btn-edit-photo" id="editarFoto">Editar</button>
                     </div>
@@ -94,5 +95,5 @@
             <div class="logout-section">
                 <a id="CerrarSesion" class="btn btn-logout" href="Controlador?menu=Index">Cerrar Sesión</a>
             </div>
-    </body>
+    </body> 
 </html>

@@ -11,10 +11,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+@WebServlet(name = "Controlador", urlPatterns = {"/Controlador"})
 public class Controlador extends HttpServlet {
 
     /**
@@ -317,40 +320,55 @@ public class Controlador extends HttpServlet {
             request.getRequestDispatcher("Index/MetodoPago.jsp").forward(request, response);
         } else if (menu.equals("VistaFacturaC")) {
             request.getRequestDispatcher("Index/VistaFacturaCliente.jsp").forward(request, response);
-        } else if (menu.equals("VistaUsuariosC")) {
-            String codigoU = request.getParameter("id");
-            if (codigoU != null && !codigoU.isEmpty()) {
+        } else if (menu.equals("VistaUsuarioCliente")) {
+            String idParam = request.getParameter("id");
+
+            if (idParam != null && !idParam.trim().isEmpty()) {
                 try {
-                    int codigoUsuario = Integer.parseInt(codigoU);
-                    Usuarios usuario = usuariosDao.imagenCodigo(codigoUsuario);
-                    request.setAttribute("usuario", usuario);
-                    request.getRequestDispatcher("Index/VistaUsuariosCliente.jsp").forward(request, response);
+                    int idUsuario = Integer.parseInt(idParam);
+
+                    Usuarios usuario = usuariosDao.imagenCodigo(idUsuario);
+
+                    if (usuario != null) {
+                        request.setAttribute("usuario", usuario);
+                        request.getRequestDispatcher("Index/VistaUsuariosCliente.jsp").forward(request, response);
+                    } else {
+                        request.setAttribute("mensajeError", "El usuario con ID " + idUsuario + " no existe.");
+                        request.getRequestDispatcher("Index/error.jsp").forward(request, response);
+                    }
                 } catch (NumberFormatException e) {
-                    request.setAttribute("error", "ID de usuario inválido");
-                    request.getRequestDispatcher("Index/Error.jsp").forward(request, response);
+                    request.setAttribute("mensajeError", "El ID proporcionado no es válido.");
+                    request.getRequestDispatcher("Index/error.jsp").forward(request, response);
                 }
             } else {
-                request.setAttribute("error", "No se recibió el ID de usuario");
-                request.getRequestDispatcher("Index/Error.jsp").forward(request, response);
+                request.setAttribute("mensajeError", "Debe proporcionar un ID de usuario.");
+                request.getRequestDispatcher("Index/error.jsp").forward(request, response);
             }
-        } else if (menu.equals("Conocenos")) {
+        } else if (menu.equals(
+                "Conocenos")) {
             request.getRequestDispatcher("Index/conocenos.jsp").forward(request, response);
-        } else if (menu.equals("Hombre")) {
+        } else if (menu.equals(
+                "Hombre")) {
             request.getRequestDispatcher("Index/hombre.jsp").forward(request, response);
-        } else if (menu.equals("MisPedidos")) {
+        } else if (menu.equals(
+                "MisPedidos")) {
             request.getRequestDispatcher("Index/mispedidos.jsp").forward(request, response);
-        } else if (menu.equals("Mujer")) {
+        } else if (menu.equals(
+                "Mujer")) {
             request.getRequestDispatcher("Index/mujer.jsp").forward(request, response);
-        } else if (menu.equals("VistaCategoria")) {
+        } else if (menu.equals(
+                "VistaCategoria")) {
             request.getRequestDispatcher("Index/vistacategoria.jsp").forward(request, response);
-        } else if (menu.equals("VistaDetallePedido")) {
+        } else if (menu.equals(
+                "VistaDetallePedido")) {
             request.getRequestDispatcher("Index/vistadetallepedido.jsp").forward(request, response);
-        } else if (menu.equals("VistaProducto")) {
+        } else if (menu.equals(
+                "VistaProducto")) {
             request.getRequestDispatcher("Index/vistaproducto.jsp").forward(request, response);
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -364,8 +382,10 @@ public class Controlador extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+
         } catch (ParseException ex) {
-            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Controlador.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -382,8 +402,10 @@ public class Controlador extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+
         } catch (ParseException ex) {
-            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Controlador.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
