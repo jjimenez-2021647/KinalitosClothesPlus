@@ -30,6 +30,7 @@
                             <img src="${pageContext.request.contextPath}/MostrarImagen?id=${usuario.codigoUsuario}" alt="Foto Usuario" />
                         </div>
                         <form action="${pageContext.request.contextPath}/ImagenesActualizar" method="post" enctype="multipart/form-data" class="profile-form">
+
                             <!-- Enviar el ID del usuario -->
                             <input type="hidden" name="codigoUsuario" value="${usuario.codigoUsuario}" />
 

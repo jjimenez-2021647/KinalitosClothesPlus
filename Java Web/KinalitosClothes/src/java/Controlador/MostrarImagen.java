@@ -19,7 +19,8 @@ public class MostrarImagen extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idParam = request.getParameter("id");
-        if (idParam == null) {
+        if (idParam == null || idParam.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Falta el parámetro id");
             return;
         }
 
@@ -50,7 +51,6 @@ public class MostrarImagen extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Si quieres que POST también sirva la imagen
         doGet(request, response);
     }
 

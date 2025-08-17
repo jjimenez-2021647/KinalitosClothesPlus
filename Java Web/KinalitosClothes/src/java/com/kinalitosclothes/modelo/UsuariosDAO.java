@@ -1,6 +1,7 @@
 package com.kinalitosclothes.modelo;
 
 import com.kinalitosclothes.config.Conexion;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -162,11 +163,11 @@ public class UsuariosDAO {
     }
 
     public boolean actualizarImagen(int codigoUsuario, byte[] imagen) {
-        String sql = "call sp_AgregarImagenUsuario(?, ?)";
-        try (Connection con = cn.Conexion(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setBytes(1, imagen);
-            ps.setInt(2, codigoUsuario);
-            return ps.executeUpdate() > 0;
+        String sql = "{call sp_AgregarImagenUsuario(?, ?)}";
+        try (Connection con = cn.Conexion(); CallableStatement cs = con.prepareCall(sql)) {
+            cs.setInt(1, codigoUsuario);
+            cs.setBytes(2, imagen);
+            return cs.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
