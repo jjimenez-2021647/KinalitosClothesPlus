@@ -173,4 +173,67 @@ public class UsuariosDAO {
             return false;
         }
     }
+
+    public Usuarios buscarPorCodigo(int codigoUsuario) {
+        String sql = "call sp_BuscarUsuarios(?);";
+        Usuarios us = null;
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, codigoUsuario);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                us = new Usuarios();
+                us.setCodigoUsuario(rs.getInt(1));
+                us.setNombreUsuario(rs.getString(2));
+                us.setApellidoUsuario(rs.getString(3));
+                us.setCorreoUsuario(rs.getString(4));
+                us.setTelefonoUsuario(rs.getString(5));
+                us.setDireccionUsuario(rs.getString(6));
+                us.setContraseñaUsuario(rs.getString(7));
+                us.setTipoUsuario(Usuarios.TipoUsuarios.valueOf(rs.getString(8)));
+                us.setFechaRegistro(rs.getDate(9));
+                us.setImagenUsuario(rs.getBytes(10));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return us;
+    }
+
+    public int actualizar(Usuarios usuario) {
+        String sql = "call sp_EditarUsuario(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        int resp = 0;
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, usuario.getCodigoUsuario());
+            ps.setString(2, usuario.getNombreUsuario());
+            ps.setString(3, usuario.getApellidoUsuario());
+            ps.setString(4, usuario.getCorreoUsuario());
+            ps.setString(5, usuario.getTelefonoUsuario());
+            ps.setString(6, usuario.getDireccionUsuario());
+            ps.setString(7, usuario.getContraseñaUsuario());
+            ps.setString(8, usuario.getTipoUsuario().name()); // Enum convertido a String
+            ps.setDate(9, new java.sql.Date(usuario.getFechaRegistro().getTime()));
+
+            resp = ps.executeUpdate();
+            System.out.println("Usuario actualizado. Filas afectadas: " + resp);
+        } catch (Exception e) {
+            System.out.println("Error al actualizar Usuario: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (Exception ex) {
+            }
+        }
+        return resp;
+    }
 }

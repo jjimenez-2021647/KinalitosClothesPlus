@@ -39,6 +39,8 @@
                 <div class="section">
                     <h2>Agregar o modificar Usuario</h2>
                     <form action="Controlador?menu=Usuarios" method="Post">
+                        <!--guarda el codigo para que se ejecute el editar y actualizar y asi no se tiene que editar porque se guarda con el mismo id que seleccionamos-->
+                        <input type="hidden" name="txtCodigoUsuario" value="${usuario.getCodigoUsuario()}">
                         <div class="form-row">
                             <div class="form-group">
                                 <input type="text" class="entrada_texto" name="txtNombreUsuario" value="${usuario.getNombreUsuario()}" required>
@@ -65,10 +67,10 @@
                                 <label class="label-input">Contraseña</label>
                             </div>
                             <div class="form-group">
-                                <select class="entrada_texto" name="txtTipoUsuario" value="${usuario.getTipoUsuario()}" required>
-                                    <option value="" disabled selected></option>
-                                    <option value="Empleado">Empleado</option>
-                                    <option value="Cliente">Cliente</option>
+                                <select class="entrada_texto" name="txtTipoUsuario" required>
+                                    <option value="" disabled ${usuario.getTipoUsuario() == null ? "selected" : ""}></option>
+                                    <option value="Empleado" ${usuario.getTipoUsuario() != null && usuario.getTipoUsuario().name() == "Empleado" ? "selected" : ""}>Empleado</option>
+                                    <option value="Cliente" ${usuario.getTipoUsuario() != null && usuario.getTipoUsuario().name() == "Cliente" ? "selected" : ""}>Cliente</option>
                                 </select>
                                 <label class="label-input">Tipo Usuario</label>
                             </div>
@@ -85,8 +87,8 @@
                                 </span>
                             </button>
 
-                            <button type="button" class="btn_actualizar" name="btnActualizarUsuario">
-                                <span class="btn_texto">Actualizar</span>
+                            <button type="submit" class="btn_actualizar" name="accion" value="Actualizar">
+                                <span class="bnt_texto">Actualizar</span>
                                 <span class="btn_icono">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </span>
@@ -134,6 +136,7 @@
                                     <th>Contraseña Usuario</th>
                                     <th>Tipo Usuario</th>
                                     <th>Fecha Registro</th>
+                                    <th>Imagen Usuario</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -149,10 +152,13 @@
                                         <td>${usuario.getContraseñaUsuario()}</td>
                                         <td>${usuario.getTipoUsuario()}</td>
                                         <td>${usuario.getFechaRegistro()}</td>
+                                        <td><img src="${pageContext.request.contextPath}/MostrarImagen?id=${usuario.codigoUsuario}" alt="Foto Usuario" class="foto-usuario" 
+                                                 style="width: 50px !important; height: 50px !important; border-radius: 50% !important; object-fit: cover !important;"/></td>
                                         <td>
                                             <div class="botonesTabla">
-                                                <button type="button" class="btn_editar" id="btnEditarUsuario">
-                                                    <span class="btn_texto">Editar</span>
+                                                <button type="button" class="btn_editar" 
+                                                        onclick="window.location.href = 'Controlador?menu=Usuarios&accion=Editar&id=${usuario.getCodigoUsuario()}'">
+                                                    <span class="bnt_texto">Editar</span>
                                                     <span class="btn_icono">
                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                     </span>
