@@ -13,6 +13,7 @@ public class Usuarios {
     private String contraseñaUsuario;
     private TipoUsuarios tipoUsuario;
     private Date fechaRegistro;
+    private byte[] imagenUsuario;
 
     public enum TipoUsuarios {
         Empleado, Cliente
@@ -21,7 +22,7 @@ public class Usuarios {
     public Usuarios() {
     }
 
-    public Usuarios(int codigoUsuario, String nombreUsuario, String apellidoUsuario, String correoUsuario, String telefonoUsuario, String direccionUsuario, String contraseñaUsuario, TipoUsuarios tipoUsuario, Date fechaRegistro) {
+    public Usuarios(int codigoUsuario, String nombreUsuario, String apellidoUsuario, String correoUsuario, String telefonoUsuario, String direccionUsuario, String contraseñaUsuario, TipoUsuarios tipoUsuario, Date fechaRegistro, byte[] imagenUsuario) {
         this.codigoUsuario = codigoUsuario;
         this.nombreUsuario = nombreUsuario;
         this.apellidoUsuario = apellidoUsuario;
@@ -31,6 +32,7 @@ public class Usuarios {
         this.contraseñaUsuario = contraseñaUsuario;
         this.tipoUsuario = tipoUsuario;
         this.fechaRegistro = fechaRegistro;
+        this.imagenUsuario = imagenUsuario;
     }
 
     public int getCodigoUsuario() {
@@ -104,8 +106,16 @@ public class Usuarios {
     public void setFechaRegistro(Date fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
+
+    public byte[] getImagenUsuario() {
+        return imagenUsuario;
+    }
+
+    public void setImagenUsuario(byte[] imagenUsuario) {
+        this.imagenUsuario = imagenUsuario;
+    }
     
-    
+        
         /*
     @Override
     public String toString() {
@@ -115,4 +125,5 @@ public class Usuarios {
                 + "\nTipo Usuario: " + tipoUsuario
                 + "\nFecha Registro: " + fechaRegistro + '}';
     }*/
+    
 }

@@ -27,7 +27,7 @@
                 <div class="factura-info">
                     <div class="profile-image-section">
                         <div class="profile-image-container">
-                            <img src="${pageContext.request.contextPath}/Images/CO-K.C.jpg" alt="Foto de perfil" class="profile-image" id="profileImage">
+                            <img src="MostrarImagen?id=${usuario.codigoUsuario}" alt="Foto Usuario" />
                         </div>
                         <button class="btn-edit-photo" id="editarFoto">Editar</button>
                     </div>

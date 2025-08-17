@@ -246,7 +246,7 @@ public class Controlador extends HttpServlet {
                             Facturas facturaEncontrada = facturasDao.buscar(codigoF);
 
                             if (facturaEncontrada != null) {
-                                listaFacturasB.add(facturaEncontrada); 
+                                listaFacturasB.add(facturaEncontrada);
                             } else {
                                 request.setAttribute("error", "Factura no encontrada");
                             }
@@ -318,7 +318,21 @@ public class Controlador extends HttpServlet {
         } else if (menu.equals("VistaFacturaC")) {
             request.getRequestDispatcher("Index/VistaFacturaCliente.jsp").forward(request, response);
         } else if (menu.equals("VistaUsuariosC")) {
-            request.getRequestDispatcher("Index/VistaUsuariosCliente.jsp").forward(request, response);
+            String codigoU = request.getParameter("id");
+            if (codigoU != null && !codigoU.isEmpty()) {
+                try {
+                    int codigoUsuario = Integer.parseInt(codigoU);
+                    Usuarios usuario = usuariosDao.imagenCodigo(codigoUsuario);
+                    request.setAttribute("usuario", usuario);
+                    request.getRequestDispatcher("Index/VistaUsuariosCliente.jsp").forward(request, response);
+                } catch (NumberFormatException e) {
+                    request.setAttribute("error", "ID de usuario inválido");
+                    request.getRequestDispatcher("Index/Error.jsp").forward(request, response);
+                }
+            } else {
+                request.setAttribute("error", "No se recibió el ID de usuario");
+                request.getRequestDispatcher("Index/Error.jsp").forward(request, response);
+            }
         } else if (menu.equals("Conocenos")) {
             request.getRequestDispatcher("Index/conocenos.jsp").forward(request, response);
         } else if (menu.equals("Hombre")) {
