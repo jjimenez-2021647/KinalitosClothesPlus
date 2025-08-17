@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -79,21 +81,30 @@
                                         <!-- FORMULARIO DE REGISTRO -->
                                         <div class="card-back">
                                             <div class="center-wrap">
-                                                <form action="" method="post">
+                                                <c:if test="${not empty errorRegistro}">
+                                                    <div class="alert-error">${errorRegistro}</div>
+                                                </c:if>
+                                                <form action="Controlador?menu=Usuarios&accion=RegistroLogin" method="post">
                                                     <h4 class="heading">Registrarse</h4>
+
                                                     <div class="form-group">
                                                         <input type="text" name="txtUsuarioR" id="usuario_registro" class="form-style" placeholder="Email" autocomplete="off" required>
                                                         <i class="input-icon material-icons">perm_identity</i>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <input type="password" name="txtPasswordR" id="password_registro" class="form-style" placeholder="Contraseña" autocomplete="off" required>
                                                         <i class="input-icon material-icons">lock</i>
                                                     </div>
+
                                                     <div class="form-group">
                                                         <input type="password" name="confirmar" id="confirmar_registro" class="form-style" placeholder="Confirmar contraseña" autocomplete="off" required>
                                                         <i class="input-icon material-icons">lock</i>
                                                     </div>
-                                                    <a type="submit" href="#" class="btnRegistrar">Registrarme</a>
+
+                                                    <center>
+                                                        <button type="submit" class="btnRegistrar">Registrarme</button>
+                                                    </center>
                                                 </form>
                                             </div>
                                         </div>

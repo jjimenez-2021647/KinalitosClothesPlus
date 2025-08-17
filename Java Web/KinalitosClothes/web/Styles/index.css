@@ -492,3 +492,12 @@ input[type="checkbox"] {
         width: 300px;
     }
 }
+
+.alert-error {
+    color: #fff;
+    background-color: #e74c3c;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
+}

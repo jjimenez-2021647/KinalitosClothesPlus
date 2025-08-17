@@ -236,4 +236,43 @@ public class UsuariosDAO {
         }
         return resp;
     }
+
+    public int registrarLogin(Usuarios usuario) {
+        String sql = "call sp_RegistroLogin(?, ?, ?);"; // último parámetro es OUT
+        int resp = 0;
+        try (Connection con = cn.Conexion(); CallableStatement cs = con.prepareCall(sql)) {
+            cs.setString(1, usuario.getCorreoUsuario());
+            cs.setString(2, usuario.getContraseñaUsuario());
+            cs.setString(3, usuario.getTipoUsuario().name());
+            cs.registerOutParameter(4, java.sql.Types.INTEGER); 
+            cs.execute();
+            resp = cs.getInt(4);
+            System.out.println("Usuario registrado en login. Filas afectadas: " + resp);
+        } catch (Exception e) {
+            System.out.println("Error al registrar usuario en login: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return resp;
+    }
+
+    public int actualizarLogin(Usuarios usuario) {
+        String sql = "call sp_EditarUsuarioLogin(?, ?, ?, ?, ?, ?)";
+        int resp = 0;
+        try (Connection con = cn.Conexion(); CallableStatement cs = con.prepareCall(sql)) {
+            cs.setInt(1, usuario.getCodigoUsuario());
+            cs.setString(2, usuario.getNombreUsuario());
+            cs.setString(3, usuario.getApellidoUsuario());
+            cs.setString(4, usuario.getCorreoUsuario());
+            cs.setString(5, usuario.getTelefonoUsuario());
+            cs.setString(6, usuario.getDireccionUsuario());
+
+            resp = cs.executeUpdate();
+            System.out.println("Usuario actualizado en login. Filas afectadas: " + resp);
+        } catch (Exception e) {
+            System.out.println("Error al actualizar usuario en login: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return resp;
+    }
+
 }

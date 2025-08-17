@@ -84,6 +84,30 @@ public class Controlador extends HttpServlet {
                         System.out.println("No sale");
                     }
                     break;
+                case "RegistroLogin":
+                    String correoRegistro = request.getParameter("txtUsuarioR");
+                    String contraseñaRegistro = request.getParameter("txtPasswordR");
+                    String confirmarContraseña = request.getParameter("confirmar");
+
+                    if (contraseñaRegistro.equals(confirmarContraseña)) {
+                        Usuarios nuevoUsuario = new Usuarios();
+                        nuevoUsuario.setCorreoUsuario(correoRegistro);
+                        nuevoUsuario.setContraseñaUsuario(contraseñaRegistro);
+                        nuevoUsuario.setTipoUsuario(Usuarios.TipoUsuarios.Cliente);
+
+                        int resultadoR = usuariosDao.registrarLogin(nuevoUsuario);
+                        System.out.println(resultadoR);
+                        if (resultadoR > 0) {
+                            request.getRequestDispatcher("Controlador?menu=Principal").forward(request, response);
+                        } else {
+                            request.setAttribute("errorRegistro", "Error al registrar usuario");
+                            request.getRequestDispatcher("Controlador?menu=Index").forward(request, response);
+                        }
+                    } else {
+                        request.setAttribute("errorRegistro", "Las contraseñas no coinciden");
+                        request.getRequestDispatcher("Controlador?menu=Index").forward(request, response);
+                    }
+                    break;
                 case "Editar":
                     int idEditar = Integer.parseInt(request.getParameter("id"));
                     Usuarios usuarioEditar = usuariosDao.buscarPorCodigo(idEditar);
@@ -91,7 +115,13 @@ public class Controlador extends HttpServlet {
                     request.setAttribute("usuarios", usuariosDao.listar());
                     request.getRequestDispatcher("/Index/VistaUsuarioAdmin.jsp").forward(request, response);
                     break;
-
+                case "EditarLogin":
+                    int idEditarLogin = Integer.parseInt(request.getParameter("id"));
+                    Usuarios usuarioEditarLogin = usuariosDao.buscarPorCodigo(idEditarLogin);
+                    request.setAttribute("usuarioLogin", usuarioEditarLogin);
+                    request.setAttribute("usuarios", usuariosDao.listar());
+                    request.getRequestDispatcher("/Index/VistaUsuarioLogin.jsp").forward(request, response);
+                    break;
                 case "Actualizar":
                     int codigoUsuario = Integer.parseInt(request.getParameter("txtCodigoUsuario"));
                     String nuevoNombre = request.getParameter("txtNombreUsuario");
