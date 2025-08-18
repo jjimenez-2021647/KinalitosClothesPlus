@@ -1,3 +1,4 @@
+vista jsp de producto
 <%-- Document : vistaproductoadmin Created on : 22 jul 2025, 13:12:45 Author : PC --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -21,13 +22,13 @@
                 <div class="logo">K<span>C</span></div>
                 <ul class="menu">
                     <li><a href="Controlador?menu=VistaAdmin">Menu Administrador</a></li>
-                    <li><a href="Controlador?menu=Proveedor">Proveedor</a></li>
-                    <li><a href="Controlador?menu=Categoria">Categoria</a></li>
-                    <li><a href="Controlador?menu=MetodoPago">Metodo P.</a></li>
+                    <li><a href="Controlador?menu=Proveedor&accion=Listar">Proveedor</a></li>
+                    <li><a href="Controlador?menu=Categoria&accion=Listar">Categoria</a></li>
+                    <li><a href="Controlador?menu=MetodoPago&accion=Listar">Metodo P.</a></li>
                     <li><a href="Controlador?menu=Usuarios&accion=Listar">Usuario</a></li>
-                    <li><a href="Controlador?menu=Producto">Producto</a></li>
-                    <li><a href="Controlador?menu=Pedido">Pedido</a></li>
-                    <li><a href="Controlador?menu=DetallePedido">Detalle P.</a></li>
+                    <li><a href="Controlador?menu=Producto&accion=Listar">Producto</a></li>
+                    <li><a href="Controlador?menu=Pedido&accion=Listar">Pedido</a></li>
+                    <li><a href="Controlador?menu=DetallePedido&accion=Listar">Detalle P.</a></li>
                     <li><a href="Controlador?menu=Factura&accion=Listar">Factura</a></li>
                 </ul>
             </div>
@@ -37,10 +38,11 @@
             <div class="container">
                 <h1>Bienvenido al CRUD completo de la entidad <b>Producto</b></h1>
 
-                <!--apartado y actualizar para crear el producto-->
                 <div class="section">
                     <h2>Agregar o actualizar producto</h2>
                     <form action="Controlador?menu=Producto" method="POST">
+                        <!--guarda el codigo del ptoducto para que se ejecute el editar y actualizar y asi no se tiene que editar porque se guarda con el mismo id que seleccionamos-->
+                        <input type="hidden" name="txtCodigoProducto" value="${producto.getCodigoProducto()}">
                         <div class="form-row">
                             <div class="form-group">
                                 <input type="text" class="entrada_texto"  name="txtNombreProducto" id="txtNombreProducto" value="${producto.getNombreProducto()}" required>
@@ -80,7 +82,7 @@
                                 </span>
                             </button>
 
-                            <button type="button" class="btn_actualizar">
+                            <button type="submit" class="btn_actualizar" name="accion" value="Actualizar">
                                 <span class="bnt_texto">Actualizar</span>
                                 <span class="btn_icono">
                                     <i class="fa-solid fa-pen-to-square"></i>
@@ -93,23 +95,26 @@
 
                 <!-- el buscar y listar -->
                 <div class="section">
-                    <h2>Lista</h2>
-                    <!-- 
-                    <form>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <input type="number" class="entrada_texto" name="id" min="1" placeholder="0"
-                                    required id="numBuscarCodProducto">
-                                <label class="label-input-number">ID del producto a buscar</label>
+                    <h2>Lista y Buscar</h2>
+                    <form action="Controlador?menu=Producto" method="POST" class="search-section">
+                        <div class="form-group search-group">
+                            <input type="text" class="entrada_texto search-input" name="txtBuscarId" placeholder="">
+                            <label class="label-input">Buscar Producto.</label>
+                            <div class="search-icon">
+                                <i class="fa-solid fa-search"></i>
                             </div>
                         </div>
-                        <button type="button" class="btn_buscar">
-                            <span class="bnt_texto">Buscar Producto</span>
+
+                        <button type="submit" name="accion" value="Buscar" style="display:none;"></button>
+
+                        <button type="button" class="btn_eliminar" 
+                                onclick="window.location.href = 'Controlador?menu=Producto&accion=Listar'">
+                            <span class="bnt_texto">Cancelar</span>
                             <span class="btn_icono">
-                                <i class="fa fa-search"></i></i>
+                                <i class="fa fa-solid fa-x"></i>
                             </span>
                         </button>
-                    </form> -->
+                    </form>
                     <div class="table-container">
                         <table>
                             <thead>
@@ -126,18 +131,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <c:forEach var="productos" items="${productos}"><tr> 
-                                    <td>${productos.getCodigoProducto()}</td>
-                                    <td>${productos.getNombreProducto()}</td>
-                                    <td>${productos.getDescripcionProducto()}</td>
-                                    <td>${productos.getPrecioProducto()}</td>
-                                    <td>${productos.getTalla()}</td>
-                                    <td>${productos.getStock()}</td>
-                                    <td>${productos.getCodigoProveedor()}</td>
-                                    <td>${productos.getCodigoCategoria()}</td>
-                                    <td>
-                                        <div class="botonesTabla">
-                                            <button type="submit" class="btn_editar" name="btnEditarProducto" id="btnEditarProducto">
+                                <c:forEach var="productos" items="${productos}"><tr> 
+                                        <td>${productos.getCodigoProducto()}</td>
+                                        <td>${productos.getNombreProducto()}</td>
+                                        <td>${productos.getDescripcionProducto()}</td>
+                                        <td>${productos.getPrecioProducto()}</td>
+                                        <td>${productos.getTalla()}</td>
+                                        <td>${productos.getStock()}</td>
+                                        <td>${productos.getCodigoProveedor()}</td>
+                                        <td>${productos.getCodigoCategoria()}</td>
+                                        <td>
+                                            <button 
+                                                type="button" 
+                                                class="btn_editar" 
+                                                onclick="window.location.href = 'Controlador?menu=Producto&accion=Editar&id=${productos.getCodigoProducto()}'">
                                                 <span class="bnt_texto">Editar</span>
                                                 <span class="btn_icono">
                                                     <i class="fa-solid fa-pen-to-square"></i>
@@ -153,10 +160,10 @@
                                                     <i class="fa fa-trash"></i>
                                                 </span>
                                             </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </c:forEach>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                     </div>

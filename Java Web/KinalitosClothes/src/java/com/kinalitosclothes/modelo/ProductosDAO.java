@@ -60,6 +60,29 @@ public class ProductosDAO {
         return resp;
     }
 
+    public int actualizar(Productos pro) {
+        String sql = "call sp_EditarProducto(?, ?, ?, ?, ?, ?, ?, ?)";
+        resp = 0;
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, pro.getCodigoProducto());
+            ps.setString(2, pro.getNombreProducto());
+            ps.setString(3, pro.getDescripcionProducto());
+            ps.setDouble(4, pro.getPrecioProducto());
+            ps.setString(5, pro.getTalla());
+            ps.setInt(6, pro.getStock());
+            ps.setInt(7, pro.getCodigoProveedor());
+            ps.setInt(8, pro.getCodigoCategoria());
+            resp = ps.executeUpdate(); 
+            System.out.println("Producto actualizado. Filas afectadas: " + resp);
+        } catch (Exception e) {
+            System.out.println("Error al actualizar producto: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return resp;
+    }
+
     public int eliminar(int codigoProducto) {
         String sql = "call sp_EliminarProducto(?);";
         resp = 0;
@@ -76,6 +99,32 @@ public class ProductosDAO {
             e.printStackTrace();
         }
         return resp;
+    }
+
+    public Productos buscar(int codigoProducto) {
+        String sql = "call sp_BuscarProducto(?);";
+        Productos producto = null;
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, codigoProducto);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                producto = new Productos();
+                producto.setCodigoProducto(rs.getInt(1));
+                producto.setNombreProducto(rs.getString(2));
+                producto.setDescripcionProducto(rs.getString(3));
+                producto.setPrecioProducto(rs.getDouble(4));
+                producto.setTalla(rs.getString(5));
+                producto.setStock(rs.getInt(6));
+                producto.setCodigoProveedor(rs.getInt(7));
+                producto.setCodigoCategoria(rs.getInt(8));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return producto;
     }
 
 }

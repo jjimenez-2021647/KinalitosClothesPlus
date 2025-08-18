@@ -218,6 +218,30 @@ public class Controlador extends HttpServlet {
                     List listaProductos = productosDAO.listar();
                     request.setAttribute("productos", listaProductos);
                     break;
+                case "Buscar":
+                    String codigoProducto = request.getParameter("txtBuscarId");
+                    List<Productos> listaProductoBuscado = new ArrayList<>();
+                    if (codigoProducto != null && !codigoProducto.trim().isEmpty()) {
+                        try {
+                            int codigoP = Integer.parseInt(codigoProducto);
+                            Productos productoEncontrado = productosDAO.buscar(codigoP);
+
+                            if (productoEncontrado != null) {
+                                listaProductoBuscado.add(productoEncontrado);
+                            } else {
+                                request.setAttribute("error", "Producto no encontrada");
+                            }
+                        } catch (NumberFormatException e) {
+                            request.setAttribute("error", "ID del producto inválido");
+                        }
+                    } else {
+                        listaProductoBuscado = productosDAO.listar();
+                    }
+
+                    request.setAttribute("productos", listaProductoBuscado);
+                    request.getRequestDispatcher("/Index/vistaproductoadmin.jsp").forward(request, response);
+
+                    break;
                 case "Agregar":
                     String NombreProducto = request.getParameter("txtNombreProducto");
                     String DescripcionProducto = request.getParameter("txtDescripcion");
@@ -243,23 +267,60 @@ public class Controlador extends HttpServlet {
                     break;
 
                 case "Editar":
+                    /*Realizamos nuestro casteo a int porque solo lo guarda como String*/ int idEditar = Integer.parseInt(request.getParameter("id"));
+                    /*Llamamos a la clase producto y creamos una variable producto editar luego llamamos el dao para poder traer el metodo buscar y que nos pueda buscar el id*/
+                    Productos productoEditar = productosDAO.buscar(idEditar);
+                    /*despues de guardar la entidad dentro de productoEditar ahora se guarda bajo el nombre de producto*/
+                    /* y lo que guardamos com producto lo mando a llamar en mi jsp para que me mande a traer mis datos y mostrarlos en los formularios*/ request.setAttribute("producto", productoEditar);
+                    /* solo lista todo otra vez para que se muestren en la tabla*/
+                    request.setAttribute("productos", productosDAO.listar());
+                    request.getRequestDispatcher("/Index/vistaproductoadmin.jsp").forward(request, response);
                     break;
+
                 case "Actualizar":
+                    /*hacmos lo mismo del ingresar porque tenemos que volver a cargar los datos a nuestro regsitro y como ya tenemos guardado el id*/
+                    int codigo = Integer.parseInt(request.getParameter("txtCodigoProducto"));
+                    String nuevoNombre = request.getParameter("txtNombreProducto");
+                    String nuevaDescripcion = request.getParameter("txtDescripcion");
+                    double nuevoPrecio = Double.parseDouble(request.getParameter("txtPrecio"));
+                    String nuevaTtalla = request.getParameter("txtTalla");
+                    int nuevoStock = Integer.parseInt(request.getParameter("txtStock"));
+                    int nuevoCodProv = Integer.parseInt(request.getParameter("txtCodigoProveedor"));
+                    int nuevoCodCat = Integer.parseInt(request.getParameter("txtCodigoCategoria"));
+
+                    /*Seteamos los nuevos valores para poder guradarlos en productos*/
+                    productos.setCodigoProducto(codigo);
+                    productos.setNombreProducto(nuevoNombre);
+                    productos.setDescripcionProducto(nuevaDescripcion);
+                    productos.setPrecioProducto(nuevoPrecio);
+                    productos.setTalla(nuevaTtalla);
+                    productos.setStock(nuevoStock);
+                    productos.setCodigoProveedor(nuevoCodProv);
+                    productos.setCodigoCategoria(nuevoCodCat);
+
+                    /* llamamos al metodo actualizar del dao para as obtener el total de filas que se afectaron el la base de datos*/
+                    int filas = productosDAO.actualizar(productos);
+
+                    /* en la consola se muestra cuales fueran las filas afectas*/
+                    System.out.println("Filas actualizadas: " + filas);
+
+                    // Volver a cargar la lista
+                    request.setAttribute("productos", productosDAO.listar());
+                    request.getRequestDispatcher("/Index/vistaproductoadmin.jsp").forward(request, response);
                     break;
                 case "Eliminar":
                     String idEliminar = request.getParameter("id");
                     if (idEliminar != null && !idEliminar.trim().isEmpty()) {
                         try {
-                            int codigo = Integer.parseInt(idEliminar);
+                            int codigoEliminar = Integer.parseInt(idEliminar);
 
-                            int resultado = productosDAO.eliminar(codigo);
+                            int resultado = productosDAO.eliminar(codigoEliminar);
 
                             if (resultado > 0) {
                                 request.setAttribute("mensaje", "Producto eliminado exitosamente");
                             } else {
                                 request.setAttribute("error", "Error al eliminar el producto");
                             }
-
                         } catch (NumberFormatException e) {
                             request.setAttribute("error", "ID de producto inválido");
                         }
