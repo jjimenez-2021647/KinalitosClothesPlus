@@ -87,7 +87,8 @@ body {
 .menu li a.get-pro:hover {
     color: #fff;
     background-color: #00b7ff;
-    transform: translateY(-2px);}
+    transform: translateY(-2px);
+}
 
 .container {
     max-width: 800px;
@@ -102,9 +103,9 @@ body {
     box-shadow: 0 10px 30px rgba(255, 255, 255, 0.629);
     border-left: 5px solid #00b7ff;
     border-top: 5px solid #00b7ff;
-    margin-bottom: 50px; 
+    margin-bottom: 50px;
     overflow: hidden;
-    
+
 }
 
 .factura-header {
@@ -174,19 +175,19 @@ body {
     text-transform: uppercase;
 }
 
-.estado-emitida { 
-    background: #e3f2fd; 
-    color: #1976d2; 
+.estado-emitida {
+    background: #e3f2fd;
+    color: #1976d2;
 }
 
-.estado-pagada { 
-    background: #e8f5e8; 
-    color: #388e3c; 
+.estado-pagada {
+    background: #e8f5e8;
+    color: #388e3c;
 }
 
-.estado-anulada { 
-    background: #ffebee; 
-    color: #d32f2f; 
+.estado-anulada {
+    background: #ffebee;
+    color: #d32f2f;
 }
 
 .forma-entrega {
@@ -195,8 +196,8 @@ body {
     gap: 8px;
 }
 
-.forma-fisica::before { 
-    content: "📄"; 
+.forma-fisica::before {
+    content: "📄";
     font-size: 1.2rem;
 }
 
@@ -263,54 +264,54 @@ body {
         margin-top: 100px;
         padding: 0 15px;
     }
-    
+
     .factura-header {
         padding: 20px;
     }
-    
+
     .factura-header h1 {
         font-size: 2rem;
         margin-bottom: 8px;
     }
-    
+
     .factura-header p {
         font-size: 1rem;
     }
-    
+
     .factura-info {
         padding: 20px;
         grid-template-columns: 1fr;
         gap: 15px;
     }
-    
+
     .info-item {
         padding: 12px;
     }
-    
+
     .info-label {
         font-size: 0.8rem;
         margin-bottom: 6px;
     }
-    
+
     .info-value {
         font-size: 1rem;
     }
-    
+
     .total-section {
         padding: 20px;
         flex-direction: column;
         gap: 10px;
         text-align: center;
     }
-    
+
     .total-label {
         font-size: 1.1rem;
     }
-    
+
     .total-amount {
         font-size: 1.8rem;
     }
-    
+
     .actions {
         padding: 15px 20px;
         flex-direction: column;
@@ -323,36 +324,36 @@ body {
         margin-top: 80px;
         padding: 0 10px;
     }
-    
+
     .factura-header {
         padding: 15px;
     }
-    
+
     .factura-header h1 {
         font-size: 1.75rem;
     }
-    
+
     .factura-header p {
         font-size: 0.9rem;
     }
-    
+
     .factura-info {
         padding: 15px;
         gap: 12px;
     }
-    
+
     .info-item {
         padding: 10px;
     }
-    
+
     .info-label {
         font-size: 0.75rem;
     }
-    
+
     .info-value {
         font-size: 0.95rem;
     }
-    
+
     .total-amount {
         font-size: 1.6rem;
     }
@@ -404,64 +405,64 @@ body {
         padding: 0 15px;
         grid-template-columns: 1fr;
     }
-    
+
     .logout-section {
         padding: 0 15px;
         margin: 20px auto 30px;
     }
-    
+
     .btn-logout {
         padding: 12px 25px;
         font-size: 14px;
     }
-    
+
     .factura-header {
         padding: 20px;
     }
-    
+
     .factura-header h1 {
         font-size: 2rem;
         margin-bottom: 8px;
     }
-    
+
     .factura-header p {
         font-size: 1rem;
     }
-    
+
     .factura-info {
         padding: 20px;
         grid-template-columns: 1fr;
         gap: 15px;
     }
-    
+
     .info-item {
         padding: 12px;
     }
-    
+
     .info-label {
         font-size: 0.8rem;
         margin-bottom: 6px;
     }
-    
+
     .info-value {
         font-size: 1rem;
     }
-    
+
     .total-section {
         padding: 20px;
         flex-direction: column;
         gap: 10px;
         text-align: center;
     }
-    
+
     .total-label {
         font-size: 1.1rem;
     }
-    
+
     .total-amount {
         font-size: 1.8rem;
     }
-    
+
     .actions {
         padding: 15px 20px;
         flex-direction: column;
@@ -474,36 +475,36 @@ body {
         margin-top: 80px;
         padding: 0 10px;
     }
-    
+
     .factura-header {
         padding: 15px;
     }
-    
+
     .factura-header h1 {
         font-size: 1.75rem;
     }
-    
+
     .factura-header p {
         font-size: 0.9rem;
     }
-    
+
     .factura-info {
         padding: 15px;
         gap: 12px;
     }
-    
+
     .info-item {
         padding: 10px;
     }
-    
+
     .info-label {
         font-size: 0.75rem;
     }
-    
+
     .info-value {
         font-size: 0.95rem;
     }
-    
+
     .total-amount {
         font-size: 1.6rem;
     }
@@ -576,7 +577,8 @@ body {
 .menu li a.get-pro:hover {
     color: #fff;
     background-color: #00b7ff;
-    transform: translateY(-2px);}
+    transform: translateY(-2px);
+}
 
 .container {
     max-width: 800px;
@@ -591,9 +593,9 @@ body {
     box-shadow: 0 10px 30px rgba(255, 255, 255, 0.629);
     border-left: 5px solid #00b7ff;
     border-top: 5px solid #00b7ff;
-    margin-bottom: 50px; 
+    margin-bottom: 50px;
     overflow: hidden;
-    
+
 }
 
 .factura-header {
@@ -663,19 +665,19 @@ body {
     text-transform: uppercase;
 }
 
-.estado-emitida { 
-    background: #e3f2fd; 
-    color: #1976d2; 
+.estado-emitida {
+    background: #e3f2fd;
+    color: #1976d2;
 }
 
-.estado-pagada { 
-    background: #e8f5e8; 
-    color: #388e3c; 
+.estado-pagada {
+    background: #e8f5e8;
+    color: #388e3c;
 }
 
-.estado-anulada { 
-    background: #ffebee; 
-    color: #d32f2f; 
+.estado-anulada {
+    background: #ffebee;
+    color: #d32f2f;
 }
 
 .forma-entrega {
@@ -684,8 +686,8 @@ body {
     gap: 8px;
 }
 
-.forma-fisica::before { 
-    content: "📄"; 
+.forma-fisica::before {
+    content: "📄";
     font-size: 1.2rem;
 }
 
@@ -752,54 +754,54 @@ body {
         margin-top: 100px;
         padding: 0 15px;
     }
-    
+
     .factura-header {
         padding: 20px;
     }
-    
+
     .factura-header h1 {
         font-size: 2rem;
         margin-bottom: 8px;
     }
-    
+
     .factura-header p {
         font-size: 1rem;
     }
-    
+
     .factura-info {
         padding: 20px;
         grid-template-columns: 1fr;
         gap: 15px;
     }
-    
+
     .info-item {
         padding: 12px;
     }
-    
+
     .info-label {
         font-size: 0.8rem;
         margin-bottom: 6px;
     }
-    
+
     .info-value {
         font-size: 1rem;
     }
-    
+
     .total-section {
         padding: 20px;
         flex-direction: column;
         gap: 10px;
         text-align: center;
     }
-    
+
     .total-label {
         font-size: 1.1rem;
     }
-    
+
     .total-amount {
         font-size: 1.8rem;
     }
-    
+
     .actions {
         padding: 15px 20px;
         flex-direction: column;
@@ -812,36 +814,36 @@ body {
         margin-top: 80px;
         padding: 0 10px;
     }
-    
+
     .factura-header {
         padding: 15px;
     }
-    
+
     .factura-header h1 {
         font-size: 1.75rem;
     }
-    
+
     .factura-header p {
         font-size: 0.9rem;
     }
-    
+
     .factura-info {
         padding: 15px;
         gap: 12px;
     }
-    
+
     .info-item {
         padding: 10px;
     }
-    
+
     .info-label {
         font-size: 0.75rem;
     }
-    
+
     .info-value {
         font-size: 0.95rem;
     }
-    
+
     .total-amount {
         font-size: 1.6rem;
     }
@@ -893,64 +895,64 @@ body {
         padding: 0 15px;
         grid-template-columns: 1fr;
     }
-    
+
     .logout-section {
         padding: 0 15px;
         margin: 20px auto 30px;
     }
-    
+
     .btn-logout {
         padding: 12px 25px;
         font-size: 14px;
     }
-    
+
     .factura-header {
         padding: 20px;
     }
-    
+
     .factura-header h1 {
         font-size: 2rem;
         margin-bottom: 8px;
     }
-    
+
     .factura-header p {
         font-size: 1rem;
     }
-    
+
     .factura-info {
         padding: 20px;
         grid-template-columns: 1fr;
         gap: 15px;
     }
-    
+
     .info-item {
         padding: 12px;
     }
-    
+
     .info-label {
         font-size: 0.8rem;
         margin-bottom: 6px;
     }
-    
+
     .info-value {
         font-size: 1rem;
     }
-    
+
     .total-section {
         padding: 20px;
         flex-direction: column;
         gap: 10px;
         text-align: center;
     }
-    
+
     .total-label {
         font-size: 1.1rem;
     }
-    
+
     .total-amount {
         font-size: 1.8rem;
     }
-    
+
     .actions {
         padding: 15px 20px;
         flex-direction: column;
@@ -963,36 +965,36 @@ body {
         margin-top: 80px;
         padding: 0 10px;
     }
-    
+
     .factura-header {
         padding: 15px;
     }
-    
+
     .factura-header h1 {
         font-size: 1.75rem;
     }
-    
+
     .factura-header p {
         font-size: 0.9rem;
     }
-    
+
     .factura-info {
         padding: 15px;
         gap: 12px;
     }
-    
+
     .info-item {
         padding: 10px;
     }
-    
+
     .info-label {
         font-size: 0.75rem;
     }
-    
+
     .info-value {
         font-size: 0.95rem;
     }
-    
+
     .total-amount {
         font-size: 1.6rem;
     }
@@ -1053,17 +1055,18 @@ body {
     box-shadow: 0 5px 15px rgba(0, 183, 255, 0.4);
 }
 
+
 /* Responsive para imagen de perfil */
 @media (max-width: 768px) {
     .profile-image-section {
         padding: 15px 0;
     }
-    
+
     .profile-image-container {
         width: 120px;
         height: 120px;
     }
-    
+
     .btn-edit-photo {
         padding: 6px 16px;
         font-size: 12px;
@@ -1076,7 +1079,7 @@ body {
         height: 100px;
         border: 2px solid #333;
     }
-    
+
     .btn-edit-photo {
         padding: 5px 14px;
         font-size: 11px;
@@ -1186,15 +1189,29 @@ body {
         padding: 12px 15px;
         height: 50px;
     }
-    
+
     .file-input-text {
         font-size: 14px;
     }
-    
+
     .btn-edit-photo {
         padding: 12px 20px;
         font-size: 14px;
         height: 50px;
         min-width: 120px;
     }
+}
+
+/* SOLUCIÓN SIMPLE - Remover bordes de inputs */
+input {
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+input:focus {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }

@@ -115,13 +115,35 @@ public class Controlador extends HttpServlet {
                     request.setAttribute("usuarios", usuariosDao.listar());
                     request.getRequestDispatcher("/Index/VistaUsuarioAdmin.jsp").forward(request, response);
                     break;
-                case "EditarLogin":
-                    int idEditarLogin = Integer.parseInt(request.getParameter("id"));
-                    Usuarios usuarioEditarLogin = usuariosDao.buscarPorCodigo(idEditarLogin);
-                    request.setAttribute("usuarioLogin", usuarioEditarLogin);
-                    request.setAttribute("usuarios", usuariosDao.listar());
-                    request.getRequestDispatcher("/Index/VistaUsuarioLogin.jsp").forward(request, response);
+                case "ActualizarLogin":
+                    int codigoUsuarioLogin = Integer.parseInt(request.getParameter("txtCodigoUsuario"));
+                    String nombreLogin = request.getParameter("txtNombreUsuario");
+                    String apellidoLogin = request.getParameter("txtApellidoUsuario");
+                    String correoLogin = request.getParameter("txtCorreoUsuario");
+                    String telefonoLogin = request.getParameter("txtTelefonoUsuario");
+                    String direccionLogin = request.getParameter("txtDireccionUsuario");
+
+                    Usuarios usuarioLogin = new Usuarios();
+                    usuarioLogin.setCodigoUsuario(codigoUsuarioLogin);
+                    usuarioLogin.setNombreUsuario(nombreLogin);
+                    usuarioLogin.setApellidoUsuario(apellidoLogin);
+                    usuarioLogin.setCorreoUsuario(correoLogin);
+                    usuarioLogin.setTelefonoUsuario(telefonoLogin);
+                    usuarioLogin.setDireccionUsuario(direccionLogin);
+
+                    int filasLogin = usuariosDao.actualizarLogin(usuarioLogin);
+                    System.out.println("Filas actualizadas en login: " + filasLogin);
+
+                    // Traer el usuario actualizado de la base de datos
+                    Usuarios usuarioActualizado = usuariosDao.buscarPorCodigo(codigoUsuarioLogin);
+
+                    // Setearlo en el request
+                    request.setAttribute("usuario", usuarioActualizado);
+
+                    // Redirigir a la vista individual
+                    request.getRequestDispatcher("/Index/VistaUsuarioCliente.jsp").forward(request, response);
                     break;
+
                 case "Actualizar":
                     int codigoUsuario = Integer.parseInt(request.getParameter("txtCodigoUsuario"));
                     String nuevoNombre = request.getParameter("txtNombreUsuario");

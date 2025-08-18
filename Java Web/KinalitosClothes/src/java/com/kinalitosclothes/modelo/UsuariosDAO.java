@@ -267,6 +267,7 @@ public class UsuariosDAO {
             cs.setString(6, usuario.getDireccionUsuario());
 
             resp = cs.executeUpdate();
+
             System.out.println("Usuario actualizado en login. Filas afectadas: " + resp);
         } catch (Exception e) {
             System.out.println("Error al actualizar usuario en login: " + e.getMessage());
