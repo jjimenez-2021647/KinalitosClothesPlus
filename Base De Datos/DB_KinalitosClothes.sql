@@ -42,14 +42,15 @@ Create table MetodoPagos(
 -- Usuarios
 Create table Usuarios(
 	codigoUsuario int auto_increment,
-	nombreUsuario varchar(100) not null,
-	apellidoUsuario varchar(100) not null,
-	correoUsuario varchar(150) not null,
-	telefonoUsuario varchar(20) not null,
-	direccionUsuario varchar(200) not null,
-    contraseñaUsuario varchar(100) not null,
-    tipoUsuario enum('Empleado', 'Cliente') not null,
+	nombreUsuario varchar(100),
+	apellidoUsuario varchar(100), 	
+    correoUsuario varchar(150),
+	telefonoUsuario varchar(20),
+	direccionUsuario varchar(200),
+    contraseñaUsuario varchar(100),
+    tipoUsuario enum('Empleado', 'Cliente'),
     fechaRegistro date,
+    imagenUsuario longblob,
 	primary key PK_codigoUsuario (codigoUsuario)
 );
 
@@ -529,6 +530,22 @@ Delimiter //
 Delimiter ;
 call sp_BuscarUsuarios(1);
 
+-- Buscar Usuarios con coincidencias
+Delimiter //
+	Create procedure sp_BuscarUsuariosCon(
+    in _nombreUsuario varchar(100))
+		Begin
+			if _nombreUsuario = "" then
+				Select codigoUsuario, nombreUsuario, apellidoUsuario, correoUsuario, telefonoUsuario, direccionUsuario, contraseñaUsuario, 
+                tipoUsuario, fechaRegistro from Usuarios;
+			else
+				Select codigoUsuario, nombreUsuario, apellidoUsuario, correoUsuario, telefonoUsuario, direccionUsuario, contraseñaUsuario, 
+                tipoUsuario, fechaRegistro from Usuarios where nombreUsuario like concat(_nombreUsuario, '%');
+			End if;
+        End //
+Delimiter ;
+-- call sp_BuscarUsuariosCon("");
+
 -- Editar Usuario
 Delimiter //
 	Create procedure sp_EditarUsuario(
@@ -559,108 +576,43 @@ call sp_EditarUsuario(17, 'Óscar', 'Ramírez', 'oscar.ramirez@gmail.com', '+502
 call sp_EditarUsuario(18, 'Isabel', 'López', 'isabel.lopez@gmail.com', '+502 3902-8765', 'Mixco, zona 1', 'ClaveSegura#2025', 'Cliente', '2025-08-12');
 call sp_EditarUsuario(13, 'Ricardo', 'Estrada', 'ricardo.estrada@gmail.com', '+502 4791-2345', 'Zona 2, El Sauce', 'REstrada!19', 'Cliente', '2025-08-12');
 call sp_EditarUsuario(14, 'Valeria', 'Guzmán', 'valeria.guzman@gmail.com', '+502 6012-9876', 'Zona 19, Santa Faz', 'VGuzman@20', 'Cliente', '2025-08-12');
-/*
--- --------------------------- Entidad Empleado --------------------------- 
--- Agregar Empleados
+
+-- RegistrarseLogin
 Delimiter //
-	Create procedure sp_AgregarEmpleado(
-    in nombreEmpleado varchar(100),
-    in apellidoEmpleado varchar(100), 
-    in correoEmpleado varchar(150), 
-    in telefonoEmpleado varchar(20), 
-    in direccionEmpleado varchar(200),
-    in nombreUsuario varchar(100),
-    in contraseñaUsuario varchar(100))
+	Create procedure sp_RegistroLogin(
+    in correoUsuario varchar(150), 
+    in contraseñaUsuario varchar(100),
+    in tipoUsuario enum('Empleado', 'Cliente'),
+    out filas int)
 		Begin
-			Insert into Empleados(nombreEmpleado, apellidoEmpleado, correoEmpleado, telefonoEmpleado, direccionEmpleado, nombreUsuario, contraseñaUsuario)
-				Values(nombreEmpleado, apellidoEmpleado, correoEmpleado, telefonoEmpleado, direccionEmpleado, nombreUsuario, contraseñaUsuario);
+			Insert into Usuarios(correoUsuario, contraseñaUsuario, tipoUsuario)
+				Values(correoUsuario, contraseñaUsuario, tipoUsuario);
+                
+			Set filas = row_count();
         End //
 Delimiter ;
-call sp_AgregarEmpleado('Juan', 'Ramírez', 'juan.ramirez@empresa.com', '+502 5123-1123', 'Zona 1, Ciudad de Guatemala', 'Carlos', '12345678');
-call sp_AgregarEmpleado('Karla', 'López', 'karla.lopez@empresa.com', '+502 4789-2210', 'Zona 9, Ciudad de Guatemala', 'Carlos', '12345678');
-call sp_AgregarEmpleado('Roberto', 'Pérez', 'roberto.perez@empresa.com', '+502 5567-3344', 'Zona 4, Mixco', 'Carlos', '12345678');
-call sp_AgregarEmpleado('Sofía', 'Gómez', 'sofia.gomez@empresa.com', '+502 4123-5588', 'Zona 10, Guatemala', 'Carlos', '12345678');
-call sp_AgregarEmpleado('Luis', 'Castro', 'luis.castro@empresa.com', '+502 6345-1234', 'Zona 2, San Cristóbal', 'Carlos', '12345678');
-call sp_AgregarEmpleado('Ana', 'Cabrera', 'ana.cabrera@empresa.com', '+502 7098-4321', 'Zona 6, Guatemala', 'Carlos', '12345678');
-call sp_AgregarEmpleado('Mario', 'Sánchez', 'mario.sanchez@empresa.com', '+502 3289-7789', 'Zona 5, Mixco', 'Carlos', '12345678');
-call sp_AgregarEmpleado('Elena', 'Martínez', 'elena.martinez@empresa.com', '+502 5454-6677', 'Zona 14, Guatemala', 'Carlos', '12345678');
-call sp_AgregarEmpleado('Carlos', 'Velásquez', 'carlos.velasquez@empresa.com', '+502 6789-1122', 'Villa Nueva, zona 3', 'Carlos', '12345678');
-call sp_AgregarEmpleado('María', 'Hernández', 'maria.hernandez@empresa.com', '+502 4321-2345', 'Zona 3, Ciudad de Guatemala', 'Carlos', '12345678');
-call sp_AgregarEmpleado('Diego', 'Ortega', 'diego.ortega@empresa.com', '+502 7654-1203', 'San Miguel Petapa', 'Carlos', '12345678');
-call sp_AgregarEmpleado('Lucía', 'Morales', 'lucia.morales@empresa.com', '+502 8521-9987', 'Zona 7, Mixco', 'Carlos', '12345678');
-call sp_AgregarEmpleado('Pablo', 'Reyes', 'pablo.reyes@empresa.com', '+502 9087-2310', 'Zona 16, Cayalá', 'Carlos', '12345678');
-call sp_AgregarEmpleado('Andrea', 'García', 'andrea.garcia@empresa.com', '+502 3456-7812', 'Zona 12, La Reformita', 'Carlos', '12345678');
-call sp_AgregarEmpleado('Fernando', 'Chávez', 'fernando.chavez@empresa.com', '+502 1111-9999', 'Villa Canales', 'Carlos', '12345678');
-call sp_AgregarEmpleado('Isabel', 'Rosales', 'isabel.rosales@empresa.com', '+502 7890-4567', 'Zona 8, Guatemala', 'Carlos', '12345678');
-call sp_AgregarEmpleado('Gabriel', 'Torres', 'gabriel.torres@empresa.com', '+502 6234-8765', 'Zona 11, Mariscal', 'Carlos', '12345678');
-call sp_AgregarEmpleado('Valeria', 'Navarro', 'valeria.navarro@empresa.com', '+502 9123-4456', 'Amatitlán', 'Carlos', '12345678');
-call sp_AgregarEmpleado('Óscar', 'Luna', 'oscar.luna@empresa.com', '+502 8888-1212', 'Jocotenango, zona 2', 'Carlos', '12345678');
-call sp_AgregarEmpleado('Rebeca', 'Juárez', 'rebeca.juarez@empresa.com', '+502 7766-3344', 'Santa Catarina Pinula', '1', '1');
+-- call sp_RegistroLogin();
 
--- Listar Empleados
+-- Editar Usuario Creado en el login 
 Delimiter //
-	Create procedure sp_ListarEmpleados()
-		Begin
-			Select codigoEmpleado, nombreEmpleado, apellidoEmpleado, correoEmpleado, telefonoEmpleado, direccionEmpleado, nombreUsuario, contraseñaUsuario from Empleados;
-        End //
-Delimiter ;
-call sp_ListarEmpleados();
-
--- Eliminar Cliente
-Delimiter //
-	Create procedure sp_EliminarEmpleado(
-    in _codigoEmpleado int)
-		Begin
-			set foreign_key_checks = 0;
-				Delete from Empleados
-					where codigoEmpleado = _codigoEmpleado;
-				Select row_count() as filasEliminadas;
-			set foreign_key_checks = 1;
-        End//
-Delimiter ;
-call sp_EliminarEmpleado(15);
-
-
--- Buscar Empleado
-Delimiter //
-	Create procedure sp_BuscarEmpleado(
-    in _codigoEmpleado int)
-		Begin
-			Select codigoEmpleado, nombreEmpleado, apellidoEmpleado, correoEmpleado, telefonoEmpleado, direccionEmpleado, nombreUsuario, contraseñaUsuario from Empleados
-				where codigoEmpleado = _codigoEmpleado;
-        End //
-Delimiter ;
-call sp_BuscarEmpleado(1);
-
--- Editar Empleado
-Delimiter //
-	Create procedure sp_EditarEmpleado(
-    in _codigoEmpleado int,
-    in _nombreEmpleado varchar(100),
-    in _apellidoEmpleado varchar(100), 
-    in _correoEmpleado varchar(150), 
-    in _telefonoEmpleado varchar(20), 
-    in _direccionEmpleado varchar(200),
+	Create procedure sp_EditarUsuarioLogin(
+    in _codigoUsuario int,
     in _nombreUsuario varchar(100),
-    in _contraseñaUsuario varchar(100))
+    in _apellidoUsuario varchar(100), 
+    in _correoUsuario varchar(150), 
+    in _telefonoUsuario varchar(20), 
+    in _direccionUsuario varchar(200)) 
 		Begin
-			Update Empleados
-				set nombreEmpleado = _nombreEmpleado,
-				apellidoEmpleado = _apellidoEmpleado,
-				correoEmpleado = _correoEmpleado,
-				telefonoEmpleado = _telefonoEmpleado,
-                direccionEmpleado = _direccionEmpleado,
-                nombreUsuario = _nombreUsuario,
-                contraseñaUsuario = _contraseñaUsuario
-					where codigoEmpleado = _codigoEmpleado;
+			Update Usuarios
+				set nombreUsuario = _nombreUsuario,
+				apellidoUsuario = _apellidoUsuario,
+				correoUsuario = _correoUsuario,
+				telefonoUsuario = _telefonoUsuario,
+                direccionUsuario = _direccionUsuario
+					where codigoUsuario = _codigoUsuario;
         End //
 Delimiter ;
-call sp_EditarEmpleado(16, 'Isabel', 'Rosales', 'isabel.rosales@empresa.com', '+502 7890-4567', 'Zona 8, Guatemala', 'Carlos', '12345678');
-call sp_EditarEmpleado(17, 'Gabriel', 'Torres', 'gabriel.torres@empresa.com', '+502 6234-8765', 'Zona 11, Mariscal', 'Carlos', '12345678');
-call sp_EditarEmpleado(18, 'Valeria', 'Navarro', 'valeria.navarro@empresa.com', '+502 9123-4456', 'Amatitlán', 'Carlos', '12345678');
-call sp_EditarEmpleado(19, 'Óscar', 'Luna', 'oscar.luna@empresa.com', '+502 8888-1212', 'Jocotenango, zona 2', 'Carlos', '12345678');
-call sp_EditarEmpleado(20, 'Rebeca', 'Juárez', 'rebeca.juarez@empresa.com', '+502 7766-3344', 'Santa Catarina Pinula', 'Carlos', '12345678');
-*/
+
 -- --------------------------- Entidad Producto --------------------------- 
 -- Agregar Producto
 Delimiter //
@@ -1057,3 +1009,30 @@ Delimiter //
         End //
 Delimiter ;
 call sp_BuscarUsuariosNC('joshua.ja2007@gmail.com', '1818');
+
+-- Agregacion de la imagen a la DB
+SELECT LENGTH(LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Cliente.jpeg')) AS tam;
+
+-- Sp para poder insertar imagenes
+Delimiter //
+	Create procedure sp_AgregarImagenUsuario(
+    in _codigoUsuario int,
+    in _imagenUsuario longblob)
+		Begin
+			Update Usuarios
+				Set imagenUsuario = _imagenUsuario 
+					where codigoUsuario = _codigoUsuario;
+        End //
+Delimiter ;
+call sp_AgregarImagenUsuario(20, LOAD_FILE('C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/CO-K.C.jpg'));
+
+-- Buscar Usuarios
+Delimiter //
+	Create procedure sp_BuscarUsuariosImagen(
+    in _codigoUsuario int)
+		Begin
+			Select codigoUsuario, nombreUsuario, apellidoUsuario, correoUsuario, telefonoUsuario, direccionUsuario, contraseñaUsuario, tipoUsuario, fechaRegistro, imagenUsuario from Usuarios
+				where codigoUsuario = _codigoUsuario;
+        End //
+Delimiter ;
+call sp_BuscarUsuariosImagen(20);

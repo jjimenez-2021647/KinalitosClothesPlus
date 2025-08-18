@@ -23,7 +23,7 @@
             <div class="nav-content">
                 <div class="logo">K<span>C</span></div>
                 <ul class="menu">
-                    <li><a href="Controlador?menu=VistaAdmin">Menu Administrador</a></li>
+                    <li><a href="Controlador?menu=Principal">Menu Principal</a></li>
                     <li><a href="Controlador?menu=Proveedor">Proveedor</a></li>
                     <li><a href="Controlador?menu=Categoria">Categoria</a></li>
                     <li><a href="Controlador?menu=MetodoPago">Metodo P.</a></li>

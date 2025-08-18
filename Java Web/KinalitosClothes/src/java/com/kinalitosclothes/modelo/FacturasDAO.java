@@ -99,4 +99,28 @@ public class FacturasDAO {
         }
         return factura;
     }
+    
+    public int actualizar(Facturas fac) {
+        String sql = "call sp_EditarFactura(?, ?, ?, ?, ?, ?, ?, ?)";
+        resp = 0;
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, fac.getCodigoFactura());
+            ps.setDate(2, new java.sql.Date(fac.getFechaEmision().getTime()));
+            ps.setDouble(3, fac.getDescuentoAplicado());
+            ps.setDouble(4, fac.getTotalFactura());
+            ps.setString(5, fac.getEstadoFactura().name());
+            ps.setString(6, fac.getFormaEntrega().name());
+            ps.setInt(7, fac.getCodigoPedido());
+            ps.setInt(8, fac.getCodigoUsuario());
+            resp = ps.executeUpdate(); 
+            System.out.println("Factura actualizada. Filas afectadas: " + resp);
+        } catch (Exception e) {
+            System.out.println("Error al actualizar Factura: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return resp;
+    }
+
 }

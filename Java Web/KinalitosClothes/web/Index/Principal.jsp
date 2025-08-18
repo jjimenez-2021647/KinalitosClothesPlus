@@ -27,8 +27,8 @@
                 <div class="iconos">
                     <a href="#"><i class="fa fa-search"></i></a>
                     <a href="Controlador?menu=MisPedidos"><i class="fa fa-shopping-cart"></i></a>
-                    <a href="Controlador?menu=VistaUsuarioCliente" class="logo-usuario">
-                        <img src="${pageContext.request.contextPath}/Images/CO-K.C.jpg" alt="Usuario">
+                    <a href="Controlador?menu=VistaUsuarioCliente&id=${sessionScope.codigoUsuario}" class="logo-usuario">
+                        <img src="${pageContext.request.contextPath}/MostrarImagen?id=${sessionScope.codigoUsuario}" alt="Usuario" />
                     </a>
                 </div>
             </div>

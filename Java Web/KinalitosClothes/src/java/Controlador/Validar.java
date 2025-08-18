@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/Validar")
 public class Validar extends HttpServlet {
+
     UsuariosDAO usuariosDAO = new UsuariosDAO();
     Usuarios usuarios = new Usuarios();
 
@@ -27,7 +29,7 @@ public class Validar extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Validar</title>");            
+            out.println("<title>Servlet Validar</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Validar at " + request.getContextPath() + "</h1>");
@@ -35,6 +37,7 @@ public class Validar extends HttpServlet {
             out.println("</html>");
         }
     }// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -46,7 +49,7 @@ public class Validar extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("Controlador?menu=Index").forward(request, response);
     }
 
     @Override
@@ -59,13 +62,14 @@ public class Validar extends HttpServlet {
             String pass = request.getParameter("txtPassword");
             usuarios = usuariosDAO.validar(email, pass);
             if (usuarios.getCorreoUsuario() != null) {
-                request.setAttribute("correoUsuario", usuarios);
+                HttpSession session = request.getSession();
+                session.setAttribute("codigoUsuario", usuarios.getCodigoUsuario());
                 request.getRequestDispatcher("Controlador?menu=Principal").forward(request, response);
-            }else{
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("Controlador?menu=Index").forward(request, response);
             }
-        }else{
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("Controlador?menu=Index").forward(request, response);
         }
     }
 
