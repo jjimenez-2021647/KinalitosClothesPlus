@@ -84,11 +84,97 @@ public class Controlador extends HttpServlet {
                         System.out.println("No sale");
                     }
                     break;
-                case "Editar":
+                case "RegistroLogin":
+                    String correoRegistro = request.getParameter("txtUsuarioR");
+                    String contraseñaRegistro = request.getParameter("txtPasswordR");
+                    String confirmarContraseña = request.getParameter("confirmar");
 
+                    if (contraseñaRegistro.equals(confirmarContraseña)) {
+                        Usuarios nuevoUsuario = new Usuarios();
+                        nuevoUsuario.setCorreoUsuario(correoRegistro);
+                        nuevoUsuario.setContraseñaUsuario(contraseñaRegistro);
+                        nuevoUsuario.setTipoUsuario(Usuarios.TipoUsuarios.Cliente);
+
+                        int resultadoR = usuariosDao.registrarLogin(nuevoUsuario);
+
+                        if (resultadoR > 0) {
+                            request.getRequestDispatcher("Controlador?menu=Index").forward(request, response);
+                        } else {
+                            request.setAttribute("errorRegistro", "Error al registrar usuario");
+                            request.getRequestDispatcher("Controlador?menu=Index").forward(request, response);
+                        }
+                    } else {
+                        request.setAttribute("errorRegistro", "Las contraseñas no coinciden");
+                        request.getRequestDispatcher("Controlador?menu=Index").forward(request, response);
+                    }
                     break;
-                case "Actualizar":
+                case "Editar":
+                    int idEditar = Integer.parseInt(request.getParameter("id"));
+                    Usuarios usuarioEditar = usuariosDao.buscarPorCodigo(idEditar);
+                    request.setAttribute("usuario", usuarioEditar);
+                    request.setAttribute("usuarios", usuariosDao.listar());
+                    request.getRequestDispatcher("/Index/VistaUsuarioAdmin.jsp").forward(request, response);
+                    break;
+                case "ActualizarLogin":
+                    int codigoUsuarioLogin = Integer.parseInt(request.getParameter("txtCodigoUsuario"));
+                    String nombreLogin = request.getParameter("txtNombreUsuario");
+                    String apellidoLogin = request.getParameter("txtApellidoUsuario");
+                    String correoLogin = request.getParameter("txtCorreoUsuario");
+                    String telefonoLogin = request.getParameter("txtTelefonoUsuario");
+                    String direccionLogin = request.getParameter("txtDireccionUsuario");
 
+                    Usuarios usuarioLogin = new Usuarios();
+                    usuarioLogin.setCodigoUsuario(codigoUsuarioLogin);
+                    usuarioLogin.setNombreUsuario(nombreLogin);
+                    usuarioLogin.setApellidoUsuario(apellidoLogin);
+                    usuarioLogin.setCorreoUsuario(correoLogin);
+                    usuarioLogin.setTelefonoUsuario(telefonoLogin);
+                    usuarioLogin.setDireccionUsuario(direccionLogin);
+
+                    int filasLogin = usuariosDao.actualizarLogin(usuarioLogin);
+                    System.out.println("Filas actualizadas en login: " + filasLogin);
+
+                    // Traer el usuario actualizado de la base de datos
+                    Usuarios usuarioActualizado = usuariosDao.buscarPorCodigo(codigoUsuarioLogin);
+
+                    // Setearlo en el request
+                    request.setAttribute("usuario", usuarioActualizado);
+
+                    // Redirigir a la vista individual
+                    request.getRequestDispatcher("/Index/VistaUsuarioCliente.jsp").forward(request, response);
+                    break;
+
+                case "Actualizar":
+                    int codigoUsuario = Integer.parseInt(request.getParameter("txtCodigoUsuario"));
+                    String nuevoNombre = request.getParameter("txtNombreUsuario");
+                    String nuevoApellido = request.getParameter("txtApellidoUsuario");
+                    String nuevoCorreo = request.getParameter("txtCorreoUsuario");
+                    String nuevoTelefono = request.getParameter("txtTelefonoUsuario");
+                    String nuevaDireccion = request.getParameter("txtDireccionUsuario");
+                    String nuevaContraseña = request.getParameter("txtpassword");
+                    String tipoUsuarioS = request.getParameter("txtTipoUsuario");
+                    String fechaRegistroStr = request.getParameter("fechaRegistro");
+
+                    Usuarios usuario = new Usuarios();
+                    usuario.setCodigoUsuario(codigoUsuario);
+                    usuario.setNombreUsuario(nuevoNombre);
+                    usuario.setApellidoUsuario(nuevoApellido);
+                    usuario.setCorreoUsuario(nuevoCorreo);
+                    usuario.setTelefonoUsuario(nuevoTelefono);
+                    usuario.setDireccionUsuario(nuevaDireccion);
+                    usuario.setContraseñaUsuario(nuevaContraseña);
+                    usuario.setTipoUsuario(Usuarios.TipoUsuarios.valueOf(tipoUsuarioS));
+
+                    if (fechaRegistroStr != null && !fechaRegistroStr.isEmpty()) {
+                        java.util.Date fechaRegistro = java.sql.Date.valueOf(fechaRegistroStr);
+                        usuario.setFechaRegistro(fechaRegistro);
+                    }
+
+                    int filasActualizadas = usuariosDao.actualizar(usuario);
+                    System.out.println("Filas actualizadas: " + filasActualizadas);
+
+                    request.setAttribute("usuarios", usuariosDao.listar());
+                    request.getRequestDispatcher("/Index/VistaUsuarioAdmin.jsp").forward(request, response);
                     break;
                 case "Eliminar":
                     String idEliminar = request.getParameter("id");
@@ -285,37 +371,36 @@ public class Controlador extends HttpServlet {
                 case "Editar":
                     int idEditar = Integer.parseInt(request.getParameter("id"));
                     Facturas facturaEditar = facturasDao.buscar(idEditar);
-                    request.setAttribute("facturas", facturaEditar);
+                    request.setAttribute("factura", facturaEditar);
                     request.setAttribute("facturas", facturasDao.listar());
                     request.getRequestDispatcher("/Index/VistaFacturaAdmin.jsp").forward(request, response);
                     break;
-
                 case "Actualizar":
-                    /*int codigo = Integer.parseInt(request.getParameter("txtCodigoFactura"));
-                    String nuevoNombre = request.getParameter("txtNombreProducto");
-                    String nuevaDescripcion = request.getParameter("txtDescripcion");
-                    double nuevoPrecio = Double.parseDouble(request.getParameter("txtPrecio"));
-                    String nuevaTtalla = request.getParameter("txtTalla");
-                    int nuevoStock = Integer.parseInt(request.getParameter("txtStock"));
-                    int nuevoCodProv = Integer.parseInt(request.getParameter("txtCodigoProveedor"));
-                    int nuevoCodCat = Integer.parseInt(request.getParameter("txtCodigoCategoria"));
+                    int codigoFactura = Integer.parseInt(request.getParameter("txtCodigoFactura"));
+                    java.sql.Date fechaEmision = java.sql.Date.valueOf(request.getParameter("txtFechaEmision"));
+                    double descuentoAplicado = Double.parseDouble(request.getParameter("txtDescuentoAplicado"));
+                    double totalFactura = Double.parseDouble(request.getParameter("txtTotalFactura"));
+                    String eFac = request.getParameter("txtEstadoFactura");
+                    String fEntrega = request.getParameter("txtFormaEntrega");
+                    int codPe = Integer.parseInt(request.getParameter("txtCodigoPedido"));
+                    int codUs = Integer.parseInt(request.getParameter("txtCodigoUsuario"));
 
-                    productos.setCodigoProducto(codigo);
-                    productos.setNombreProducto(nuevoNombre);
-                    productos.setDescripcionProducto(nuevaDescripcion);
-                    productos.setPrecioProducto(nuevoPrecio);
-                    productos.setTalla(nuevaTtalla);
-                    productos.setStock(nuevoStock);
-                    productos.setCodigoProveedor(nuevoCodProv);
-                    productos.setCodigoCategoria(nuevoCodCat);
+                    facturas.setCodigoFactura(codigoFactura);
+                    facturas.setFechaEmision(fechaEmision);
+                    facturas.setDescuentoAplicado(descuentoAplicado);
+                    facturas.setTotalFactura(totalFactura);
+                    facturas.setEstadoFactura(Facturas.EstadoFactura.valueOf(eFac));
+                    facturas.setFormaEntrega(Facturas.FormaEntrega.valueOf(fEntrega));
+                    facturas.setCodigoPedido(codPe);
+                    facturas.setCodigoUsuario(codUs);
 
-                    int filas = productosDAO.actualizar(productos);
+                    int filas = facturasDao.actualizar(facturas);
 
                     System.out.println("Filas actualizadas: " + filas);
 
-                    request.setAttribute("productos", productosDAO.listar());
-                    request.getRequestDispatcher("/Index/vistaproductoadmin.jsp").forward(request, response);
-                    break;*/
+                    request.setAttribute("facturas", facturasDao.listar());
+                    request.getRequestDispatcher("/Index/VistaFacturaAdmin.jsp").forward(request, response);
+                    break;
                 case "Eliminar":
                     String idEliminar = request.getParameter("id");
                     if (idEliminar != null && !idEliminar.trim().isEmpty()) {

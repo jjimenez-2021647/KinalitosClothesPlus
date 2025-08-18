@@ -77,7 +77,6 @@ public class ImagenesActualizar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Permite manejar subida de archivos
         request.setCharacterEncoding("UTF-8");
 
         try {
@@ -89,22 +88,24 @@ public class ImagenesActualizar extends HttpServlet {
             byte[] imagen = null;
 
             if (filePart != null && filePart.getSize() > 0) {
-                // Leer el InputStream en un byte[]
-                try (InputStream input = filePart.getInputStream()) {
-                    imagen = new byte[(int) filePart.getSize()];
-                    input.read(imagen);
+                try (InputStream input = filePart.getInputStream(); ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
+
+                    byte[] data = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = input.read(data, 0, data.length)) != -1) {
+                        buffer.write(data, 0, bytesRead);
+                    }
+                    imagen = buffer.toByteArray();
                 }
             }
 
-            // Actualizar imagen en la base de datos
+            // Guardar en la base de datos
             UsuariosDAO usuariosDao = new UsuariosDAO();
             boolean exito = usuariosDao.actualizarImagen(codigoUsuario, imagen);
 
             if (exito) {
-                // Redirigir a la vista del usuario con mensaje de éxito
                 response.sendRedirect(request.getContextPath() + "/Controlador?menu=VistaUsuarioCliente&id=" + codigoUsuario);
             } else {
-                // Manejar error
                 request.setAttribute("mensajeError", "No se pudo actualizar la imagen.");
                 request.getRequestDispatcher("Index/VistaUsuarioCliente.jsp").forward(request, response);
             }

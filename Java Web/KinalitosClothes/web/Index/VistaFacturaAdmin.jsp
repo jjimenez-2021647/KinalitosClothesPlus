@@ -39,33 +39,36 @@
                 <div class="section">
                     <h2>Agregar o modificar Factura</h2>
                     <form action="Controlador?menu=Factura" method="Post">
+                        <!--guarda el codigo para que se ejecute el editar y actualizar y asi no se tiene que editar porque se guarda con el mismo id que seleccionamos-->
+                        <input type="hidden" name="txtCodigoFactura" value="${factura.getCodigoFactura()}">
                         <div class="form-row">
                             <div class="form-group">
                                 <input type="date" class="entrada_texto" name="txtFechaEmision" id="fechaEmision" value="${factura.getFechaEmision()}" required>
                                 <label class="label-input-date"></label>
                             </div>
                             <div class="form-group">
-                                <input type="number" class="entrada_texto" name="txtDescuentoAplicado" min="0" placeholder="0" id="descuentoAplicado" value="${factura.getDescuentoAplicado()}" required>
+                                <input type="number" class="entrada_texto" name="txtDescuentoAplicado" min="0" placeholder="0" id="descuentoAplicado" step="0.01" value="${factura.getDescuentoAplicado()}" required>
                                 <label class="label-input-number">Descuento Aplicado</label>
                             </div>
                             <div class="form-group">
-                                <input type="number" class="entrada_texto" name="txtTotalFactura" min="0" placeholder="0" id="totalFactura" value="${factura.getTotalFactura()}"required>
+                                <input type="number" class="entrada_texto" name="txtTotalFactura" min="0" placeholder="0" id="totalFactura" step="0.01" value="${factura.getTotalFactura()}"required>
                                 <label class="label-input-number">Total</label>
                             </div>
                             <div class="form-group">
-                                <select class="entrada_texto" name="txtEstadoFactura" id="estadoFactura" value="${factura.getEstadoFactura()}" required>
-                                    <option value="" disabled selected></option>
-                                    <option value="Emitida">Emitida</option>
-                                    <option value="Anulada">Anulada</option>
-                                    <option value="Pagada">Pagada</option>
+                                <select class="entrada_texto" name="txtEstadoFactura" id="estadoFactura" required>
+                                    <option value="" disabled ${factura.getEstadoFactura() == null ? 'selected' : ''}></option>
+                                    <option value="Emitida" ${factura.getEstadoFactura() == 'Emitida' ? 'selected' : ''}>Emitida</option>
+                                    <option value="Anulada" ${factura.getEstadoFactura() == 'Anulada' ? 'selected' : ''}>Anulada</option>
+                                    <option value="Pagada" ${factura.getEstadoFactura() == 'Pagada' ? 'selected' : ''}>Pagada</option>
                                 </select>
                                 <label class="label-input">Estado</label>
                             </div>
+
                             <div class="form-group">
-                                <select class="entrada_texto" name="txtFormaEntrega" id="formaEntrega" value="${factura.getFormaEntrega()}" required>
-                                    <option value="" disabled selected></option>
-                                    <option value="Fisica">Fisica</option>
-                                    <option value="Electronica">Electronica</option>
+                                <select class="entrada_texto" name="txtFormaEntrega" id="formaEntrega" required>
+                                    <option value="" disabled ${factura.getFormaEntrega() == null ? 'selected' : ''}></option>
+                                    <option value="Fisica" ${factura.getFormaEntrega() == 'Fisica' ? 'selected' : ''}>Fisica</option>
+                                    <option value="Electronica" ${factura.getFormaEntrega() == 'Electronica' ? 'selected' : ''}>Electronica</option>
                                 </select>
                                 <label class="label-input">Forma Entrega</label>
                             </div>
@@ -75,7 +78,7 @@
                                 <label class="label-input-number">Codigo del Pedido</label>
                             </div>
                             <div class="form-group">
-                                <input type="number" class="entrada_texto" name="txtCodigoUsuarios" min="0" placeholder="0"
+                                <input type="number" class="entrada_texto" name="txtCodigoUsuario" min="0" placeholder="0"
                                        id="codigoUsuarios" value="${factura.getCodigoUsuario()}" required>
                                 <label class="label-input-number">Codigo del Usuario</label>
                             </div>
@@ -87,12 +90,13 @@
                                     <i class="fa-solid fa-plus"></i>
                                 </span>
                             </button>
-                            <button type="button" class="btn_actualizar">
+                            <button type="submit" class="btn_actualizar" name="accion" value="Actualizar">
                                 <span class="bnt_texto">Actualizar</span>
                                 <span class="btn_icono">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </span>
                             </button>
+
                         </div>
                     </form>
                 </div>
@@ -150,12 +154,13 @@
                                         <td>${factura.getCodigoUsuario()}</td>
                                         <td>
                                             <div class="botonesTabla">
-                                                <button type="button" class="btn_editar" id="btnEditarRegistro">
+                                                <button type="button" class="btn_editar" onclick="window.location.href = 'Controlador?menu=Factura&accion=Editar&id=${factura.getCodigoFactura()}'">
                                                     <span class="bnt_texto">Editar</span>
                                                     <span class="btn_icono">
                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                     </span>
                                                 </button>
+
 
                                                 <button type="button" class="btn_eliminar" 
                                                         onclick="window.location.href = 'Controlador?menu=Factura&accion=Eliminar&id=${factura.getCodigoFactura()}'">
