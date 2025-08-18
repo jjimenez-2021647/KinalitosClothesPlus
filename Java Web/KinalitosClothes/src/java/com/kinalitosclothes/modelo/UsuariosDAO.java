@@ -238,13 +238,13 @@ public class UsuariosDAO {
     }
 
     public int registrarLogin(Usuarios usuario) {
-        String sql = "call sp_RegistroLogin(?, ?, ?);"; // último parámetro es OUT
+        String sql = "call sp_RegistroLogin(?, ?, ?, ?);";
         int resp = 0;
         try (Connection con = cn.Conexion(); CallableStatement cs = con.prepareCall(sql)) {
             cs.setString(1, usuario.getCorreoUsuario());
             cs.setString(2, usuario.getContraseñaUsuario());
             cs.setString(3, usuario.getTipoUsuario().name());
-            cs.registerOutParameter(4, java.sql.Types.INTEGER); 
+            cs.registerOutParameter(4, java.sql.Types.INTEGER); // Filas afectadas
             cs.execute();
             resp = cs.getInt(4);
             System.out.println("Usuario registrado en login. Filas afectadas: " + resp);

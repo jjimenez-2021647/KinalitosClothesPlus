@@ -96,9 +96,9 @@ public class Controlador extends HttpServlet {
                         nuevoUsuario.setTipoUsuario(Usuarios.TipoUsuarios.Cliente);
 
                         int resultadoR = usuariosDao.registrarLogin(nuevoUsuario);
-                        System.out.println(resultadoR);
+
                         if (resultadoR > 0) {
-                            request.getRequestDispatcher("Controlador?menu=Principal").forward(request, response);
+                            request.getRequestDispatcher("Controlador?menu=Index").forward(request, response);
                         } else {
                             request.setAttribute("errorRegistro", "Error al registrar usuario");
                             request.getRequestDispatcher("Controlador?menu=Index").forward(request, response);

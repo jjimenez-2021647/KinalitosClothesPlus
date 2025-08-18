@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -81,9 +81,6 @@
                                         <!-- FORMULARIO DE REGISTRO -->
                                         <div class="card-back">
                                             <div class="center-wrap">
-                                                <c:if test="${not empty errorRegistro}">
-                                                    <div class="alert-error">${errorRegistro}</div>
-                                                </c:if>
                                                 <form action="Controlador?menu=Usuarios&accion=RegistroLogin" method="post">
                                                     <h4 class="heading">Registrarse</h4>
 
@@ -101,7 +98,9 @@
                                                         <input type="password" name="confirmar" id="confirmar_registro" class="form-style" placeholder="Confirmar contraseña" autocomplete="off" required>
                                                         <i class="input-icon material-icons">lock</i>
                                                     </div>
-
+                                                    <c:if test="${not empty errorRegistro}">
+                                                        <div class="alert-error-small">${errorRegistro}</div>
+                                                    </c:if>
                                                     <center>
                                                         <button type="submit" class="btnRegistrar">Registrarme</button>
                                                     </center>
