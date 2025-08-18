@@ -108,7 +108,7 @@
                     <h3 class="card-title">Detalle Pedido</h3>
                     <p class="card-description">Gestiona la información de Detalle Pedido, como agregar, listar, actualizar,
                         eliminar.</p>
-                    <a href="Controlador?menu=DetallePedido" class="btn_ver_gestion">Gestionar Detalle Pedido</a>
+                    <a href="Controlador?menu=DetallePedido&accion=Listar" class="btn_ver_gestion">Gestionar Detalle Pedido</a>
                 </div>
 
                 <div class="admin-card">

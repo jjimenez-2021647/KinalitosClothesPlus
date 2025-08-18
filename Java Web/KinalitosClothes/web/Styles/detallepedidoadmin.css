@@ -1,4 +1,3 @@
-/* ========== RESET Y BASE ========== */
 * {
     margin: 0;
     padding: 0;
@@ -9,15 +8,18 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-image: url(../Images/negro1.jpeg);
     background-size: cover;
+    /* Quepa completa dentro del body */
     background-repeat: no-repeat;
+    /* No repetir */
     background-position: center top;
+    /* Centrada arriba */
     background-attachment: fixed;
+    /* (Opcional) Efecto parallax */
     min-height: 100vh;
     color: #212529;
     padding-top: 120px;
 }
 
-/* ========== NAVBAR ========== */
 .navbar {
     width: 100%;
     background-color: rgba(0, 0, 0, 0.9);
@@ -75,13 +77,19 @@ body {
     border-radius: 25px;
 }
 
-.menu li a:hover {
+.menu li a.get-pro {
+    color: #00b7ff;
+    border: 2px solid #00b7ff;
+    font-weight: 700;
+}
+
+.menu li a:hover,
+.menu li a.get-pro:hover {
     color: #fff;
     background-color: #00b7ff;
     transform: translateY(-2px);
 }
 
-/* ========== CONTENIDO PRINCIPAL ========== */
 .container {
     max-width: 1200px;
     margin: 30px auto;
@@ -115,25 +123,31 @@ h1 {
 .section h2 {
     color: #2c3e50;
     margin-bottom: 25px;
+    /*Color de la linea debajo del texto*/
     border-bottom: 3px solid #00b7ff;
     padding-bottom: 10px;
     font-size: 1.8rem;
     font-weight: 600;
 }
 
-/* ========== FORMULARIOS ========== */
 .form-row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 25px;
     margin-bottom: 25px;
-    align-items: end;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
     position: relative;
+}
+
+.form_btn_eliminar_buscar {
+    display: flex;
+    position: relative;
+    justify-content: center;
+
 }
 
 .entrada_texto {
@@ -144,23 +158,23 @@ h1 {
     font-size: 1rem;
     color: #000000;
     transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
-    width: 100%;
 }
 
 .label-input {
     position: absolute;
     left: 15px;
-    color: transparent;
+    /*Color del texto dentro del input*/
+    color: #000000;
     pointer-events: none;
     transform: translateY(1rem);
     transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-
 }
 
 .label-input-number {
     position: absolute;
     left: 15px;
-    color: transparent;
+    /*Color del texto dentro del input*/
+    color: transparent; /* Changed from #000000 to transparent based on product CSS behavior */
     pointer-events: none;
     transform: translateY(1rem);
     transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -177,10 +191,10 @@ h1 {
     transform: translateY(-50%) scale(0.8);
     background-color: white;
     padding: 0 .2em;
+    /*color del texto cuando sube*/
     color: #000000;
 }
 
-/* ========== BOTONES ========== */
 
 /*Boton crear*/
 .btn_crear_producto {
@@ -574,59 +588,6 @@ h1 {
     box-shadow: 0px 0px var(--main-color);
 }
 
-/* ========== TABLAS ========== */
-.table-container {
-    width: 100%;
-    overflow-x: auto;
-    margin-top: 30px;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    background: #ffffff;
-}
-
-table {
-    width: 100%;
-    min-width: 800px;
-    border-collapse: collapse;
-    background: #ffffff;
-}
-
-th,
-td {
-    padding: 16px;
-    text-align: left;
-    border-bottom: 1px solid #ecf0f1;
-    white-space: nowrap;
-}
-
-th {
-    background: linear-gradient(135deg, #3498db, #2980b9);
-    color: white;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: 14px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-}
-
-tr {
-    transition: all 0.3s ease;
-}
-
-tr:hover {
-    background-color: #f8f9fa;
-}
-
-.botonesTabla {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-/* ========== MENSAJES ========== */
 .message {
     padding: 15px 20px;
     border-radius: 10px;
@@ -636,16 +597,21 @@ tr:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.warning {
-    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
-    color: #856404;
-    border-left-color: #ffc107;
+.botonesTabla {
+    display: flex;
+    gap: 8px;
 }
 
 .error {
     background: linear-gradient(135deg, #f8d7da, #f5c6cb);
     color: #721c24;
     border-left-color: #dc3545;
+}
+
+.warning {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    color: #856404;
+    border-left-color: #ffc107;
 }
 
 /* Estilos base de la tabla */
@@ -895,4 +861,86 @@ tr:hover {
 
 .table-container::-webkit-scrollbar-thumb:hover {
     background: #a1a1a1;
+}
+
+
+.search-section {
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+}
+.search-group {
+    position: relative;
+    width: 400px;
+    max-width: 100%;
+    flex-shrink: 0;
+}
+
+.search-input {
+    border: 2px solid #000000;
+    border-radius: 10px;
+    background-color: #ffffff;
+    padding: 12px 50px 12px 15px;
+    font-size: 1rem;
+    color: #000000;
+    font-weight: 600;
+    width: 100%;
+    height: 40px;
+    box-shadow: 1px 1px #000000;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+.search-input:focus,
+.search-input:valid {
+    outline: none;
+    border: 2px solid #000000;
+    transform: translate(1px, 1px);
+    box-shadow: 0px 0px #000000;
+}
+.search-input:focus~.label-input,
+.search-input:valid~.label-input {
+    transform: translateY(-50%) scale(0.8);
+    background-color: white;
+    padding: 0 .2em;
+    color: #000000;
+    font-weight: 600;
+}
+.search-icon {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    color: #000000;
+    pointer-events: none;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #5ccbff;
+    width: 40px;
+    height: 100%;
+    border-radius: 0px 10px 10px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.search-group .label-input {
+    position: absolute;
+    left: 15px;
+    color: #000000;
+    pointer-events: none;
+    transform: translateY(1rem);
+    transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .search-section {
+        gap: 10px;
+    }
+
+    .search-group {
+        width: 100%;
+    }
 }

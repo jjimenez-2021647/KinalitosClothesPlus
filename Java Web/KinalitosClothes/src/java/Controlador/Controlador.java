@@ -39,6 +39,8 @@ public class Controlador extends HttpServlet {
         FacturasDAO facturasDao = new FacturasDAO();
         PedidosDAO pedidoDAO = new PedidosDAO();
         Pedidos pedido = new Pedidos();
+        DetallePedidosDAO detallePedidosDAO = new DetallePedidosDAO();
+        DetallePedidos detallePedidos = new DetallePedidos();
         int codUsuario;
 
         if (menu.equals("Principal")) {
@@ -424,7 +426,146 @@ public class Controlador extends HttpServlet {
             }
             request.getRequestDispatcher("Index/vistapedidoadmin.jsp").forward(request, response);
         } else if (menu.equals("DetallePedido")) {
-            request.getRequestDispatcher("Index/vistadetallepedidoadmin.jsp").forward(request, response);
+            // Se inicializa un nuevo objeto DetallePedidos para cada solicitud
+            // y un DAO para las operaciones de base de datos.
+            detallePedidos = new DetallePedidos(); 
+            detallePedidosDAO = new DetallePedidosDAO();
+
+            switch (accion) {
+                case "Listar":
+                    // Obtiene la lista completa de detalles de pedido desde el DAO
+                    List<DetallePedidos> listaDetalles = detallePedidosDAO.listar();
+                    // Establece la lista como atributo en el request para que el JSP pueda acceder a ella
+                    request.setAttribute("detallepedidos", listaDetalles);
+                    break;
+
+                case "Buscar":
+                    // Obtiene el ID de búsqueda del parámetro de la solicitud
+                    String codigoDetalleBuscar = request.getParameter("txtBuscarId");
+                    List<DetallePedidos> listaDetalleBuscado = new ArrayList<>();
+                    if (codigoDetalleBuscar != null && !codigoDetalleBuscar.trim().isEmpty()) {
+                        try {
+                            int codigoD = Integer.parseInt(codigoDetalleBuscar);
+                            // Busca un detalle de pedido específico por su ID
+                            DetallePedidos detalleEncontrado = detallePedidosDAO.buscar(codigoD);
+                            if (detalleEncontrado != null) {
+                                listaDetalleBuscado.add(detalleEncontrado);
+                            } else {
+                                request.setAttribute("error", "Detalle de pedido no encontrado");
+                            }
+                        } catch (NumberFormatException e) {
+                            request.setAttribute("error", "ID de detalle de pedido inválido");
+                        }
+                    } else {
+                        // Si no hay ID de búsqueda, lista todos los detalles de pedido
+                        listaDetalleBuscado = detallePedidosDAO.listar();
+                    }
+                    // Establece la lista (ya sea de búsqueda o completa) como atributo
+                    request.setAttribute("detallepedidos", listaDetalleBuscado);
+                    // Redirige al JSP de administración de detalles de pedido
+                    request.getRequestDispatcher("/Index/vistadetallepedidoadmin.jsp").forward(request, response);
+                    break;
+
+                case "Agregar":
+                
+                    String cantidad = request.getParameter("txtCantidad");
+                    String subtotal = request.getParameter("txtSubtotal");
+                    String descripcion = request.getParameter("txtDescripcion"); // Obtener la descripción
+                    String codigoPedidoDP = request.getParameter("txtCodigoPedido");
+                    String codigoProductoDP = request.getParameter("txtCodigoProducto");
+                    
+                    int cantidadC = Integer.parseInt(cantidad);
+                    double subtotalC = Double.parseDouble(subtotal);
+                    int codigoProductoC = Integer.parseInt(codigoProductoDP);
+                    int codigoPedidoC = Integer.parseInt(codigoPedidoDP);
+                    
+                    // Establece los valores en el objeto DetallePedidos
+                    detallePedidos.setCantidad(cantidadC);
+                    detallePedidos.setSubtotal(subtotalC);
+                    detallePedidos.setDescripcion(descripcion); // Establecer la descripción
+                    detallePedidos.setCodigoPedido(codigoPedidoC);
+                    detallePedidos.setCodigoProducto(codigoProductoC);
+                                        
+                    // Llama al DAO para agregar el detalle de pedido a la base de datos
+                    detallePedidosDAO.agregar(detallePedidos);
+                    // Redirige para volver a listar los detalles de pedido y ver el nuevo registro
+                    request.getRequestDispatcher("Controlador?menu=DetallePedido&accion=Listar").forward(request, response);
+                    break;
+
+                case "Editar":
+                    // Obtiene el ID del detalle de pedido a editar
+                    int idEditarDetalle = Integer.parseInt(request.getParameter("id"));
+                    // Busca el detalle de pedido por su ID
+                    DetallePedidos detalleEditar = detallePedidosDAO.buscar(idEditarDetalle);
+                    // Establece el objeto detalle de pedido encontrado como atributo para rellenar el formulario
+                    request.setAttribute("detallepedido", detalleEditar);
+                    // Vuelve a listar todos los detalles de pedido para la tabla
+                    request.setAttribute("detallepedidos", detallePedidosDAO.listar());
+                    // Redirige al JSP de administración de detalles de pedido
+                    request.getRequestDispatcher("/Index/vistadetallepedidoadmin.jsp").forward(request, response);
+                    break;
+
+                case "Actualizar":
+                    // Obtiene todos los parámetros del formulario de actualización
+                    int codigoDetalleU = Integer.parseInt(request.getParameter("txtCodigoDetalleP")); // Corregido el nombre del parámetro
+                    String nuevaCantidad = request.getParameter("txtCantidad");
+                    String nuevoSubtotal = request.getParameter("txtSubtotal");
+                    String nuevaDescripcion = request.getParameter("txtDescripcion"); // Agregado
+                    String nuevoCodigoProducto = request.getParameter("txtCodigoProducto");
+                    String nuevoCodigoPedido = request.getParameter("txtCodigoPedido");
+                    
+                    // Convierte los parámetros a los tipos de datos correctos
+                    int nuevaCantidadC = Integer.parseInt(nuevaCantidad);
+                    double nuevoSubtotalC = Double.parseDouble(nuevoSubtotal);
+                    int nuevoCodigoProductoC = Integer.parseInt(nuevoCodigoProducto);
+                    int nuevoCodigoPedidoC = Integer.parseInt(nuevoCodigoPedido);
+
+                    // Establece los valores actualizados en el objeto DetallePedidos
+                    detallePedidos.setCodigoDetalleP(codigoDetalleU);
+                    detallePedidos.setCantidad(nuevaCantidadC);
+                    detallePedidos.setSubtotal(nuevoSubtotalC);
+                    detallePedidos.setDescripcion(nuevaDescripcion); // Agregado
+                    detallePedidos.setCodigoProducto(nuevoCodigoProductoC);
+                    detallePedidos.setCodigoPedido(nuevoCodigoPedidoC);
+
+                    // Llama al DAO para actualizar el detalle de pedido en la base de datos
+                    int filasActualizadasDetalle = detallePedidosDAO.actualizar(detallePedidos);
+                    System.out.println("Filas actualizadas en Detalle Pedido: " + filasActualizadasDetalle);
+
+                    // Vuelve a listar todos los detalles de pedido para la tabla
+                    request.setAttribute("detallepedidos", detallePedidosDAO.listar());
+                    // Redirige al JSP de administración de detalles de pedido
+                    request.getRequestDispatcher("/Index/vistadetallepedidoadmin.jsp").forward(request, response);
+                    break;
+
+                case "Eliminar":
+                    // Obtiene el ID del detalle de pedido a eliminar
+                    String idEliminarDetalle = request.getParameter("id");
+                    if (idEliminarDetalle != null && !idEliminarDetalle.trim().isEmpty()) {
+                        try {
+                            int codigoEliminar = Integer.parseInt(idEliminarDetalle);
+                            // Llama al DAO para eliminar el detalle de pedido
+                            int resultado = detallePedidosDAO.eliminar(codigoEliminar);
+                            if (resultado > 0) {
+                                request.setAttribute("mensaje", "Detalle de pedido eliminado exitosamente");
+                            } else {
+                                request.setAttribute("error", "Error al eliminar el detalle de pedido");
+                            }
+                        } catch (NumberFormatException e) {
+                            request.setAttribute("error", "ID de detalle de pedido inválido");
+                        }
+                        // Redirige para volver a listar los detalles de pedido después de la eliminación
+                        response.sendRedirect("Controlador?menu=DetallePedido&accion=Listar");
+                        return; // Es importante retornar después de sendRedirect
+                    }
+                    break;
+
+                default:
+                    // En caso de que la acción no sea reconocida
+                    throw new AssertionError("Acción no reconocida para DetallePedido: " + accion);
+            }
+            // Asegura que, si no se redirigió antes, se redirija a la vista de detalles de pedido
+            request.getRequestDispatcher("/Index/vistadetallepedidoadmin.jsp").forward(request, response);
         } else if (menu.equals("Factura")) {
             switch (accion) {
                 case "Listar":

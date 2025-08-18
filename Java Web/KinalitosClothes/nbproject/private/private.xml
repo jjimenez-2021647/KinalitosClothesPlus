@@ -7,6 +7,12 @@
             <file>file:/C:/KinalitosClothesPlus/Java%20Web/KinalitosClothes/src/java/com/kinalitosclothes/modelo/ProductosDAO.java</file>
             <file>file:/C:/KinalitosClothesPlus/Java%20Web/KinalitosClothes/src/java/Controlador/Controlador.java</file>
             <file>file:/C:/KinalitosClothesPlus/Java%20Web/KinalitosClothes/web/Index/vistaproductoadmin.jsp</file>
+            <file>file:/C:/KinalitosClothesPlus/Java%20Web/KinalitosClothes/src/java/com/kinalitosclothes/modelo/DetallePedidosDAO.java</file>
+            <file>file:/C:/KinalitosClothesPlus/Java%20Web/KinalitosClothes/src/java/com/kinalitosclothes/modelo/DetallePedidos.java</file>
+            <file>file:/C:/KinalitosClothesPlus/Java%20Web/KinalitosClothes/web/Index/vistaadmin.jsp</file>
+            <file>file:/C:/KinalitosClothesPlus/Java%20Web/KinalitosClothes/web/Index/vistadetallepedidoadmin.jsp</file>
+            <file>file:/C:/KinalitosClothesPlus/Java%20Web/KinalitosClothes/web/Styles/detallepedidoadmin.css</file>
+            <file>file:/C:/KinalitosClothesPlus/Java%20Web/KinalitosClothes/web/Index/VistaFacturaAdmin.jsp</file>
         </group>
     </open-files>
 </project-private>
