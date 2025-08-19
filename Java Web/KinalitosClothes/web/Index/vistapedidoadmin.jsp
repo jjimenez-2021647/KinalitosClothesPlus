@@ -33,6 +33,8 @@
                 <div class="section">
                     <h2>Agregar o actualizar pedidos</h2>
                     <form action="Controlador?menu=Pedido" method="POST">
+                        <!--guarda el codigo del ptoducto para que se ejecute el editar y actualizar y asi no se tiene que editar porque se guarda con el mismo id que seleccionamos-->
+                        <input type="hidden" name="txCodigoPedido" value="${pedido.getCodigoPedido()}">
                         <div class="form-row">
                             <div class="form-group">
                                 <input type="time" class="entrada_texto" value="${pedido.getHoraPedido()}" name="txtHoraPedido" id="txtHoraPedido" required>
@@ -67,7 +69,7 @@
                                 </span>
                             </button>
 
-                            <button type="submit" class="btn_actualizar">
+                            <button type="submit" class="btn_actualizar" name="accion" value="Actualizar">
                                 <span class="bnt_texto">Actualizar</span>
                                 <span class="btn_icono">
                                     <i class="fa-solid fa-pen-to-square"></i>
@@ -81,89 +83,90 @@
                 <!-- el buscar y listar -->
                 <div class="section">
                     <h2>Lista</h2>
-                    
+
                     <!-- el buscar y listar -->
-                <div class="section">
-                    <h2>Lista</h2>
+                    <div class="section">
+                        <h2>Lista</h2>
 
-                    <form action="Controlador?menu=Pedido" method="post" class="search-section">
-                        <div class="form-group search-group">
-                            <input type="text" class="entrada_texto search-input" name="txtBuscarId" placeholder="">
-                            <label class="label-input">Buscar Pedido..</label>
-                            <div class="search-icon">
-                                <i class="fa-solid fa-search"></i>
+                        <form action="Controlador?menu=Pedido" method="post" class="search-section">
+                            <div class="form-group search-group">
+                                <input type="text" class="entrada_texto search-input" name="txtBuscarId" placeholder="">
+                                <label class="label-input">Buscar Pedido..</label>
+                                <div class="search-icon">
+                                    <i class="fa-solid fa-search"></i>
+                                </div>
                             </div>
-                        </div>
-                        <!-- Botón oculto para enviar el formulario al presionar Enter -->
-                        <button type="submit" name="accion" value="Buscar" style="display:none;"></button>
+                            <!-- Botón oculto para enviar el formulario al presionar Enter -->
+                            <button type="submit" name="accion" value="Buscar" style="display:none;"></button>
 
-                        <button type="button" class="btn_eliminar" 
-                                onclick="window.location.href = 'Controlador?menu=Pedido&accion=Listar'">
-                            <span class="bnt_texto">Cancelar</span>
-                            <span class="btn_icono">
-                                <i class="fa fa-solid fa-x"></i>
-                            </span>
-                        </button>
-                    </form>
-                    
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Codigo del Pedido</th>
-                                    <th scope="col">Hora</th>
-                                    <th scope="col">Fecha</th>
-                                    <th scope="col">Estado</th>
-                                    <th scope="col">Total</th>
-                                    <th scope="col">Codigo de Cliente</th>
-                                    <th scope="col">Codigo del Metodo Pago</th>
-                                    <th scope="col">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var="pedidos" items="${pedidos}">
+                            <button type="button" class="btn_eliminar" 
+                                    onclick="window.location.href = 'Controlador?menu=Pedido&accion=Listar'">
+                                <span class="bnt_texto">Cancelar</span>
+                                <span class="btn_icono">
+                                    <i class="fa fa-solid fa-x"></i>
+                                </span>
+                            </button>
+                        </form>
+
+                        <div class="table-container">
+                            <table>
+                                <thead>
                                     <tr>
-                                        <td>${pedidos.getCodigoPedido()}</td>
-                                        <td>${pedidos.getHoraPedido()}</td>
-                                        <td>${pedidos.getFechaPedido()}</td>
-                                        <td>${pedidos.getEstadoPedido()}</td>
-                                        <td>${pedidos.getTotal()}</td>
-                                        <td>${pedidos.getCodigoUsuario()}</td>
-                                        <td>${pedidos.getCodigoMetodoPago()}</td>
-                                        <td>
-                                            <div class="botonesTabla">
-                                                <button type="button" class="btn_editar" id="btnEditarRegistro">
-                                                    <span class="bnt_texto">Editar</span>
-                                                    <span class="btn_icono">
-                                                        <i class="fa-solid fa-pen-to-square"></i>
-                                                    </span>
-                                                </button>
+                                        <th scope="col">Codigo del Pedido</th>
+                                        <th scope="col">Hora</th>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Estado</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Codigo de Cliente</th>
+                                        <th scope="col">Codigo del Metodo Pago</th>
+                                        <th scope="col">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="pedidos" items="${pedidos}">
+                                        <tr>
+                                            <td>${pedidos.getCodigoPedido()}</td>
+                                            <td>${pedidos.getHoraPedido()}</td>
+                                            <td>${pedidos.getFechaPedido()}</td>
+                                            <td>${pedidos.getEstadoPedido()}</td>
+                                            <td>${pedidos.getTotal()}</td>
+                                            <td>${pedidos.getCodigoUsuario()}</td>
+                                            <td>${pedidos.getCodigoMetodoPago()}</td>
+                                            <td>
+                                                <div class="botonesTabla">
+                                                    <button type="button" class="btn_editar" id="btnEditarRegistro"
+                                                            onclick="window.location.href = 'Controlador?menu=Pedido&accion=Editar&id=${pedidos.getCodigoPedido()}'">
+                                                        <span class="bnt_texto">Editar</span>
+                                                        <span class="btn_icono">
+                                                            <i class="fa-solid fa-pen-to-square"></i>
+                                                        </span>
+                                                    </button>
 
-                                                <button type="button" class="btn_eliminar"
-                                                        onclick="window.location.href = 'Controlador?menu=Pedido&accion=Eliminar&id=${pedidos.getCodigoPedido()}'">
-                                                    <span class="bnt_texto">Eliminar</span>
-                                                    <span class="btn_icono">
-                                                        <i class="fa fa-trash"></i></i>
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>  
-                                </c:forEach>                             
-                            </tbody>
-                        </table>
-                    </div>
-                    <form class="mensaje_eliminar">
-                        <input type="hidden">
-                        <div class="message warning">
-                            <i class="fa fa-exclamation-triangle"></i>
-                            <strong>¡Atención!</strong> Recuerda que vas a eliminar un registro si lo haces se
-                            borrara de
-                            forma permanente lo que quiere decir que ya nunca lo recuperaras
+                                                    <button type="button" class="btn_eliminar"
+                                                            onclick="window.location.href = 'Controlador?menu=Pedido&accion=Eliminar&id=${pedidos.getCodigoPedido()}'">
+                                                        <span class="bnt_texto">Eliminar</span>
+                                                        <span class="btn_icono">
+                                                            <i class="fa fa-trash"></i></i>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>  
+                                    </c:forEach>                             
+                                </tbody>
+                            </table>
                         </div>
-                    </form>
+                        <form class="mensaje_eliminar">
+                            <input type="hidden">
+                            <div class="message warning">
+                                <i class="fa fa-exclamation-triangle"></i>
+                                <strong>¡Atención!</strong> Recuerda que vas a eliminar un registro si lo haces se
+                                borrara de
+                                forma permanente lo que quiere decir que ya nunca lo recuperaras
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
         </section>
     </body>
 

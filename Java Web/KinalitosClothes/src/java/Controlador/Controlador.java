@@ -616,26 +616,79 @@ public class Controlador extends HttpServlet {
                     String Estado = request.getParameter("txtEstadoPedido");
                     Double Total = Double.valueOf(request.getParameter("txtTotal"));
                     String codUsuarioStr = request.getParameter("txtCodigoUsuario");
-                    String codMetodoStr = request.getParameter("txtCodigoMetodoPago"); // corregido
+                    String codMetodoStr = request.getParameter("txtCodigoMetodoPago");
+
                     try {
                         codigoUsuario = Integer.parseInt(codUsuarioStr);
                         codigoMetodoP = Integer.parseInt(codMetodoStr);
                     } catch (NumberFormatException e) {
                         System.out.println("El código de usuario o método de pago no es un número válido.");
-                        return;
+                        request.setAttribute("error", "Códigos inválidos");
+                        request.setAttribute("pedidos", pedidoDAO.listar());
+                        break; // Salir del caso y continuar con el forward al final
                     }
+
                     pedido.setHoraPedido(Hora);
                     pedido.setFechaPedido(Fecha);
-                    pedido.setEstadoPedido(Pedidos.Estado.Pendiente);
+                    pedido.setEstadoPedido(Pedidos.Estado.valueOf(Estado));
                     pedido.setTotal(Total);
                     pedido.setCodigoUsuario(codigoUsuario);
                     pedido.setCodigoMetodoPago(codigoMetodoP);
-                    pedidoDAO.agregar(pedido);
-                    request.getRequestDispatcher("Controlador?menu=Pedido&accion=Listar").forward(request, response);
+
+                    int resultado = pedidoDAO.agregar(pedido);
+                    if (resultado > 0) {
+                        request.setAttribute("mensaje", "Pedido agregado exitosamente");
+                    }
+
+                    request.setAttribute("pedidos", pedidoDAO.listar());
                     break;
                 case "Editar":
-                    break;
+                    int idEditar = Integer.parseInt(request.getParameter("id"));
+                    Pedidos pedidoEditar = pedidoDAO.buscar(idEditar);
+                    request.setAttribute("pedido", pedidoEditar);
+                    request.setAttribute("pedidos", pedidoDAO.listar());
+                    break; // El forward se hará al final
                 case "Actualizar":
+                    int codigoPedido = Integer.parseInt(request.getParameter("txCodigoPedido"));
+
+                    String horaStrE = request.getParameter("txtHoraPedido");
+                    if (horaStrE.length() == 5) {
+                        horaStrE += ":00";
+                    }
+                    Time horaE = Time.valueOf(horaStrE);
+                    String fechaStrE = request.getParameter("txtFechaPedido");
+                    Date fechaE = new SimpleDateFormat("yyyy-MM-dd").parse(fechaStrE);
+                    String estadoE = request.getParameter("txtEstadoPedido");
+                    Double totalE = Double.valueOf(request.getParameter("txtTotal"));
+                    String codUsuarioStrE = request.getParameter("txtCodigoUsuario");
+                    String codMetodoStrE = request.getParameter("txtCodigoMetodoPago");
+
+                    try {
+                        codigoUsuario = Integer.parseInt(codUsuarioStrE);
+                        codigoMetodoP = Integer.parseInt(codMetodoStrE);
+                    } catch (NumberFormatException e) {
+                        System.out.println("El código de usuario o método de pago no es un número válido.");
+                        request.setAttribute("error", "Códigos inválidos");
+                        request.setAttribute("pedidos", pedidoDAO.listar());
+                        break;
+                    }
+                    pedido.setCodigoPedido(codigoPedido);
+                    pedido.setHoraPedido(horaE);
+                    pedido.setFechaPedido(fechaE);
+                    pedido.setEstadoPedido(Pedidos.Estado.valueOf(estadoE));
+                    pedido.setTotal(totalE);
+                    pedido.setCodigoUsuario(codigoUsuario);
+                    pedido.setCodigoMetodoPago(codigoMetodoP);
+
+                    int filas = pedidoDAO.actualizar(pedido);
+                    System.out.println("Filas actualizadas: " + filas);
+
+                    if (filas > 0) {
+                        request.setAttribute("mensaje", "Pedido actualizado exitosamente");
+                    } else {
+                        request.setAttribute("error", "No se pudo actualizar el pedido");
+                    }
+                    request.setAttribute("pedidos", pedidoDAO.listar());
                     break;
                 case "Buscar":
                     String codigoPed = request.getParameter("txtBuscarId");
@@ -648,28 +701,25 @@ public class Controlador extends HttpServlet {
                             if (pedidoEncontrado != null) {
                                 listaPedidosB.add(pedidoEncontrado);
                             } else {
-                                request.setAttribute("error", "Factura no encontrada");
+                                request.setAttribute("error", "Pedido no encontrado");
                             }
                         } catch (NumberFormatException e) {
-                            request.setAttribute("error", "ID de Factura inválido");
+                            request.setAttribute("error", "ID de Pedido inválido");
                         }
                     } else {
                         listaPedidosB = pedidoDAO.listar();
                     }
 
                     request.setAttribute("pedidos", listaPedidosB);
-                    request.getRequestDispatcher("/Index/vistapedidoadmin.jsp").forward(request, response);
-
                     break;
                 case "Eliminar":
                     String idEliminar = request.getParameter("id");
                     if (idEliminar != null && !idEliminar.trim().isEmpty()) {
                         try {
                             int codigo = Integer.parseInt(idEliminar);
+                            int resultadoEliminar = pedidoDAO.eliminar(codigo);
 
-                            int resultado = pedidoDAO.eliminar(codigo);
-
-                            if (resultado > 0) {
+                            if (resultadoEliminar > 0) {
                                 request.setAttribute("mensaje", "Pedido eliminado exitosamente");
                             } else {
                                 request.setAttribute("error", "Error al eliminar el pedido");
@@ -678,15 +728,17 @@ public class Controlador extends HttpServlet {
                         } catch (NumberFormatException e) {
                             request.setAttribute("error", "ID de pedido inválido");
                         }
-
-                        response.sendRedirect("Controlador?menu=Pedido&accion=Listar");
-                        return;
                     }
+
+                    request.setAttribute("pedidos", pedidoDAO.listar());
                     break;
                 default:
-                    System.out.println("No se encontro");
+                    System.out.println("No se encontro la acción: " + accion);
+                    request.setAttribute("pedidos", pedidoDAO.listar());
+                    break;
             }
-            request.getRequestDispatcher("Index/vistapedidoadmin.jsp").forward(request, response);
+
+            request.getRequestDispatcher("/Index/vistapedidoadmin.jsp").forward(request, response);
         } else if (menu.equals("DetallePedido")) {
             // Se inicializa un nuevo objeto DetallePedidos para cada solicitud
             // y un DAO para las operaciones de base de datos.

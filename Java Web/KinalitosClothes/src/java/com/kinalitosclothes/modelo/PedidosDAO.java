@@ -47,7 +47,7 @@ public class PedidosDAO {
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
             ps.setTime(1, pe.getHoraPedido());
-            java.util.Date fechaUtil = pe.getFechaPedido(); 
+            java.util.Date fechaUtil = pe.getFechaPedido();
             java.sql.Date fechaSQL = new java.sql.Date(fechaUtil.getTime());
             ps.setDate(2, fechaSQL);
             ps.setString(3, pe.getEstadoPedido().name());
@@ -60,7 +60,7 @@ public class PedidosDAO {
         }
         return resp;
     }
-    
+
     //Eliminar
     public int eliminar(int codigoPedido) {
         String sql = "call sp_EliminarPedido(?);";
@@ -79,9 +79,9 @@ public class PedidosDAO {
         }
         return resp;
     }
-    
+
     public Pedidos buscar(int codigoPedido) {
-        String sql = "call sp_BuscarPedido(?);"; 
+        String sql = "call sp_BuscarPedido(?);";
         Pedidos pedido = null;
         try {
             con = cn.Conexion();
@@ -103,5 +103,29 @@ public class PedidosDAO {
             e.printStackTrace();
         }
         return pedido;
+    }
+
+    //Actualizar
+    public int actualizar(Pedidos pe) {
+        String sql = "call sp_EditarPedido(?, ?, ?, ?, ?, ?, ?);";
+        resp = 0;
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, pe.getCodigoPedido());
+            ps.setTime(2, pe.getHoraPedido());
+            ps.setDate(3, new java.sql.Date(pe.getFechaPedido().getTime()));
+            ps.setString(4, pe.getEstadoPedido().name());
+            ps.setDouble(5, pe.getTotal());
+            ps.setInt(6, pe.getCodigoUsuario());
+            ps.setInt(7, pe.getCodigoMetodoPago());
+
+            resp = ps.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println("Error al actualizar Pedido: " + e.getMessage());
+            e.printStackTrace();
+        } 
+        return resp;
     }
 }
