@@ -285,6 +285,88 @@ public class Controlador extends HttpServlet {
             }
             request.getRequestDispatcher("/Index/vistaproveedoradmin.jsp").forward(request, response);
         } else if (menu.equals("Categoria")) {
+            CategoriasDAO categoriasDao = new CategoriasDAO();
+            if (accion == null) {
+                accion = "Listar"; // Valor por defecto
+            }
+            switch (accion) {
+                case "Listar":
+                    List<Categorias> listaCategorias = categoriasDao.listar();
+                    request.setAttribute("categorias", listaCategorias);
+                    request.getRequestDispatcher("Index/vistacategoria.jsp").forward(request, response);
+                    return;
+
+                case "Buscar":
+                    String codigoCat = request.getParameter("txtBuscarCategoria");
+                    List<Categorias> listaCategoriasB = new ArrayList<>();
+                    if (codigoCat != null && !codigoCat.trim().isEmpty()) {
+                        try {
+                            int codigoC = Integer.parseInt(codigoCat);
+                            Categorias categoriaEncontrada = categoriasDao.buscar(codigoC);
+
+                            if (categoriaEncontrada != null) {
+                                listaCategoriasB.add(categoriaEncontrada);
+                            } else {
+                                request.setAttribute("error", "Categoría no encontrada");
+                            }
+                        } catch (NumberFormatException e) {
+                            request.setAttribute("error", "ID de Categoría inválido");
+                        }
+                    } else {
+                        listaCategoriasB = categoriasDao.listar();
+                    }
+
+                    request.setAttribute("categorias", listaCategoriasB);
+                    request.getRequestDispatcher("/Index/vistacategoria.jsp").forward(request, response);
+
+                    break;
+
+                case "Agregar":
+                    String nombreCategoria = request.getParameter("txtNombreCategoria");
+                    String descripcionCategoria = request.getParameter("txtDescripcionCategoria");
+                    String genero = request.getParameter("txtGenero");
+                    String rangoEdad = request.getParameter("txtRangoEdad");
+
+                    Categorias categorias = new Categorias();
+                    categorias.setNombreCategoria(nombreCategoria);
+                    categorias.setDescripcionCategoria(descripcionCategoria);
+                    categorias.setGenero(Categorias.Genero.valueOf(genero));
+                    categorias.setRangoEdad(Categorias.RangoEdad.valueOf(rangoEdad));
+
+                    categoriasDao.agregar(categorias);
+
+                    request.getRequestDispatcher("Controlador?menu=Categoria&accion=Listar").forward(request, response);
+                    return;
+
+                case "Editar":
+                    // Tu lógica para cargar datos y mostrar en formulario
+                    break;
+
+                case "Actualizar":
+                    // Tu lógica para actualizar en BD
+                    break;
+
+                case "Eliminar":
+                    String idEliminar = request.getParameter("id");
+                    if (idEliminar != null && !idEliminar.trim().isEmpty()) {
+                        try {
+                            int codigo = Integer.parseInt(idEliminar);
+
+                            int resultado = categoriasDao.eliminar(codigo);
+
+                            if (resultado > 0) {
+                                request.setAttribute("mensaje", "Categoría eliminada exitosamente");
+                            } else {
+                                request.setAttribute("error", "Error al eliminar la categoría");
+                            }
+
+                        } catch (NumberFormatException e) {
+                            request.setAttribute("error", "ID de categoría inválido");
+                        }
+                    }
+                    request.getRequestDispatcher("Controlador?menu=Categoria&accion=Listar").forward(request, response);
+                    return;
+            }
             request.getRequestDispatcher("Index/vistacategoria.jsp").forward(request, response);
         } else if ("MetodoPago".equals(menu)) {
             MetodoPagos metodo = new MetodoPagos();
