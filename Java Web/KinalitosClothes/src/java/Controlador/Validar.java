@@ -55,22 +55,47 @@ public class Validar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //Capturar la peticion del usuario a nivel del servidor
         String accion = request.getParameter("accion");
-        if (accion.equalsIgnoreCase("Ingresar")) {
+
+        // Evitar NPE si accion es null
+        if ("Ingresar".equalsIgnoreCase(accion)) {
+
             String email = request.getParameter("txtCorreo");
             String pass = request.getParameter("txtPassword");
+
             usuarios = usuariosDAO.validar(email, pass);
-            if (usuarios.getCorreoUsuario() != null) {
+
+            if (usuarios != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("codigoUsuario", usuarios.getCodigoUsuario());
-                request.getRequestDispatcher("Controlador?menu=Principal").forward(request, response);
+                session.setAttribute("nombreUsuario", usuarios.getNombreUsuario());
+
+                if (usuarios.getTipoUsuario() != null) {
+                    session.setAttribute("tipoUsuario", usuarios.getTipoUsuario().name());
+
+                    if (usuarios.getTipoUsuario() == Usuarios.TipoUsuarios.Cliente) {
+                        request.getRequestDispatcher("Controlador?menu=PrincipalCliente").forward(request, response);
+                    } else if (usuarios.getTipoUsuario() == Usuarios.TipoUsuarios.Empleado) {
+                        request.getRequestDispatcher("Controlador?menu=Principal").forward(request, response);
+                    } else {
+                        request.setAttribute("error", "Tipo de usuario no válido");
+                        request.getRequestDispatcher("Controlador?menu=Index").forward(request, response);
+                    }
+
+                } else {
+                    request.setAttribute("error", "Tipo de usuario no definido");
+                    request.getRequestDispatcher("Controlador?menu=Index").forward(request, response);
+                }
+
             } else {
+                request.setAttribute("error", "Correo o contraseña incorrectos");
                 request.getRequestDispatcher("Controlador?menu=Index").forward(request, response);
             }
+
         } else {
             request.getRequestDispatcher("Controlador?menu=Index").forward(request, response);
         }
+
     }
 
     /**

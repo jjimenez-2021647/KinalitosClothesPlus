@@ -276,4 +276,24 @@ public class UsuariosDAO {
         return resp;
     }
 
+    public String obtenerTipoUsuario(String nombreUsuario, String contraseña) {
+        String tipoUsuario = null;
+        String sql = "call sp_VerTipoUsuario(?, ?)";
+
+        try (Connection con = cn.Conexion(); CallableStatement cs = con.prepareCall(sql); ResultSet rs = cs.executeQuery()) {
+
+            cs.setString(1, nombreUsuario);
+            cs.setString(2, contraseña);
+
+            if (rs.next()) {
+                tipoUsuario = rs.getString("tipoUsuario");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return tipoUsuario;
+    }
+
 }

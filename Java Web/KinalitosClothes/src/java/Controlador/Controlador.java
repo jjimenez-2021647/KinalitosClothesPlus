@@ -47,9 +47,12 @@ public class Controlador extends HttpServlet {
 
         if (menu.equals("Principal")) {
             request.getRequestDispatcher("Index/Principal.jsp").forward(request, response);
+        } else if (menu.equals("PrincipalCliente")) {
+            request.getRequestDispatcher("Index/PrincipalCliente.jsp").forward(request, response);
         } else if (menu.equals("Index")) {
             request.getRequestDispatcher("index.jsp").forward(request, response);
-        } else if (menu.equals("Usuarios")) {
+        } else if (menu.equals(
+                "Usuarios")) {
             switch (accion) {
                 case "Listar":
                     List listaUsuarios = usuariosDao.listar();
@@ -146,6 +149,35 @@ public class Controlador extends HttpServlet {
 
                     // Redirigir a la vista individual
                     request.getRequestDispatcher("/Index/VistaUsuarioCliente.jsp").forward(request, response);
+                    break;
+
+                case "ActualizarLoginC":
+                    int codigoUsuarioLoginC = Integer.parseInt(request.getParameter("txtCodigoUsuario"));
+                    String nombreLoginC = request.getParameter("txtNombreUsuario");
+                    String apellidoLoginC = request.getParameter("txtApellidoUsuario");
+                    String correoLoginC = request.getParameter("txtCorreoUsuario");
+                    String telefonoLoginC = request.getParameter("txtTelefonoUsuario");
+                    String direccionLoginC = request.getParameter("txtDireccionUsuario");
+
+                    Usuarios usuarioLoginC = new Usuarios();
+                    usuarioLoginC.setCodigoUsuario(codigoUsuarioLoginC);
+                    usuarioLoginC.setNombreUsuario(nombreLoginC);
+                    usuarioLoginC.setApellidoUsuario(apellidoLoginC);
+                    usuarioLoginC.setCorreoUsuario(correoLoginC);
+                    usuarioLoginC.setTelefonoUsuario(telefonoLoginC);
+                    usuarioLoginC.setDireccionUsuario(direccionLoginC);
+
+                    int filasLoginC = usuariosDao.actualizarLogin(usuarioLoginC);
+                    System.out.println("Filas actualizadas en login: " + filasLoginC);
+
+                    // Traer el usuario actualizado de la base de datos
+                    Usuarios usuarioActualizadoC = usuariosDao.buscarPorCodigo(codigoUsuarioLoginC);
+
+                    // Setearlo en el request
+                    request.setAttribute("usuario", usuarioActualizadoC);
+
+                    // Redirigir a la vista individual
+                    request.getRequestDispatcher("/Index/VistaUsuarioClienteC.jsp").forward(request, response);
                     break;
 
                 case "Actualizar":
@@ -948,13 +980,43 @@ public class Controlador extends HttpServlet {
         } else if (menu.equals(
                 "VistaDetallePedido")) {
             request.getRequestDispatcher("Index/vistadetallepedido.jsp").forward(request, response);
-        } else if (menu.equals(
-                "VistaProducto")) {
+        } else if (menu.equals("VistaProducto")) {
             request.getRequestDispatcher("Index/vistaproducto.jsp").forward(request, response);
+        } else if (menu.equals("mispedidosClientes")) {
+            request.getRequestDispatcher("Index/mispedidosClientes.jsp").forward(request, response);
+        } else if (menu.equals("vistaproductoCliente")) {
+            request.getRequestDispatcher("Index/vistaproductoCliente.jsp").forward(request, response);
+        } else if (menu.equals("mujerCliente")) {
+            request.getRequestDispatcher("Index/mujerCliente.jsp").forward(request, response);
+        } else if (menu.equals("hombreCliente")) {
+            request.getRequestDispatcher("Index/hombreCliente.jsp").forward(request, response);
+        } else if (menu.equals("conocenosCliente")) {
+            request.getRequestDispatcher("Index/conocenosCliente.jsp").forward(request, response);
+        } else if (menu.equals("VistaUsuarioClienteC")) {
+            HttpSession session = request.getSession();
+            System.out.println("Código usuario en sesión: " + session.getAttribute("codigoUsuario"));
+
+            String idParam = request.getParameter("id");
+            int idUsuario = 0;
+            if (idParam != null && !idParam.trim().isEmpty()) {
+                try {
+                    idUsuario = Integer.parseInt(idParam);
+                } catch (NumberFormatException e) {
+                    request.setAttribute("mensajeError", "Debe proporcionar un ID de usuario válido.");
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                    return;
+                }
+                Usuarios usuario = usuariosDao.imagenCodigo(idUsuario);
+                request.setAttribute("usuario", usuario);
+                request.getRequestDispatcher("Index/VistaUsuarioClienteC.jsp").forward(request, response);
+            } else {
+                request.setAttribute("mensajeError", "Debe proporcionar un ID de usuario.");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
         }
     }
-
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
