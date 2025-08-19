@@ -80,18 +80,19 @@ public class ImagenesActualizar extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         try {
-            // Obtener el ID del usuario
+            // Obtener el codigo del usuario
             int codigoUsuario = Integer.parseInt(request.getParameter("codigoUsuario"));
 
-            // Obtener el archivo subido
-            Part filePart = request.getPart("imagenUsuario");
+            // Obtener el archivo subido (la imagen)
+            Part filePart = request.getPart("imagenUsuario");   
             byte[] imagen = null;
 
             if (filePart != null && filePart.getSize() > 0) {
+                //filePart.getInputStream() abre un flujo de entrada para leer el archivo subido (en este caso la imagen), ByteArrayOutputStream va acumulando los bytes.                
                 try (InputStream input = filePart.getInputStream(); ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
 
                     byte[] data = new byte[1024];
-                    int bytesRead;
+                    int bytesRead; //leer los bytes
                     while ((bytesRead = input.read(data, 0, data.length)) != -1) {
                         buffer.write(data, 0, bytesRead);
                     }
@@ -101,7 +102,8 @@ public class ImagenesActualizar extends HttpServlet {
 
             // Guardar en la base de datos
             UsuariosDAO usuariosDao = new UsuariosDAO();
-            boolean exito = usuariosDao.actualizarImagen(codigoUsuario, imagen);
+            boolean exito = usuariosDao.actualizarImagen(codigoUsuario, imagen); //guarda en la db llamando el sp a travez del codigo y la imagen diche codigo se obtiene del 
+            // usuario que se logueo
 
             if (exito) {
                 response.sendRedirect(request.getContextPath() + "/Controlador?menu=VistaUsuarioCliente&id=" + codigoUsuario);

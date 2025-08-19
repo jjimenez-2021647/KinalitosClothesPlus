@@ -66,12 +66,12 @@ public class Validar extends HttpServlet {
             usuarios = usuariosDAO.validar(email, pass);
 
             if (usuarios != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("codigoUsuario", usuarios.getCodigoUsuario());
+                HttpSession session = request.getSession(); //Variable para poder almacenar datos en las vitas
+                session.setAttribute("codigoUsuario", usuarios.getCodigoUsuario()); //variable del codigo que utilizo en la imagen
                 session.setAttribute("nombreUsuario", usuarios.getNombreUsuario());
 
                 if (usuarios.getTipoUsuario() != null) {
-                    session.setAttribute("tipoUsuario", usuarios.getTipoUsuario().name());
+                    session.setAttribute("tipoUsuario", usuarios.getTipoUsuario().name()); //Variable que utilizo para dirigir entre las vistas de cliente y empleado
 
                     if (usuarios.getTipoUsuario() == Usuarios.TipoUsuarios.Cliente) {
                         request.getRequestDispatcher("Controlador?menu=PrincipalCliente").forward(request, response);
