@@ -285,11 +285,32 @@ public class Controlador extends HttpServlet {
                     }
                     break;
                 case "Editar":
-
-                    break;
+                    int idEditar = Integer.parseInt(request.getParameter("id"));
+                    Proveedores proveedorEditar = proveedoresDAO.buscar(idEditar);
+                    request.setAttribute("proveedor", proveedorEditar);
+                    request.setAttribute("proveedores", proveedoresDAO.listar());
+                    request.getRequestDispatcher("/Index/vistaproveedoradmin.jsp").forward(request, response);
+                    return;
                 case "Actualizar":
+                    int codigoProveedor = Integer.parseInt(request.getParameter("txtCodigoProveedor"));
+                    nombreProveedor = request.getParameter("txtNombreProveedor");
+                    telefonoProveedor = request.getParameter("txtTelefonoProveedor");
+                    correoProveedor = request.getParameter("txtCorreoProveedor");
+                    paisProveedor = request.getParameter("txtPaisProveedor");
 
-                    break;
+                    proveedores.setCodigoProveedor(codigoProveedor);
+                    proveedores.setNombreProveedor(nombreProveedor);
+                    proveedores.setTelefonoProveedor(telefonoProveedor);
+                    proveedores.setCorreoProveedor(correoProveedor);
+                    proveedores.setPaisProveedor(paisProveedor);
+
+                    int filas = proveedoresDAO.actualizar(proveedores);
+
+                    System.out.println("Filas actualizadas: " + filas);
+
+                    request.setAttribute("proveedores", proveedoresDAO.listar());
+                    request.getRequestDispatcher("/Index/vistaproveedoradmin.jsp").forward(request, response);
+                    return;
                 case "Eliminar":
                     String idEliminar = request.getParameter("id");
                     if (idEliminar != null && !idEliminar.trim().isEmpty()) {

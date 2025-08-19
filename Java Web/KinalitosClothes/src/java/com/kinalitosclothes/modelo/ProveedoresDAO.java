@@ -93,4 +93,24 @@ public class ProveedoresDAO {
         }
         return prov;
     }
+
+    public int actualizar(Proveedores prov) {
+        String sql = "call sp_EditarProveedor(?, ?, ?, ?, ?);";
+        resp = 0;
+        try {
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, prov.getCodigoProveedor());
+            ps.setString(2, prov.getNombreProveedor());
+            ps.setString(3, prov.getTelefonoProveedor());
+            ps.setString(4, prov.getCorreoProveedor());
+            ps.setString(5, prov.getPaisProveedor());
+            resp = ps.executeUpdate();
+            System.out.println("Proveedor actualizado. Filas afectadas: " + resp);
+        } catch (Exception e) {
+            System.out.println("Error al actualizar Proveedor: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return resp;
+    }
 }

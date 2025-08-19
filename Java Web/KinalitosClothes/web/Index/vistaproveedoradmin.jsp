@@ -39,6 +39,7 @@
                 <h2>Agregar o actualizar proveedor</h2>
                 <form action="Controlador?menu=Proveedor" method="POST">
                     <div class="form-row">
+                        <input type="hidden" name="txtCodigoProveedor" value="${proveedor.getCodigoProveedor()}">
                         <div class="form-group">
                             <input type="text" class="entrada_texto" name="txtNombreProveedor" id="txtNombreProveedor" value="${proveedor.getNombreProveedor()}" required>
                             <label class="label-input">Nombre Proveedor</label>
@@ -61,7 +62,7 @@
                                 <i class="fa-solid fa-plus"></i>
                             </span>
                         </button>
-                        <button type="button" class="btn_actualizar">
+                        <button type="submit" class="btn_actualizar" name="accion" value="Actualizar">
                             <span class="bnt_texto">Actualizar</span>
                             <span class="btn_icono">
                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -116,7 +117,7 @@
                                     <td>${proveedor.getPaisProveedor()}</td>
                                     <td>
                                         <div class="botonesTabla">
-                                            <button type="button" class="btn_editar" name="btnEditarProveedor" id="btnEditarProveedor">
+                                            <button type="button" class="btn_editar" onclick="window.location.href = 'Controlador?menu=Proveedor&accion=Editar&id=${proveedor.getCodigoProveedor()}'">
                                                 <span class="bnt_texto">Editar</span>
                                                 <span class="btn_icono">
                                                     <i class="fa-solid fa-pen-to-square"></i>
