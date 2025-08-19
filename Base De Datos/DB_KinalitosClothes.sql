@@ -613,6 +613,16 @@ Delimiter //
         End //
 Delimiter ;
 
+Delimiter //
+	Create procedure sp_VerTipoUsuario(
+    in _correoUsuario varchar(150), 
+    in _contraseñaUsuario varchar(100))
+		Begin
+			Select tipoUsuario from Usuarios where correoUsuario = _correoUsuario and contraseñaUsuario = _contraseñaUsuario;
+		End //
+Delimiter ;
+call sp_VerTipoUsuario('1', '1');
+
 -- --------------------------- Entidad Producto --------------------------- 
 -- Agregar Producto
 Delimiter //
