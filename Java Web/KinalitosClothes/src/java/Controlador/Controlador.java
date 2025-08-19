@@ -41,6 +41,8 @@ public class Controlador extends HttpServlet {
         Pedidos pedido = new Pedidos();
         DetallePedidosDAO detallePedidosDAO = new DetallePedidosDAO();
         DetallePedidos detallePedidos = new DetallePedidos();
+        ProveedoresDAO proveedoresDAO = new ProveedoresDAO();
+        Proveedores proveedores = new Proveedores();
         int codUsuario;
 
         if (menu.equals("Principal")) {
@@ -205,7 +207,83 @@ public class Controlador extends HttpServlet {
             }
             request.getRequestDispatcher("/Index/VistaUsuarioAdmin.jsp").forward(request, response);
         } else if (menu.equals("Proveedor")) {
-            request.getRequestDispatcher("Index/vistaproveedoradmin.jsp").forward(request, response);
+            switch (accion) {
+                case "Listar":
+                    List<Proveedores> listaProveedores = proveedoresDAO.listar();
+                    request.setAttribute("proveedores", listaProveedores);
+                    break;
+                case "Buscar":
+                    String codigoProv = request.getParameter("txtBuscarId");
+                    List<Proveedores> listaProveedoresB = new ArrayList<>();
+                    if (codigoProv != null && !codigoProv.trim().isEmpty()) {
+                        try {
+                            int codigoP = Integer.parseInt(codigoProv);
+                            Proveedores proveedorEncontrado = proveedoresDAO.buscar(codigoP);
+
+                            if (proveedorEncontrado != null) {
+                                listaProveedoresB.add(proveedorEncontrado); 
+                            } else {
+                                request.setAttribute("error", "Proveedor no encontrado");
+                            }
+                        } catch (NumberFormatException e) {
+                            request.setAttribute("error", "ID de Proveedor inválido");
+                        }
+                    } else {
+                        listaProveedoresB = proveedoresDAO.listar();
+                    }
+
+                    request.setAttribute("proveedores", listaProveedoresB);
+                    request.getRequestDispatcher("/Index/vistaproveedoradmin.jsp").forward(request, response);
+
+                    break;
+                case "Agregar":
+                    String nombreProveedor = request.getParameter("txtNombreProveedor");
+                    String telefonoProveedor = request.getParameter("txtTelefonoProveedor");
+                    String correoProveedor = request.getParameter("txtCorreoProveedor");
+                    String paisProveedor = request.getParameter("txtPaisProveedor");
+                    proveedores.setNombreProveedor(nombreProveedor);
+                    proveedores.setTelefonoProveedor(telefonoProveedor);
+                    proveedores.setCorreoProveedor(correoProveedor);
+                    proveedores.setPaisProveedor(paisProveedor);
+                    proveedoresDAO.agregar(proveedores);
+                    if (proveedores != null) {
+                        request.getRequestDispatcher("Controlador?menu=Proveedor&accion=Listar").forward(request, response);
+                    } else {
+                        System.out.println("No sale");
+                    }
+                    break;
+                case "Editar":
+
+                    break;
+                case "Actualizar":
+
+                    break;
+                case "Eliminar":
+                    String idEliminar = request.getParameter("id");
+                    if (idEliminar != null && !idEliminar.trim().isEmpty()) {
+                        try {
+                            int codigo = Integer.parseInt(idEliminar);
+
+                            int resultado = proveedoresDAO.eliminar(codigo);
+
+                            if (resultado > 0) {
+                                request.setAttribute("mensaje", "Proveedor eliminado exitosamente");
+                            } else {
+                                request.setAttribute("error", "Error al eliminar el Proveedor");
+                            }
+
+                        } catch (NumberFormatException e) {
+                            request.setAttribute("error", "ID de Proveedor inválido");
+                        }
+
+                        response.sendRedirect("Controlador?menu=Proveedor&accion=Listar");
+                        return;
+                    }
+                    break;
+                default:
+                    System.out.println("No se encontro");
+            }
+            request.getRequestDispatcher("/Index/vistaproveedoradmin.jsp").forward(request, response);
         } else if (menu.equals("Categoria")) {
             request.getRequestDispatcher("Index/vistacategoria.jsp").forward(request, response);
         } else if (menu.equals("MetodoPago")) {
