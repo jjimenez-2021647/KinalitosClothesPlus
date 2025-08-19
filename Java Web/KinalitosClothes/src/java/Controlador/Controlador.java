@@ -221,7 +221,7 @@ public class Controlador extends HttpServlet {
                             Proveedores proveedorEncontrado = proveedoresDAO.buscar(codigoP);
 
                             if (proveedorEncontrado != null) {
-                                listaProveedoresB.add(proveedorEncontrado); 
+                                listaProveedoresB.add(proveedorEncontrado);
                             } else {
                                 request.setAttribute("error", "Proveedor no encontrado");
                             }
@@ -286,9 +286,79 @@ public class Controlador extends HttpServlet {
             request.getRequestDispatcher("/Index/vistaproveedoradmin.jsp").forward(request, response);
         } else if (menu.equals("Categoria")) {
             request.getRequestDispatcher("Index/vistacategoria.jsp").forward(request, response);
-        } else if (menu.equals("MetodoPago")) {
-            request.getRequestDispatcher("Index/metodopagoadmin.jsp").forward(request, response);
+        } else if ("MetodoPago".equals(menu)) {
+            MetodoPagos metodo = new MetodoPagos();
+            MetodoPagosDAO metodoDAO = new MetodoPagosDAO();
 
+            switch (accion) {
+                case "Listar":
+                    List<MetodoPagos> listaMetodos = metodoDAO.listar();
+                    request.setAttribute("metodos", listaMetodos);
+                    break;
+
+                case "Buscar":
+                    String codigoMetodoStr = request.getParameter("txtBuscarId");
+                    List<MetodoPagos> listaMetodoBuscado = new ArrayList<>();
+                    if (codigoMetodoStr != null && !codigoMetodoStr.trim().isEmpty()) {
+                        int codigoMetodo = Integer.parseInt(codigoMetodoStr);
+                        MetodoPagos metodoEncontrado = metodoDAO.buscar(codigoMetodo);
+                        if (metodoEncontrado.getCodigoMetodoPago() != 0) {
+                            listaMetodoBuscado.add(metodoEncontrado);
+                        }
+                    } else {
+                        listaMetodoBuscado = metodoDAO.listar();
+                    }
+                    request.setAttribute("metodos", listaMetodoBuscado);
+                    request.getRequestDispatcher("/Index/metodopagoadmin.jsp").forward(request, response);
+                    return;
+
+                case "Agregar":
+                    String tipoMetodo = request.getParameter("txtTipoMetodoPago");
+                    String entidadFinanciera = request.getParameter("txtEntidadFinanciera");
+                    String moneda = request.getParameter("txtMoneda");
+
+                    metodo.setTipoMetodoPago(MetodoPagos.TipoMetodo.valueOf(tipoMetodo));
+                    metodo.setEntidadFinanciaera(entidadFinanciera);
+                    metodo.setMoneda(moneda);
+
+                    metodoDAO.agregar(metodo);
+                    response.sendRedirect("Controlador?menu=MetodoPago&accion=Listar");
+                    return;
+
+                case "Editar":
+                    int idEditar = Integer.parseInt(request.getParameter("id"));
+                    MetodoPagos metodoEditar = metodoDAO.buscar(idEditar);
+                    request.setAttribute("metodopago", metodoEditar);
+                    request.setAttribute("metodos", metodoDAO.listar());
+                    request.getRequestDispatcher("/Index/metodopagoadmin.jsp").forward(request, response);
+                    return;
+
+                case "Actualizar":
+                    int codigo = Integer.parseInt(request.getParameter("txtCodigoMetodoPago"));
+                    String nuevoTipoMetodo = request.getParameter("txtTipoMetodoPago");
+                    String nuevaEntidad = request.getParameter("txtEntidadFinanciera");
+                    String nuevaMoneda = request.getParameter("txtMoneda");
+
+                    metodo.setCodigoMetodoPago(codigo);
+                    metodo.setTipoMetodoPago(MetodoPagos.TipoMetodo.valueOf(nuevoTipoMetodo));
+                    metodo.setEntidadFinanciaera(nuevaEntidad);
+                    metodo.setMoneda(nuevaMoneda);
+
+                    metodoDAO.actualizar(metodo);
+                    response.sendRedirect("Controlador?menu=MetodoPago&accion=Listar");
+                    return;
+
+                case "Eliminar":
+                    String idEliminar = request.getParameter("id");
+                    int codigoEliminar = Integer.parseInt(idEliminar);
+                    metodoDAO.eliminar(codigoEliminar);
+                    response.sendRedirect("Controlador?menu=MetodoPago&accion=Listar");
+                    return;
+
+                default:
+                    System.out.println("Acción no reconocida para MetodoPago");
+            }
+            request.getRequestDispatcher("/Index/metodopagoadmin.jsp").forward(request, response);
         } else if (menu.equals("Producto")) {
             Productos productos = new Productos();
             ProductosDAO productosDAO = new ProductosDAO();
@@ -351,7 +421,7 @@ public class Controlador extends HttpServlet {
                     /*Llamamos a la clase producto y creamos una variable producto editar luego llamamos el dao para poder traer el metodo buscar y que nos pueda buscar el id*/
                     Productos productoEditar = productosDAO.buscar(idEditar);
                     /*despues de guardar la entidad dentro de productoEditar ahora se guarda bajo el nombre de producto*/
-                    /* y lo que guardamos com producto lo mando a llamar en mi jsp para que me mande a traer mis datos y mostrarlos en los formularios*/ request.setAttribute("producto", productoEditar);
+ /* y lo que guardamos com producto lo mando a llamar en mi jsp para que me mande a traer mis datos y mostrarlos en los formularios*/ request.setAttribute("producto", productoEditar);
                     /* solo lista todo otra vez para que se muestren en la tabla*/
                     request.setAttribute("productos", productosDAO.listar());
                     request.getRequestDispatcher("/Index/vistaproductoadmin.jsp").forward(request, response);
@@ -506,7 +576,7 @@ public class Controlador extends HttpServlet {
         } else if (menu.equals("DetallePedido")) {
             // Se inicializa un nuevo objeto DetallePedidos para cada solicitud
             // y un DAO para las operaciones de base de datos.
-            detallePedidos = new DetallePedidos(); 
+            detallePedidos = new DetallePedidos();
             detallePedidosDAO = new DetallePedidosDAO();
 
             switch (accion) {
@@ -545,25 +615,25 @@ public class Controlador extends HttpServlet {
                     break;
 
                 case "Agregar":
-                
+
                     String cantidad = request.getParameter("txtCantidad");
                     String subtotal = request.getParameter("txtSubtotal");
                     String descripcion = request.getParameter("txtDescripcion"); // Obtener la descripción
                     String codigoPedidoDP = request.getParameter("txtCodigoPedido");
                     String codigoProductoDP = request.getParameter("txtCodigoProducto");
-                    
+
                     int cantidadC = Integer.parseInt(cantidad);
                     double subtotalC = Double.parseDouble(subtotal);
                     int codigoProductoC = Integer.parseInt(codigoProductoDP);
                     int codigoPedidoC = Integer.parseInt(codigoPedidoDP);
-                    
+
                     // Establece los valores en el objeto DetallePedidos
                     detallePedidos.setCantidad(cantidadC);
                     detallePedidos.setSubtotal(subtotalC);
                     detallePedidos.setDescripcion(descripcion); // Establecer la descripción
                     detallePedidos.setCodigoPedido(codigoPedidoC);
                     detallePedidos.setCodigoProducto(codigoProductoC);
-                                        
+
                     // Llama al DAO para agregar el detalle de pedido a la base de datos
                     detallePedidosDAO.agregar(detallePedidos);
                     // Redirige para volver a listar los detalles de pedido y ver el nuevo registro
@@ -591,7 +661,7 @@ public class Controlador extends HttpServlet {
                     String nuevaDescripcion = request.getParameter("txtDescripcion"); // Agregado
                     String nuevoCodigoProducto = request.getParameter("txtCodigoProducto");
                     String nuevoCodigoPedido = request.getParameter("txtCodigoPedido");
-                    
+
                     // Convierte los parámetros a los tipos de datos correctos
                     int nuevaCantidadC = Integer.parseInt(nuevaCantidad);
                     double nuevoSubtotalC = Double.parseDouble(nuevoSubtotal);

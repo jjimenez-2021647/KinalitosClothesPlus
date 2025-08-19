@@ -26,7 +26,7 @@
                     <li><a href="Controlador?menu=Principal">Menu Principal</a></li>
                     <li><a href="Controlador?menu=Proveedor&accion=Listar">Proveedor</a></li>
                     <li><a href="Controlador?menu=Categoria">Categoria</a></li>
-                    <li><a href="Controlador?menu=MetodoPago">Metodo P.</a></li>
+                    <li><a href="Controlador?menu=MetodoPago&accion=Listar">Metodo P.</a></li>
                     <li><a href="Controlador?menu=Usuarios&accion=Listar">Usuario</a></li>
                     <li><a href="Controlador?menu=Producto&accion=Listar">Producto</a></li>
                     <li><a href="Controlador?menu=Pedido&accion=Listar">Pedido</a></li>
@@ -68,7 +68,7 @@
                     <h3 class="card-title">Método Pago</h3>
                     <p class="card-description">Gestiona la información de Metodo Pago, como agregar, listar, actualizar,
                         eliminar.</p>
-                    <a href="Controlador?menu=MetodoPago" class="btn_ver_gestion">Gestionar Metodo Pagos</a>
+                    <a href="Controlador?menu=MetodoPago&accion=Listar" class="btn_ver_gestion">Gestionar Metodo Pagos</a>
                 </div>
 
                 <div class="admin-card">
