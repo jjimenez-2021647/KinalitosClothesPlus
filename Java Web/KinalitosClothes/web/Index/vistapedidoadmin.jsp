@@ -89,7 +89,7 @@
                     <form action="Controlador?menu=Pedido" method="post" class="search-section">
                         <div class="form-group search-group">
                             <input type="text" class="entrada_texto search-input" name="txtBuscarId" placeholder="">
-                            <label class="label-input">Buscar Factura..</label>
+                            <label class="label-input">Buscar Pedido..</label>
                             <div class="search-icon">
                                 <i class="fa-solid fa-search"></i>
                             </div>
