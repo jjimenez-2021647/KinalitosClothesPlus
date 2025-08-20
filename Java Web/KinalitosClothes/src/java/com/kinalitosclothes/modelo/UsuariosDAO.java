@@ -223,16 +223,6 @@ public class UsuariosDAO {
         } catch (Exception e) {
             System.out.println("Error al actualizar Usuario: " + e.getMessage());
             e.printStackTrace();
-        } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-            } catch (Exception ex) {
-            }
         }
         return resp;
     }
