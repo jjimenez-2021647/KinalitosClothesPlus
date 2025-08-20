@@ -74,7 +74,7 @@
 
                 <div class="section">
                     <h2>Lista y Buscar</h2>
-                    <form action="Controlador?menu=MetodoPago" method="POST" class="search-section">
+                    <form action="Controlador?menu=MetodoPago" method="Post" class="search-section">
                         <div class="form-group search-group">
                             <input type="text" class="entrada_texto search-input" name="txtBuscarId" placeholder="">
                             <label class="label-input">Buscar Metodo Pago.</label>
