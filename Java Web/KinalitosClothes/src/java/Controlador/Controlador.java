@@ -781,13 +781,16 @@ public class Controlador extends HttpServlet {
                     break;
 
                 case "Agregar":
-
+                    // Obtiene los parámetros del formulario para un nuevo detalle de pedido
                     String cantidad = request.getParameter("txtCantidad");
                     String subtotal = request.getParameter("txtSubtotal");
                     String descripcion = request.getParameter("txtDescripcion"); // Obtener la descripción
-                    String codigoPedidoDP = request.getParameter("txtCodigoPedido");
                     String codigoProductoDP = request.getParameter("txtCodigoProducto");
 
+
+                    String codigoPedidoDP = request.getParameter("txtCodigoPedido");
+                    
+                    // Convierte los parámetros a los tipos de datos correctos
                     int cantidadC = Integer.parseInt(cantidad);
                     double subtotalC = Double.parseDouble(subtotal);
                     int codigoProductoC = Integer.parseInt(codigoProductoDP);
@@ -797,14 +800,16 @@ public class Controlador extends HttpServlet {
                     detallePedidos.setCantidad(cantidadC);
                     detallePedidos.setSubtotal(subtotalC);
                     detallePedidos.setDescripcion(descripcion); // Establecer la descripción
-                    detallePedidos.setCodigoPedido(codigoPedidoC);
                     detallePedidos.setCodigoProducto(codigoProductoC);
 
+                    detallePedidos.setCodigoPedido(codigoPedidoC);
+                    
                     // Llama al DAO para agregar el detalle de pedido a la base de datos
                     detallePedidosDAO.agregar(detallePedidos);
                     // Redirige para volver a listar los detalles de pedido y ver el nuevo registro
                     request.getRequestDispatcher("Controlador?menu=DetallePedido&accion=Listar").forward(request, response);
                     break;
+
 
                 case "Editar":
                     // Obtiene el ID del detalle de pedido a editar
