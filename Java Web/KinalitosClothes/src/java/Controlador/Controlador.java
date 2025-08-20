@@ -446,26 +446,35 @@ public class Controlador extends HttpServlet {
             MetodoPagosDAO metodoDAO = new MetodoPagosDAO();
 
             switch (accion) {
+
                 case "Listar":
                     List<MetodoPagos> listaMetodos = metodoDAO.listar();
                     request.setAttribute("metodos", listaMetodos);
                     break;
-
                 case "Buscar":
                     String codigoMetodoStr = request.getParameter("txtBuscarId");
                     List<MetodoPagos> listaMetodoBuscado = new ArrayList<>();
                     if (codigoMetodoStr != null && !codigoMetodoStr.trim().isEmpty()) {
-                        int codigoMetodo = Integer.parseInt(codigoMetodoStr);
-                        MetodoPagos metodoEncontrado = metodoDAO.buscar(codigoMetodo);
-                        if (metodoEncontrado.getCodigoMetodoPago() != 0) {
-                            listaMetodoBuscado.add(metodoEncontrado);
+
+                        try {
+                            int codigoMetodo = Integer.parseInt(codigoMetodoStr);
+                            MetodoPagos metodoEncontrado = metodoDAO.buscar(codigoMetodo);
+
+                            if (metodoEncontrado.getCodigoMetodoPago() != 0) {
+                                listaMetodoBuscado.add(metodoEncontrado);
+                            } else {
+                                request.setAttribute("error", "Categoría no encontrada");
+                            }
+                        } catch (NumberFormatException e) {
+                            request.setAttribute("error", "ID de Categoría inválido");
                         }
+
                     } else {
                         listaMetodoBuscado = metodoDAO.listar();
                     }
                     request.setAttribute("metodos", listaMetodoBuscado);
                     request.getRequestDispatcher("/Index/metodopagoadmin.jsp").forward(request, response);
-                    return;
+                    break;
 
                 case "Agregar":
                     String tipoMetodo = request.getParameter("txtTipoMetodoPago");
