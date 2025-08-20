@@ -4,6 +4,7 @@ import com.kinalitosclothes.config.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,19 +31,18 @@ public class DetallePedidosDAO {
         String sql = "call sp_ListarDetallePedido();";
         List<DetallePedidos> listaDetalles = new ArrayList<>();
         try {
-            con = cn.Conexion(); // Obtener la conexión a la base de datos
-            ps = con.prepareCall(sql); // Preparar la llamada al procedimiento almacenado
-            rs = ps.executeQuery(); // Ejecutar la consulta
-            // Iterar sobre el conjunto de resultados y mapear cada fila a un objeto DetallePedidos
+            con = cn.Conexion(); 
+            ps = con.prepareCall(sql); 
+            rs = ps.executeQuery(); 
             while (rs.next()) {
                 DetallePedidos dp = new DetallePedidos();
-                dp.setCodigoDetalleP(rs.getInt(1)); // Columna 1: codigoDetalleP
-                dp.setCantidad(rs.getInt(2)); // Columna 2: cantidad
-                dp.setSubtotal(rs.getDouble(3)); // Columna 3: subtotal
-                dp.setDescripcion(rs.getString(4)); // Columna 4: descripcion
-                dp.setCodigoPedido(rs.getInt(5)); // Columna 5: codigoPedido
-                dp.setCodigoProducto(rs.getInt(6)); // Columna 6: codigoProducto
-                listaDetalles.add(dp); // Agregar el objeto a la lista
+                dp.setCodigoDetalleP(rs.getInt(1)); 
+                dp.setCantidad(rs.getInt(2)); 
+                dp.setSubtotal(rs.getDouble(3)); 
+                dp.setDescripcion(rs.getString(4));
+                dp.setCodigoPedido(rs.getInt(5));
+                dp.setCodigoProducto(rs.getInt(6)); 
+                listaDetalles.add(dp); 
             }
         } catch (Exception e) {
             e.printStackTrace(); // Imprimir la traza de la excepción en caso de error
@@ -65,34 +65,36 @@ public class DetallePedidosDAO {
      * @return El número de filas afectadas (normalmente 1 si la inserción fue exitosa).
      */
     public int agregar(DetallePedidos dp) {
-        // Llamada al procedimiento almacenado para agregar un detalle de pedido
-        String sql = "call sp_AgregarDetallePedido(?, ?, ?, ?);";
+        String sql = "CALL sp_AgregarDetallePedido(?, ?, ?, ?, ?)"; 
+
         try {
-            con = cn.Conexion(); // Obtener la conexión
-            ps = con.prepareStatement(sql); // Preparar la sentencia SQL
-            // Establecer los parámetros para el procedimiento almacenado
+            con = cn.Conexion(); 
+            ps = con.prepareStatement(sql); 
             ps.setInt(1, dp.getCantidad());
             ps.setDouble(2, dp.getSubtotal());
             ps.setString(3, dp.getDescripcion());
-            ps.setInt(4, dp.getCodigoPedido());
-            // Nota: el código de producto debería agregarse aquí si el SP lo requiere.
-            // Según el JSP, se envía codigoProducto, pero el SP de agregar aquí solo tiene 4 parámetros.
-            // Asumo que el sp_AgregarDetallePedido necesita 4 parámetros (cantidad, subtotal, descripcion, codigoPedido)
-            // y codigoProducto se maneja en el sp o no es necesario en la inserción inicial.
-            // Si el SP necesita codigoProducto, se añadiría ps.setInt(5, dp.getCodigoProducto());
-            resp = ps.executeUpdate(); // Ejecutar la actualización
-        } catch (Exception e) {
-            e.printStackTrace(); // Imprimir la traza de la excepción
+            ps.setInt(4, dp.getCodigoPedido());    // Parámetro 4
+            ps.setInt(5, dp.getCodigoProducto());  // Parámetro 5
+
+            // *** CAMBIO CRÍTICO: Usar executeUpdate() para operaciones de modificación ***
+            resp = ps.executeUpdate(); // Ejecuta la inserción y almacena el número de filas afectadas
+
+        } catch (SQLException e) {
+            // Captura cualquier error de SQL que ocurra durante la operación
+            System.err.println("Error SQL al agregar DetallePedido: " + e.getMessage());
+            e.printStackTrace(); // Imprime la traza completa del error para depuración
+            resp = 0; // Asegurarse de que el resultado sea 0 en caso de error
         } finally {
-            // Cerrar recursos
+            // Cerrar recursos para evitar fugas de memoria y conexiones abiertas
             try {
                 if (ps != null) ps.close();
                 if (con != null) con.close();
-            } catch (Exception e) {
+            } catch (SQLException e) {
+                System.err.println("Error al cerrar recursos en DetallePedidosDAO.agregar: " + e.getMessage());
                 e.printStackTrace();
             }
         }
-        return resp; // Devolver el resultado de la operación
+        return resp; // Devuelve el número de filas afectadas
     }
 
     /**
