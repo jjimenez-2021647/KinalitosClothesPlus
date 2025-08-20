@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 /**
@@ -84,7 +85,7 @@ public class ImagenesActualizar extends HttpServlet {
             int codigoUsuario = Integer.parseInt(request.getParameter("codigoUsuario"));
 
             // Obtener el archivo subido (la imagen)
-            Part filePart = request.getPart("imagenUsuario");   
+            Part filePart = request.getPart("imagenUsuario");
             byte[] imagen = null;
 
             if (filePart != null && filePart.getSize() > 0) {
@@ -106,12 +107,24 @@ public class ImagenesActualizar extends HttpServlet {
             // usuario que se logueo
 
             if (exito) {
-                response.sendRedirect(request.getContextPath() + "/Controlador?menu=VistaUsuarioCliente&id=" + codigoUsuario);
-            } else {
-                request.setAttribute("mensajeError", "No se pudo actualizar la imagen.");
-                request.getRequestDispatcher("Index/VistaUsuarioCliente.jsp").forward(request, response);
-            }
+                HttpSession session = request.getSession(false); // false evitamos crear una nueva sesión si no existe
 
+                if (session != null && session.getAttribute("tipoUsuario") != null) {
+                    String tipoUsuario = (String) session.getAttribute("tipoUsuario");
+
+                    if ("Cliente".equalsIgnoreCase(tipoUsuario)) {
+                        response.sendRedirect(request.getContextPath() + "/Controlador?menu=VistaUsuarioClienteC&id=" + codigoUsuario);
+                    } else if ("Empleado".equalsIgnoreCase(tipoUsuario)) {
+                        response.sendRedirect(request.getContextPath() + "/Controlador?menu=VistaUsuarioCliente&id=" + codigoUsuario);
+                    } else {
+                        request.setAttribute("mensajeError", "Tipo de usuario no válido.");
+                        request.getRequestDispatcher("Index/VistaUsuarioCliente.jsp").forward(request, response);
+                    }
+                } else {
+                    request.setAttribute("mensajeError", "Sesión expirada o tipo de usuario no encontrado.");
+                    request.getRequestDispatcher("Index/VistaUsuarioCliente.jsp").forward(request, response);
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("mensajeError", "Ocurrió un error al actualizar la imagen.");

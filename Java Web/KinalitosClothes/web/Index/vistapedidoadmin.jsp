@@ -21,6 +21,14 @@
                 <div class="logo">K<span>C</span></div>
                 <ul class="menu">
                     <li><a href="Controlador?menu=VistaAdmin">Menu Administrador</a></li>
+                    <li><a href="Controlador?menu=Proveedor&accion=Listar">Proveedor</a></li>
+                    <li><a href="Controlador?menu=Categoria">Categoria</a></li>
+                    <li><a href="Controlador?menu=MetodoPago&accion=Listar">Metodo P.</a></li>
+                    <li><a href="Controlador?menu=Usuarios&accion=Listar">Usuario</a></li>
+                    <li><a href="Controlador?menu=Producto&accion=Listar">Producto</a></li>
+                    <li><a href="#">Pedido</a></li>
+                    <li><a href="Controlador?menu=DetallePedido&accion=Listar">Detalle P.</a></li>
+                    <li><a href="Controlador?menu=Factura&accion=Listar">Factura</a></li>
                 </ul>
             </div>
         </nav>

@@ -392,12 +392,32 @@ public class Controlador extends HttpServlet {
                     return;
 
                 case "Editar":
-                    // Tu lógica para cargar datos y mostrar en formulario
-                    break;
+                    int idEditar = Integer.parseInt(request.getParameter("id"));
+                    Categorias categoriaEditar = categoriasDao.buscar(idEditar);
+
+                    request.setAttribute("categoria", categoriaEditar);
+                    request.setAttribute("categorias", categoriasDao.listar());
+                    request.getRequestDispatcher("/Index/vistacategoria.jsp").forward(request, response);
+                    return;
 
                 case "Actualizar":
-                    // Tu lógica para actualizar en BD
-                    break;
+                    int codigoCategoria = Integer.parseInt(request.getParameter("txtCodigoCategoria"));
+                    String nombreCategoriaAct = request.getParameter("txtNombreCategoria");
+                    String descripcionCategoriaAct = request.getParameter("txtDescripcionCategoria");
+                    String generoAct = request.getParameter("txtGenero");
+                    String rangoEdadAct = request.getParameter("txtRangoEdad");
+
+                    Categorias categoriaActualizar = new Categorias();
+                    categoriaActualizar.setCodigoCategoria(codigoCategoria);
+                    categoriaActualizar.setNombreCategoria(nombreCategoriaAct);
+                    categoriaActualizar.setDescripcionCategoria(descripcionCategoriaAct);
+                    categoriaActualizar.setGenero(Categorias.Genero.valueOf(generoAct));
+                    categoriaActualizar.setRangoEdad(Categorias.RangoEdad.valueOf(rangoEdadAct));
+
+                    categoriasDao.actualizar(categoriaActualizar);
+
+                    request.getRequestDispatcher("Controlador?menu=Categoria&accion=Listar").forward(request, response);
+                    return;
 
                 case "Eliminar":
                     String idEliminar = request.getParameter("id");
@@ -808,9 +828,8 @@ public class Controlador extends HttpServlet {
                     String descripcion = request.getParameter("txtDescripcion"); // Obtener la descripción
                     String codigoProductoDP = request.getParameter("txtCodigoProducto");
 
-
                     String codigoPedidoDP = request.getParameter("txtCodigoPedido");
-                    
+
                     // Convierte los parámetros a los tipos de datos correctos
                     int cantidadC = Integer.parseInt(cantidad);
                     double subtotalC = Double.parseDouble(subtotal);
@@ -824,13 +843,12 @@ public class Controlador extends HttpServlet {
                     detallePedidos.setCodigoProducto(codigoProductoC);
 
                     detallePedidos.setCodigoPedido(codigoPedidoC);
-                    
+
                     // Llama al DAO para agregar el detalle de pedido a la base de datos
                     detallePedidosDAO.agregar(detallePedidos);
                     // Redirige para volver a listar los detalles de pedido y ver el nuevo registro
                     request.getRequestDispatcher("Controlador?menu=DetallePedido&accion=Listar").forward(request, response);
                     break;
-
 
                 case "Editar":
                     // Obtiene el ID del detalle de pedido a editar
@@ -940,7 +958,7 @@ public class Controlador extends HttpServlet {
                     String estadoFactura = request.getParameter("txtEstadoFactura");
                     String formaEntrega = request.getParameter("txtFormaEntrega");
                     String codigoPedido = request.getParameter("txtCodigoPedido");
-                    String codigoUsuario = request.getParameter("txtCodigoUsuarios");
+                    String codigoUsuario = request.getParameter("txtCodigoUsuario");
                     int codigoP = Integer.parseInt(codigoPedido);
                     int codigoU = Integer.parseInt(codigoUsuario);
                     facturas.setEstadoFactura(Facturas.EstadoFactura.valueOf(estadoFactura));
