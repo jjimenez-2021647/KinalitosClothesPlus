@@ -33,7 +33,7 @@
 
     <section>
         <div class="container">
-            <h1>Bienvenido al CRUD completo de la entidad <b>Proveedor</b></h1>
+            <h1>Bienvenido al CRUD completo de la Entidad <b>Proveedor</b></h1>
             <!--apartado para crear el proveedor-->
             <div class="section">
                 <h2>Agregar o actualizar proveedor</h2>
